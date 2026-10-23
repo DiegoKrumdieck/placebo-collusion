@@ -1,0 +1,23 @@
+{
+  "run_id": "smoke_001",
+  "condition": "baseline",
+  "model": "claude-haiku-5-5",
+  "thinking": "disabled",
+  "temperature": 1.0,
+  "temperature_sent_to_api": false,
+  "temperature_note": "No temperature parameter is sent; the API default of 1.0 applies (Fish et al. Appendix B also use 1).",
+  "max_tokens": 4000,
+  "max_parse_retries": 3,
+  "alpha": 1.0,
+  "ceiling_multiplier": 1.5,
+  "ceiling": 2.8874713763136213,
+  "marginal_cost": 1.0,
+  "nash_price": 1.4729287011528647,
+  "monopoly_price": 1.9249809175424142,
+  "prompt_prefix": "P1",
+  "prompt_version": "arXiv 2404.00806v6, Appendix G (prompts) and Appendix B (settings)",
+  "history_window": 100,
+  "periods": 20,
+  "git_commit": "316344c9cb3e439be96cbddbe3c3aeecff836bef",
+  "start_time": "2026-10-23T23:37:29.453022+00:00"
+}
