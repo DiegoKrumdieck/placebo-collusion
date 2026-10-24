@@ -144,10 +144,12 @@ def ols_fe(y, own, comp, group, cluster, fixed_effects: bool = True) -> RegResul
         V_cl *= (C / (C - 1)) * ((n - 1) / dof)
     tss = float(yd @ yd)
     r2 = 1 - float(resid @ resid) / tss if tss > 0 else math.nan
+    # A perfect fit (few price changes) gives zero variance; rounding can leave it at -1e-35, so clamp at 0.
+    se = lambda v: float(math.sqrt(max(v, 0.0)))  # noqa: E731
     return RegResult(
         gamma=float(beta[0]), delta=float(beta[1]),
-        se_gamma_hc1=float(math.sqrt(V_hc1[0, 0])), se_delta_hc1=float(math.sqrt(V_hc1[1, 1])),
-        se_delta_cluster=float(math.sqrt(V_cl[1, 1])) if C > 1 else math.nan,
+        se_gamma_hc1=se(V_hc1[0, 0]), se_delta_hc1=se(V_hc1[1, 1]),
+        se_delta_cluster=se(V_cl[1, 1]) if C > 1 else math.nan,
         r2_within=r2, n=n, n_groups=G,
     )
 
