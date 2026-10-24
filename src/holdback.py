@@ -39,8 +39,9 @@ def firm0_price(branch: str, period: int, p0_200: float) -> float:
 
 
 def run_holdback(condition: str, run_id: str, branch: str, client, runs_root: Path, out_root: Path,
-                 max_parse_retries: int = 3, max_tokens: int = 4000, verbose: bool = True) -> Path:
-    """One branch of one game. Resumable."""
+                 max_parse_retries: int = 3, max_tokens: int = 4000, verbose: bool = True,
+                 last_period: int = LAST_PERIOD) -> Path:
+    """One branch of one game. Resumable; a finished branch can be extended by passing a later last_period."""
     assert branch in BRANCHES
     out = out_root / condition / run_id / branch
     out.mkdir(parents=True, exist_ok=True)
@@ -61,6 +62,10 @@ def run_holdback(condition: str, run_id: str, branch: str, client, runs_root: Pa
 
     if state_path.exists():
         state = json.loads(state_path.read_text(encoding="utf-8"))
+        cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+        if last_period > cfg.get("extended_to", cfg["last_period"]):
+            write_json_atomic(cfg_path, {**cfg, "extended_to": last_period,  # CLAUDE.md, Follow-up (i)
+                                         "extension_start_time": datetime.now(timezone.utc).isoformat()})
     else:
         state = state0
         write_json_atomic(cfg_path, {
@@ -75,7 +80,7 @@ def run_holdback(condition: str, run_id: str, branch: str, client, runs_root: Pa
         with periods_path.open("w", newline="", encoding="utf-8") as fh:
             csv.DictWriter(fh, fieldnames=COLUMNS).writeheader()
 
-    for period in range(state["last_period"] + 1, LAST_PERIOD + 1):
+    for period in range(state["last_period"] + 1, last_period + 1):
         f1 = state["firms"][1]
         prompt = build_prompt(blocks, prefix, market.marginal_cost, market.ceiling, f1["plans"], f1["insights"], f1["history"])
         res = query_agent(client, model, prompt, max_parse_retries, max_tokens)
@@ -139,9 +144,16 @@ def finished_in(runs_root: Path, conditions, periods: int = 300) -> list[tuple[s
 
 
 def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced", "control"), cap: float = COST_CAP,
-           conditions=("baseline", "instructed")) -> None:
-    """Run the given branches for every game. `cap` limits spend by this launch (USD), on top of earlier spend."""
+           conditions=("baseline", "instructed"), only=None, last_period: int = LAST_PERIOD) -> None:
+    """Run the given branches for every game (or only the `only` list of "condition/run_id") up to last_period.
+    `cap` limits spend by this launch (USD), on top of earlier spend."""
     games = finished_in(runs_root, conditions)
+    if only:
+        wanted = {tuple(g.split("/")) for g in only}
+        missing = wanted - set(games)
+        if missing:
+            raise SystemExit(f"unknown games: {sorted(missing)}")
+        games = [g for g in games if g in wanted]
     if len(games) != expected:
         raise SystemExit(f"Expected {expected} finished games, found {len(games)}")
     for c, r in games:
@@ -149,7 +161,7 @@ def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced",
         if model not in PRICES_PER_MTOK:
             raise SystemExit(f"no price for model {model}; refusing to launch without a cost cap")
     queue = [(c, r, b) for c, r in games for b in branches
-             if not _done(HOLDBACK_ROOT / c / r / b)]
+             if not _done(HOLDBACK_ROOT / c / r / b, last_period)]
     HOLDBACK_ROOT.mkdir(parents=True, exist_ok=True)
     spent_before = spent_usd()
     stop_starting = cap - (COST_CAP - COST_STOP_STARTING)  # same $0.50 headroom as the original cap
@@ -190,7 +202,8 @@ def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced",
             out.mkdir(parents=True, exist_ok=True)
             fh = (out / "stdout.log").open("a", encoding="utf-8")
             running[job] = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "fork", "--condition", c,
-                                             "--run-id", r, "--branch", b, "--conditions", *conditions],
+                                             "--run-id", r, "--branch", b, "--conditions", *conditions,
+                                             "--last-period", str(last_period)],
                                             cwd=ROOT, stdout=fh, stderr=subprocess.STDOUT)
             log(f"started {r} {b}")
             time.sleep(3)
@@ -201,9 +214,9 @@ def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced",
     log(f"hold-back launch done; this launch spent ${spent_usd() - spent_before:.2f} (total ${spent_usd():.2f})")
 
 
-def _done(branch_dir: Path) -> bool:
+def _done(branch_dir: Path, last_period: int = LAST_PERIOD) -> bool:
     s = branch_dir / "state.json"
-    return s.exists() and json.loads(s.read_text(encoding="utf-8"))["last_period"] >= LAST_PERIOD
+    return s.exists() and json.loads(s.read_text(encoding="utf-8"))["last_period"] >= last_period
 
 
 def main() -> None:
@@ -215,7 +228,10 @@ def main() -> None:
     f.add_argument("--run-id", required=True)
     f.add_argument("--branch", required=True, choices=BRANCHES)
     f.add_argument("--conditions", nargs="+", default=["baseline", "instructed"], choices=conds)
+    f.add_argument("--last-period", type=int, default=LAST_PERIOD)
     lp = sub.add_parser("launch")
+    lp.add_argument("--only", nargs="+", default=None, help="restrict to these condition/run_id games")
+    lp.add_argument("--last-period", type=int, default=LAST_PERIOD)
     lp.add_argument("--concurrency", type=int, default=9)
     lp.add_argument("--expected", type=int, default=27)
     lp.add_argument("--branches", nargs="+", default=["forced", "control"], choices=BRANCHES)
@@ -228,10 +244,11 @@ def main() -> None:
         from dotenv import load_dotenv
         finished_in(runs_root, args.conditions)  # never fork while games of these conditions still run
         load_dotenv(ROOT / ".env")
-        run_holdback(args.condition, args.run_id, args.branch, anthropic.Anthropic(max_retries=2), runs_root, HOLDBACK_ROOT)
+        run_holdback(args.condition, args.run_id, args.branch, anthropic.Anthropic(max_retries=2), runs_root, HOLDBACK_ROOT,
+                     last_period=args.last_period)
     else:
         launch(args.concurrency, runs_root, args.expected, branches=args.branches, cap=args.cap,
-               conditions=tuple(args.conditions))
+               conditions=tuple(args.conditions), only=args.only, last_period=args.last_period)
 
 
 if __name__ == "__main__":

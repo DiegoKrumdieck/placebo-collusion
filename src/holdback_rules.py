@@ -13,8 +13,10 @@ MIN_PUNISH_PERIODS = 3
 CATEGORIES = ["no reaction", "matching", "punish-and-return", "persistent", "other"]
 
 
-def classify(D: dict) -> dict:
-    """Categories in precedence order: no reaction, persistent, matching, punish-and-return, other."""
+def classify(D: dict, last: int = LAST) -> dict:
+    """Categories in precedence order: no reaction, persistent, matching, punish-and-return, other.
+    `last` = end of the window (220; 260 for the extended fork, CLAUDE.md Follow-up (i))."""
+    LAST = last  # noqa: N806 - same rules, longer window
     D = {t: round(D[t], 2) for t in range(FIRST, LAST + 1)}
     below = {t: D[t] < -TOL for t in D}
     if not any(below.values()):

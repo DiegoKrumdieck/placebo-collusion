@@ -173,7 +173,7 @@ def calibrate_q(agent_type: str, target: float, seed: int = 777, n: int = 21, to
 
 
 def noisy_holdback(agent_type: str, q: float, n: int = 21, seed: int = 20261025, L: int = PUNISH_PERIODS,
-                   forced_price: float = 1.47) -> list[dict]:
+                   forced_price: float = 1.47, last_period: int = LAST_PERIOD) -> list[dict]:
     """Hold-back fork on each noisy game: same game as noisy_games up to period 200; firm 0 exogenous;
     firm 1's tremble draws for 201-220 are drawn once and replayed in both branches."""
     label = agent_type if agent_type == "competitor" else f"colluder_L{L}"
@@ -182,12 +182,13 @@ def noisy_holdback(agent_type: str, q: float, n: int = 21, seed: int = 20261025,
         p, agents = simulate_noisy(agent_type, q, seed * 1000 + k, L, periods=FORK_AFTER)
         p0_200, p1_200 = p[-1, 0], p[-1, 1]
         frng = np.random.default_rng([seed, k, 201])
-        draws = [(frng.random(), frng.uniform(-TREMBLE, TREMBLE)) for _ in range(LAST_PERIOD - FORK_AFTER)]
+        # Sequential draws: a longer fork reuses the same draws for 201-220 and continues the stream.
+        draws = [(frng.random(), frng.uniform(-TREMBLE, TREMBLE)) for _ in range(last_period - FORK_AFTER)]
         branches = {}
         for branch in ("forced", "control"):
             agent = copy.deepcopy(agents[1])
             own, rival_prev, path = p1_200, p0_200, {}
-            for i, t in enumerate(range(FORK_AFTER + 1, LAST_PERIOD + 1)):
+            for i, t in enumerate(range(FORK_AFTER + 1, last_period + 1)):
                 own = tremble(agent.act(own, rival_prev), draws[i][0], draws[i][1], q)
                 path[t] = own
                 rival_prev = forced_price if branch == "forced" and t == FORK_AFTER + 1 else p0_200

@@ -81,6 +81,30 @@ def test_classification_rules():
     assert classify({**flat, 202: 1.79 - 1.80})["category"] == "no reaction"  # float noise rounds to -0.01
 
 
+def test_extension_continues_from_saved_state(tmp_path):
+    runs, out = tmp_path / "runs", tmp_path / "holdback"
+    run_game(parse_args(["--condition", "baseline", "--model", "fake", "--periods", "205", "--run-id", "g1"]),
+             FollowerClient(), runs)
+    holdback.run_holdback("baseline", "g1", "forced", FollowerClient(), runs, out, verbose=False)
+    before = open(out / "baseline" / "g1" / "forced" / "periods.csv", encoding="utf-8").read()
+    client = CountingFollower()
+    holdback.run_holdback("baseline", "g1", "forced", client, runs, out, verbose=False, last_period=230)
+    after = open(out / "baseline" / "g1" / "forced" / "periods.csv", encoding="utf-8").read()
+    assert client.calls == 10 and after.startswith(before)  # only 221-230 are new
+    p = prices(out, "forced")
+    assert max(t for t, _ in p) == 230 and p[(230, 0)] == 1.8
+    cfg = json.loads((out / "baseline" / "g1" / "forced" / "config.json").read_text())
+    assert cfg["extended_to"] == 230 and cfg["last_period"] == 220
+
+
+def test_classification_longer_window():
+    from holdback_rules import classify
+    D = {t: (-0.2 if t <= 230 else 0.0) for t in range(202, 261)}
+    assert classify({t: D[t] for t in range(202, 221)})["category"] == "persistent"
+    assert classify(D, last=260)["category"] == "punish-and-return"
+    assert classify(D, last=260)["back_period"] == 231
+
+
 def test_spend_counter(held, monkeypatch):
     _, out, _ = held
     for branch in holdback.BRANCHES:
