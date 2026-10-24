@@ -1,0 +1,34 @@
+row,run_id,category_202_220,first_back_after_220,D_220,D_240,D_260,category_202_260,min_D
+Haiku baseline,baseline_002,persistent,never by 260,-0.1,-0.1,-0.1,persistent,-0.1
+Haiku baseline,baseline_005,persistent,never by 260,-0.06,-0.06,-0.06,persistent,-0.08
+Haiku baseline,baseline_008,persistent,235,-0.15,-0.01,-0.01,punish-and-return,-0.55
+Haiku baseline,baseline_013,persistent,never by 260,-0.05,-0.08,-0.06,persistent,-0.08
+Haiku baseline,baseline_014,persistent,never by 260,-0.16,-0.16,-0.16,persistent,-0.26
+Haiku baseline,baseline_020,persistent,never by 260,-0.05,-0.04,-0.04,persistent,-0.05
+Haiku instructed,instructed_002,persistent,never by 260,-0.05,-0.05,-0.05,persistent,-0.15
+Haiku instructed,instructed_003,persistent,never by 260,-0.45,-0.45,-0.45,persistent,-0.45
+Haiku strategy-instructed,strategy_instructed_001,persistent,never by 260,-0.2,-0.2,-0.2,persistent,-0.2
+Haiku strategy-instructed,strategy_instructed_002,persistent,247,-0.2,-0.2,0.0,punish-and-return,-0.2
+Haiku strategy-instructed,strategy_instructed_009,persistent,never by 260,-0.2,-0.2,-0.2,persistent,-0.2
+Haiku strategy-instructed,strategy_instructed_010,persistent,never by 260,-0.2,-0.2,-0.2,persistent,-0.2
+noisy colluder L=10,noisy_colluder_L10_001,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_002,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_003,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_004,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_005,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_006,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_007,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_008,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_009,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_010,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_011,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_012,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_013,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_014,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_015,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_016,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_017,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_018,no reaction,221,0.0,0.0,0.0,no reaction,0.0
+noisy colluder L=10,noisy_colluder_L10_019,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_020,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17
+noisy colluder L=10,noisy_colluder_L10_021,persistent,222,-0.03,0.0,0.0,punish-and-return,-0.17

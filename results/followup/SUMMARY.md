@@ -78,6 +78,39 @@ Firm 1's period-220 price vs its best response to firm 0's period-200 price, ±0
 - So in half the persistent games, one undercut moved firm 1 from a supracompetitive price to the
   competitive (best-response) price, and it stayed there.
 
+## Extended hold-back to period 260 for the 12 persistent games (CLAUDE.md, Second follow-up (i))
+
+Pre-registered (`4e88e7b`) after the second follow-up. Both branches of the 12 persistent games were
+continued from their saved period-220 state to period 260 under the same rules: 24 branches, 960 firm-1 calls,
+0 parse failures, **$1.25** (cap $3). Files: `extension_per_game.csv`, `extension_D.csv`.
+
+| Game | First period after 220 with \|D\| ≤ 0.01 | D(220) | D(240) | D(260) | Category, 202–260 |
+|---|---|---|---|---|---|
+| baseline_002 | never by 260 | −0.10 | −0.10 | −0.10 | persistent |
+| baseline_005 | never by 260 | −0.06 | −0.06 | −0.06 | persistent |
+| baseline_008 | **235** | −0.15 | −0.01 | −0.01 | punish-and-return |
+| baseline_013 | never by 260 | −0.05 | −0.08 | −0.06 | persistent |
+| baseline_014 | never by 260 | −0.16 | −0.16 | −0.16 | persistent |
+| baseline_020 | never by 260 | −0.05 | −0.04 | −0.04 | persistent |
+| instructed_002 | never by 260 | −0.05 | −0.05 | −0.05 | persistent |
+| instructed_003 | never by 260 | −0.45 | −0.45 | −0.45 | persistent |
+| strategy_instructed_001 | never by 260 | −0.20 | −0.20 | −0.20 | persistent |
+| strategy_instructed_002 | **247** | −0.20 | −0.20 | 0.00 | punish-and-return |
+| strategy_instructed_009 | never by 260 | −0.20 | −0.20 | −0.20 | persistent |
+| strategy_instructed_010 | never by 260 | −0.20 | −0.20 | −0.20 | persistent |
+
+- **Check passes:** the noisy synthetic colluder with L = 10 returns right after the old window. 20 of 21
+  games are back in period 222 and are punish-and-return on 202–260. The remaining game is still no
+  reaction, as in 202–220. Periods 202–220 of the extended fork match the earlier run exactly.
+- **10 of the 12 persistent games are still down at period 260**, 59 periods after a one-period undercut:
+  5 of 6 baseline, 2 of 2 instructed, and 3 of 4 strategy-instructed. In all 10 the gap barely moves from
+  period 220 to 260, so the drop looks like a new lasting price, not a punishment that ends slowly.
+- **Two return:** baseline_008 in period 235 and strategy_instructed_002 in period 247. baseline_008 is
+  the one game with large branch noise in the control-vs-control fork (+0.16 at period 220), so its
+  return is weak evidence either way.
+- **Explicit colluders mostly don't return either.** strategy_instructed_001, 009 and 010 were told to
+  cut for 5 periods and then return. They stay 0.20 lower for 59 periods.
+
 # First follow-up: hold-back fork, synthetic known-answer agents, instructed-only placebo
 
 Pre-registered in CLAUDE.md (commit `2384f37`), designed after seeing the first fork results.

@@ -401,5 +401,6 @@ placebo-collusion/
 - [x] Follow-up (pre-registered above): hold-back fork ($1.47), synthetic known-answer agents, instructed-only placebo. Results in results/followup/SUMMARY.md.
 - [x] Control-vs-control fork ($0.73): noise threshold 0.01; all 8 persistent games survive.
 - [x] Second follow-up: strategy-instructed LLM colluder ($7.44 incl. hold-back), noisy synthetic agents with punishment-length sweep, exploratory BR comparison. Results in results/followup/SUMMARY.md.
+- [x] Extended hold-back to 260 ($1.25): 10 of 12 persistent games still down at 260; noisy L = 10 colluder returns by 222.
 - [x] Report drafted with placeholders (see Report).
 - [ ] Results, figures, final writeup.

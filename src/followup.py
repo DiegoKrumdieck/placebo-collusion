@@ -192,6 +192,58 @@ def run_strategy() -> None:
     print(per_game.round(3).to_string(index=False))
 
 
+PERSISTENT_GAMES = [("baseline", f"baseline_{k}") for k in ("002", "005", "008", "013", "014", "020")] + \
+    [("instructed", "instructed_002"), ("instructed", "instructed_003")] + \
+    [("strategy_instructed", f"strategy_instructed_{k}") for k in ("001", "002", "009", "010")]
+EXT_LAST = 260
+
+
+def _extension_row(row_label, run_id, D, category_220):
+    D = {t: round(d, 2) for t, d in D.items()}
+    back = next((t for t in range(221, EXT_LAST + 1) if abs(D[t]) <= 0.01 + 1e-9), None)
+    c = classify(D, last=EXT_LAST)
+    return {"row": row_label, "run_id": run_id, "category_202_220": category_220,
+            "first_back_after_220": back if back is not None else "never by 260",
+            "D_220": D[220], "D_240": D[240], "D_260": D[EXT_LAST], "category_202_260": c["category"],
+            "min_D": c["min_D"]}
+
+
+def run_extension() -> None:
+    """Extended hold-back to period 260 (CLAUDE.md, Second follow-up (i))."""
+    root = ROOT / "data" / "holdback"
+    prior = pd.concat([pd.read_csv(OUT / "haiku_holdback_per_game.csv"),
+                       pd.read_csv(OUT / "strategy_holdback_per_game.csv")]).set_index("run_id")
+    rows, paths = [], []
+    for cond, run_id in PERSISTENT_GAMES:
+        p = {}
+        for branch in ("forced", "control"):
+            df = pd.read_csv(root / cond / run_id / branch / "periods.csv")
+            if df.period.max() < EXT_LAST:
+                raise SystemExit(f"{run_id} {branch} not extended to {EXT_LAST}")
+            p[branch] = df[df.firm == 1].set_index("period").price
+        D = {t: p["forced"][t] - p["control"][t] for t in range(202, EXT_LAST + 1)}
+        label = {"baseline": "Haiku baseline", "instructed": "Haiku instructed",
+                 "strategy_instructed": "Haiku strategy-instructed"}[cond]
+        rows.append(_extension_row(label, run_id, D, prior.loc[run_id, "category"]))
+        paths += [{"row": label, "run_id": run_id, "period": t, "D": round(d, 2)} for t, d in D.items()]
+    q = json.loads((OUT / "noisy_calibration.json").read_text(encoding="utf-8"))["q_colluder"]
+    prev = pd.read_csv(OUT / "noisy_holdback_D.csv")
+    prev = prev[prev.row == "noisy colluder L=10"].set_index(["run_id", "period"]).D
+    for g in sa.noisy_holdback("colluder", q, L=10, last_period=EXT_LAST):
+        D = {t: g["forced"][t] - g["control"][t] for t in range(202, EXT_LAST + 1)}
+        assert all(abs(D[t] - prev[(g["run_id"], t)]) < 1e-9 for t in range(202, 221)), "202-220 must match the earlier run"
+        cat220 = classify({t: D[t] for t in range(202, 221)})["category"]
+        rows.append(_extension_row("noisy colluder L=10", g["run_id"], D, cat220))
+        paths += [{"row": "noisy colluder L=10", "run_id": g["run_id"], "period": t, "D": round(d, 2)} for t, d in D.items()]
+    df = pd.DataFrame(rows)
+    df.to_csv(OUT / "extension_per_game.csv", index=False)
+    pd.DataFrame(paths).to_csv(OUT / "extension_D.csv", index=False)
+    print(pd.crosstab(df.row, df.category_202_260).to_string())
+    print(df[df.row != "noisy colluder L=10"].to_string(index=False))
+    syn = df[df.row == "noisy colluder L=10"]
+    print("noisy colluder L=10: first back after 220:", syn.first_back_after_220.value_counts().to_dict())
+
+
 def run_br_exploratory() -> None:
     """EXPLORATORY (CLAUDE.md, Second follow-up (h)): firm 1's period-220 price vs BR(p0_200), per branch."""
     from impulse import best_response
@@ -306,11 +358,12 @@ def run_summary() -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "noisy", "br", "strategy", "summary"])
+    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "noisy", "br", "strategy",
+                                    "extension", "summary"])
     args = ap.parse_args()
     {"synthetic": run_synthetic, "instructed": run_instructed, "holdback": run_haiku_holdback,
      "noise": run_noise, "noisy": run_noisy, "br": run_br_exploratory, "strategy": run_strategy,
-     "summary": run_summary}[args.cmd]()
+     "extension": run_extension, "summary": run_summary}[args.cmd]()
 
 
 if __name__ == "__main__":
