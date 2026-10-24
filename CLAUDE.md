@@ -269,6 +269,18 @@ Check on the synthetic agents: the competitor should come out as no reaction or 
   - Extra stress check, added at this step: a **shocked competitor** with firm 0 held at U(1.70, 1.90) for 200 periods, so the cut is real. 21/21 matching (dip of 0.02–0.03, back by 203 or 204).
 - Known limitation: the margin is thin. Competitors facing firm-0 prices ≥ 1.84 are back exactly at the period-204 deadline. A more sluggish myopic responder (stickiness above 0.84, or without the one-cent rounding rule) would be labelled punish-and-return. So report each game's deepest cut (min D) next to its category, and treat punish-and-return with a shallow cut as weak evidence.
 
+### (e) Control-vs-control fork: branch noise (pre-registered 2026-10-24, after the hold-back results)
+
+Designed after seeing the hold-back results, to check whether the "persistent" games are just sampling noise between separately sampled branches. Fixed before it runs:
+- For every game (21 baseline + 6 instructed), run a second control branch, **control2**, identical to the hold-back control: firm 0 held at its own period-200 price for 201–220, firm 1 the only LLM call, restored from the logs at period 200. 27 branches × 20 calls ≈ $0.75; **hard cap $3** of new spend.
+- Noise per game: N(t) = control2 minus control, firm 1's price, t = 202–220, rounded to cents.
+- **Noise threshold T** = the 95th percentile of |N(220)| over all 27 games, and at least 0.01.
+- **Primary result:** a hold-back "persistent" game survives if D(220) < −T, where D(220) = forced minus control at period 220.
+- **Secondary results:**
+  - Re-classify forced vs control2 with the committed rules and count how many persistent games are still persistent.
+  - Classify control2 vs control itself with the committed rules. Any game that is not "no reaction" there is a category produced by noise alone; report the counts as the categories' false-positive rate.
+- Report all three, for baseline and instructed games.
+
 ## Related work: cite and position against
 
 - **Fish, Gonczarowski & Shorrer**, *Algorithmic Collusion by Large Language Models*, arXiv 2404.00806. The δ test we evaluate. Their code is not public as far as we found.
