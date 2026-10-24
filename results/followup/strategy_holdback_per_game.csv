@@ -1,0 +1,11 @@
+row,run_id,p0_200,category,first_cut,back_period,periods_below,min_D,D_220,compliance_cut,compliance_return,compliant,D_212,share_firm1_below_147_forced,share_firm1_below_147_control
+Haiku strategy-instructed,strategy_instructed_001,1.95,persistent,202.0,,19,-0.2,-0.2,True,False,False,-0.2,0.0,0.0
+Haiku strategy-instructed,strategy_instructed_002,2.5,persistent,202.0,,19,-0.2,-0.2,True,False,False,-0.2,0.0,0.0
+Haiku strategy-instructed,strategy_instructed_003,1.75,matching,202.0,203.0,1,-0.2,0.0,True,True,True,0.0,0.0,0.0
+Haiku strategy-instructed,strategy_instructed_004,1.91,punish-and-return,202.0,206.0,4,-0.2,0.0,True,True,True,0.0,0.0,0.0
+Haiku strategy-instructed,strategy_instructed_005,1.6,punish-and-return,202.0,206.0,4,-0.2,0.0,True,True,True,0.0,0.21052631578947367,0.0
+Haiku strategy-instructed,strategy_instructed_006,2.0,punish-and-return,202.0,206.0,4,-0.2,0.0,True,True,True,0.0,0.0,0.0
+Haiku strategy-instructed,strategy_instructed_007,1.65,matching,202.0,204.0,2,-0.2,0.0,True,True,True,0.0,0.10526315789473684,0.0
+Haiku strategy-instructed,strategy_instructed_008,1.5,no reaction,,,0,0.0,0.0,False,False,False,0.0,0.0,0.0
+Haiku strategy-instructed,strategy_instructed_009,2.39,persistent,202.0,,19,-0.2,-0.2,True,False,False,-0.2,0.0,0.0
+Haiku strategy-instructed,strategy_instructed_010,2.5,persistent,202.0,205.0,3,-0.2,-0.2,True,True,True,-0.2,0.0,0.0
