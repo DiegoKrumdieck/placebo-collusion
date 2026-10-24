@@ -88,3 +88,23 @@ Reading:
 - The cut is no shock at all where firm 0 already priced near 1.47 in period 200 (baseline_001, 009, 011
   at 1.46–1.48). Those games count as "not responded" by construction.
 - Instructed games respond less often (3/6) than baseline (12/21), despite the larger myopic incentive to cut.
+
+## 5. Partner price-gap test (`gap_test.csv`, `gap_test_per_game.csv`)
+
+Per game, the mean |firm 0 − firm 1| price over the last 50 periods. The statistic is the mean gap across
+games: real pairs vs 1,000 random re-pairings within the same condition (derangements). One-sided:
+a small real gap is the signal, so p = (1 + #{re-paired ≤ real}) / 1,001. "Within one cent" means a game's
+mean gap over the last 50 periods is ≤ 0.01. No API calls.
+
+| Condition | Games | Real mean gap | Re-paired mean / 5th pct | p | Games within 1¢ (real) | Within 1¢, re-paired (mean) |
+|---|---|---|---|---|---|---|
+| Baseline | 21 | **0.094** | 0.204 / 0.170 | **0.001** | **11** | 0.5 |
+| Instructed | 6 | 0.177 | 0.257 / 0.143 | 0.145 | 1 | 0.4 |
+| Strategy-instructed | 10 | **0.008** | 0.449 / 0.290 | **0.001** | **8** | 0.3 |
+
+- Real partners end at almost the same price far more often than sellers who never met: 11 of 21 baseline
+  games and 8 of 10 strategy-instructed games, against fewer than 1 expected under re-pairing.
+- The test passes the placebo in baseline and strategy-instructed games, and it works on frozen games,
+  where δ can't be estimated: it uses where prices end up, not how they move.
+- Instructed games don't converge (1 of 6, p = 0.145): their firms froze at different high prices.
+- Final-period gap ≤ 0.01: 12/21 baseline, 1/6 instructed, 9/10 strategy-instructed.

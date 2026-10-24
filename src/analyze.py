@@ -48,6 +48,57 @@ def price_levels(games, nash: float, mono: float, last: int = 50) -> "pd.DataFra
     return pd.DataFrame(rows)
 
 
+def gap_test(games, B: int = 1000, last: int = 50, seed: int = 20261024) -> tuple[dict, "pd.DataFrame"]:
+    """Partner price-gap test: per game, mean |firm 0 - firm 1| over the last 50 periods.
+
+    Statistic = mean gap across games. Null = the same statistic on B random re-pairings (derangements):
+    firm 0 of game i with firm 1 of game perm[i]. One-sided: small real gaps are the signal, so
+    p = (1 + #{null <= real}) / (1 + B). "Within one cent" = mean gap over the last 50 periods <= 0.01.
+    """
+    import numpy as np
+    import pandas as pd
+    from pairs import derangement
+    tails = [g.prices[-last:] for g in games]
+    gap = lambda a, b: float(np.abs(a - b).mean())  # noqa: E731
+    per_game = pd.DataFrame({"run_id": [g.run_id for g in games],
+                             "mean_abs_gap_last50": [gap(t[:, 0], t[:, 1]) for t in tails],
+                             "final_abs_gap": [abs(t[-1, 0] - t[-1, 1]) for t in tails]})
+    within = lambda gaps: int(sum(x <= 0.01 + 1e-9 for x in gaps))  # noqa: E731
+    real = float(per_game.mean_abs_gap_last50.mean())
+    rng = np.random.default_rng(seed)
+    null, null_within = [], []
+    for _ in range(B):
+        perm = derangement(len(games), rng)
+        gaps = [gap(tails[i][:, 0], tails[p][:, 1]) for i, p in enumerate(perm)]
+        null.append(float(np.mean(gaps)))
+        null_within.append(within(gaps))
+    null = np.array(null)
+    summary = {"n_games": len(games), "real_mean_gap": real,
+               "placebo_mean_gap": float(null.mean()), "placebo_p05_gap": float(np.quantile(null, 0.05)),
+               "p_value": float((1 + (null <= real + 1e-12).sum()) / (1 + B)),
+               "real_within_1c": within(per_game.mean_abs_gap_last50),
+               "real_final_within_1c": within(per_game.final_abs_gap),
+               "placebo_mean_within_1c": float(np.mean(null_within)), "B": B}
+    return summary, per_game
+
+
+def run_gap() -> None:
+    import pandas as pd
+    from pairs import load_games
+    base, instr, _, _ = load_all()
+    strat = load_games(RUNS, "strategy_instructed")
+    rows, per_game = [], []
+    for cond, games in (("baseline", base), ("instructed", instr), ("strategy_instructed", strat)):
+        s, pg = gap_test(games)
+        rows.append({"condition": cond, **s})
+        pg.insert(0, "condition", cond)
+        per_game.append(pg)
+    out = pd.DataFrame(rows)
+    out.to_csv(OUT / "gap_test.csv", index=False)
+    pd.concat(per_game).to_csv(OUT / "gap_test_per_game.csv", index=False)
+    print(out.round(4).to_string(index=False))
+
+
 def run_diagnostic() -> None:
     import pandas as pd
     base, instr, nash, mono = load_all()
@@ -100,11 +151,16 @@ def run_tests(B: int, B_boot: int) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["diagnostic", "tests"])
+    ap.add_argument("cmd", choices=["diagnostic", "tests", "gap"])
     ap.add_argument("--B", type=int, default=1000)
     ap.add_argument("--B-boot", type=int, default=1000)
     args = ap.parse_args()
-    run_diagnostic() if args.cmd == "diagnostic" else run_tests(args.B, args.B_boot)
+    if args.cmd == "diagnostic":
+        run_diagnostic()
+    elif args.cmd == "tests":
+        run_tests(args.B, args.B_boot)
+    else:
+        run_gap()
 
 
 if __name__ == "__main__":
