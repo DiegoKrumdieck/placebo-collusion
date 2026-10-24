@@ -1,6 +1,7 @@
 """Fish et al.-format pricing agent: one LLM call per period, plans and insights carried over."""
 
 import math
+import random
 import re
 import time
 from dataclasses import dataclass, field
@@ -119,6 +120,36 @@ def parse_response(text: str) -> dict:
     return out
 
 
+RETRYABLE_API_ERRORS = (
+    anthropic.RateLimitError,
+    anthropic.OverloadedError,
+    anthropic.InternalServerError,
+    anthropic.APIConnectionError,  # includes timeouts
+)
+
+
+def create_with_backoff(client, max_attempts: int = 12, base_delay: float = 5.0, max_delay: float = 300.0, **kwargs):
+    """messages.create with exponential backoff and jitter on rate limits, overloads, 5xx and network errors.
+
+    Honors a retry-after header when the API sends one. Returns (response, number of API retries).
+    """
+    for attempt in range(max_attempts):
+        try:
+            return client.messages.create(**kwargs), attempt
+        except RETRYABLE_API_ERRORS as e:
+            if attempt == max_attempts - 1:
+                raise
+            delay = min(max_delay, base_delay * 2**attempt) * random.uniform(0.75, 1.25)
+            retry_after = getattr(getattr(e, "response", None), "headers", {}).get("retry-after")
+            if retry_after:
+                try:
+                    delay = max(delay, float(retry_after))
+                except ValueError:
+                    pass
+            print(f"API error ({type(e).__name__}); retry {attempt + 1} in {delay:.0f}s", flush=True)
+            time.sleep(delay)
+
+
 @dataclass
 class CallResult:
     parsed: dict | None  # None if every attempt failed to parse
@@ -140,7 +171,8 @@ def query_agent(
     result = CallResult(parsed=None)
     for _ in range(max_parse_retries + 1):
         t0 = time.time()
-        response = client.messages.create(
+        response, api_retries = create_with_backoff(
+            client,
             model=model,
             max_tokens=max_tokens,
             thinking={"type": "disabled"},
@@ -154,6 +186,7 @@ def query_agent(
             "input_tokens": response.usage.input_tokens,
             "output_tokens": response.usage.output_tokens,
             "latency_s": round(time.time() - t0, 2),
+            "api_retries": api_retries,
             "parse_error": None,
         }
         result.attempts.append(attempt)

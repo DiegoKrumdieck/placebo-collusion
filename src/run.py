@@ -55,7 +55,7 @@ def truncate_periods_csv(path: Path, last_period: int) -> None:
         w.writerows(rows)
 
 
-def main() -> None:
+def parse_args(argv=None) -> argparse.Namespace:
     ap = argparse.ArgumentParser()
     ap.add_argument("--condition", required=True, choices=["baseline", "instructed", "p2"])
     ap.add_argument("--model", required=True)
@@ -65,16 +65,23 @@ def main() -> None:
     ap.add_argument("--ceiling-multiplier", type=float, default=1.5)
     ap.add_argument("--max-parse-retries", type=int, default=3)
     ap.add_argument("--max-tokens", type=int, default=4000)
-    args = ap.parse_args()
+    return ap.parse_args(argv)
 
+
+def main() -> None:
+    args = parse_args()
     load_dotenv(ROOT / ".env")
-    client = anthropic.Anthropic(max_retries=8)
+    # SDK-level retries are kept short; agent.create_with_backoff handles long rate-limit waits.
+    client = anthropic.Anthropic(max_retries=2)
+    run_game(args, client, ROOT / "data" / "runs")
 
+
+def run_game(args: argparse.Namespace, client, runs_root: Path) -> None:
     blocks = load_prompt_blocks()
     prefix_name, prefix = prefix_for(args.condition, blocks)
     market = Market(alpha=args.alpha, ceiling_multiplier=args.ceiling_multiplier)
 
-    run_dir = ROOT / "data" / "runs" / args.condition / args.run_id
+    run_dir = runs_root / args.condition / args.run_id
     run_dir.mkdir(parents=True, exist_ok=True)
     config_path, periods_path = run_dir / "config.json", run_dir / "periods.csv"
     llm_path, state_path = run_dir / "llm.jsonl", run_dir / "state.json"
@@ -108,7 +115,7 @@ def main() -> None:
         old = json.loads(config_path.read_text(encoding="utf-8"))
         for key in ["condition", "model", "alpha", "ceiling_multiplier", "prompt_prefix", "thinking", "temperature"]:
             if old[key] != config[key]:
-                sys.exit(f"Refusing to resume: {key} was {old[key]!r}, now {config[key]!r}")
+                raise SystemExit(f"Refusing to resume: {key} was {old[key]!r}, now {config[key]!r}")
         if args.periods != old["periods"]:
             old["periods"] = args.periods
             write_json_atomic(config_path, old)
@@ -144,7 +151,7 @@ def main() -> None:
                     parse_ok.append(True)
                 else:
                     if firms[firm]["last_price"] is None:
-                        sys.exit(f"Period {period}, firm {firm}: no parsable price and no previous price to repeat.")
+                        raise SystemExit(f"Period {period}, firm {firm}: no parsable price and no previous price to repeat.")
                     prices.append(firms[firm]["last_price"])
                     parse_ok.append(False)
 
