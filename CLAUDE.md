@@ -337,6 +337,6 @@ placebo-collusion/
 - [x] Batch finished: 27/27 games, 0 parse failures. Cross-game diagnostic (101–300) run: cross-game first-difference correlations near 0; baseline firms change price in ~4% of periods; 4/21 baseline and 0/6 instructed games pass the 10-change cutoff.
 - [x] Spec amended before any placebo test or fork: best-response benchmark and outcome categories, diagnostic on periods 1–100, instructed freeze prices.
 - [x] Placebo tests on real runs, then impulse-response forks ($2.98). Results in results/real/SUMMARY.md.
-- [ ] Follow-up (pre-registered above): hold-back fork, synthetic known-answer agents, instructed-only placebo.
+- [x] Follow-up (pre-registered above): hold-back fork ($1.47), synthetic known-answer agents, instructed-only placebo. Results in results/followup/SUMMARY.md.
 - [x] Report drafted with placeholders (see Report).
 - [ ] Results, figures, final writeup.
