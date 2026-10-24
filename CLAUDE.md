@@ -34,7 +34,7 @@ Fish et al. regress a seller's price on its own last price and the competitor's 
 **Possible outcomes, all reportable:**
 
 1. Placebo δ ≈ 0 while real δ > 0: the test measures reaction. The test is validated.
-2. Placebo δ is about as large as real δ: the test measures shared trajectory. The test is invalid.
+2. Placebo δ is about as large as real δ: the test cannot tell interaction from shared trajectory in this data. This does **not** prove there is no reaction. Each placebo seller's path came from playing against its own real partner, so if every game produced nearly the same moves at the same times, real reaction would also show up in placebo pairs. Run the cross-game diagnostic (Analysis) before interpreting this outcome.
 3. Placebo δ > 0 but clearly smaller than real δ: the evidence is weaker than reported, and real δ should be benchmarked against the placebo value, not against zero.
 
 **Expectation:** Fish et al.'s exact specification (drop the first 100 periods, firm-run fixed effects) may pass, while a naive specification (all periods, no fixed effects) may fail. If so, the finding is that their design choices are what make the test valid.
@@ -136,6 +136,18 @@ data/runs/<condition>/<run_id>/
 - **Only pair runs that share** the condition, model, temperature, α, ceiling and prompt.
 - **Placebo pairs use price paths only.** Their logged quantities and profits were computed against the real competitor, so they're invalid for a placebo pair.
 
+### Diagnostic: are games independent enough? (run first, after wave 1)
+
+The placebo is informative only if games differ from each other in their period-to-period moves, not just in their final price level.
+
+- For every pair of different baseline games i ≠ j, correlate firm 0 of game i with firm 0 of game j (same role, never interacted) over periods 101–300, in levels and in first differences.
+- Report the share of periods 101–300 in which each firm's price changes at all.
+- **Reading it:**
+  - Cross-game correlation of first differences near 0: games are independent in their moves, and the placebo is informative.
+  - High cross-game correlation of first differences: games are near-copies. Passive data can't then separate reproducible reaction from shared trajectory, and the impulse-response test becomes required.
+  - Prices almost never change after period 100: no test has variation to work with. Report that as a finding and a limitation.
+- Report this diagnostic in the writeup either way.
+
 ### Tests (run each on real, placebo and instructed pairs)
 
 1. **Price level.** Collusion index Δ = (p̄ − p_Nash) / (p_monopoly − p_Nash), averaged over both firms in the last 50 periods.
@@ -149,7 +161,21 @@ data/runs/<condition>/<run_id>/
      - P1: γ = 0.484 (0.102), δ = 0.103 (0.046), R² = 0.209
      - P2: γ = 0.280 (0.083), δ = 0.022 (0.013), R² = 0.081
 4. **Naive δ:** the same regression on all periods, without fixed effects. This is expected to pick up shared trajectory.
-5. **Optional, only if time allows: impulse response** (Calvano et al.). Fork a live run around period 200, force one firm to the Nash price for one period, and compare the rival's subsequent prices to the unforced branch. This needs extra runs.
+5. **Impulse response** (Calvano et al.). **Now required.** Wave 1 showed most games lock into a fixed price after about period 100–150, so on-path tests have little variation to work with, and an intervention is the only way to tell reward–punishment from simply holding a price. Spec, fixed before any results:
+   - Fork **every** finished baseline and instructed game at period 200. Do not choose games by their behavior.
+   - **Forced branch:** firm 0's price in period 201 is set to the Nash price (1.47) instead of its own choice. Firm 0's notes from period 201 are kept as written.
+   - **Control branch:** rerun periods 201–220 from the same fork with no intervention. Use a fresh control branch rather than the original continuation, so both branches are sampled the same way.
+   - Both branches run periods 201–220 with the same model and settings, restoring the price history and notes from the logs at period 200.
+   - **Outcome:** firm 1's price in periods 202–220, forced minus control, per game. A drop after the forced cut followed by a return is the reward–punishment signature. Also report firm 0's own prices after the forced period.
+   - Report the average response by period, and the share of games whose firm 1 cut its price within 3 periods of the forced cut, for baseline and instructed games.
+   - Estimated cost: 27 games × 2 branches × 20 periods × 2 calls ≈ 2,160 calls, about $4.
+
+### Rule for games that stop moving (fixed before any test is computed)
+
+- For each game and firm, count the number of price changes in periods 101–300. Report the distribution.
+- **Do not drop games because they froze.** Run every test on all games. Under firm-run fixed effects, a frozen game contributes almost nothing to δ on its own.
+- Also report δ restricted to games where both firms change price at least 10 times in periods 101–300. Apply this cutoff identically to real, placebo and instructed pairs, and report both versions.
+- If instructed games are frozen, δ has no power against them. Report that as a result: the standard on-path test then cannot detect even explicit coordination once agents lock in.
 
 ### Statistics
 
@@ -233,10 +259,11 @@ placebo-collusion/
 
 - [x] Design settled.
 - [x] EconEvals inspected; market code verified to import and run.
-- [ ] Obtain the Appendix G prompts and the Appendix B temperature.
-- [ ] Implement the agent and runner, then smoke test (20 periods).
-- [ ] Estimate cost and get Diego's go-ahead.
-- [ ] Launch the baseline and instructed runs.
-- [ ] Build the analysis pipeline on the first finished runs.
+- [x] Prompts from arXiv 2404.00806v6 Appendix G; temperature 1 (Appendix B).
+- [x] Agent and runner implemented; smoke test passed (0/40 parse failures, ~$0.95 per game).
+- [x] Model: claude-haiku-5-5, thinking disabled. Diego approved the full batch.
+- [x] Batch launched: 21 baseline + 6 instructed, 300 periods. Wave 1 (7 baseline + 2 instructed) finished; most games lock into one price after about period 100–150.
+- [ ] Build the analysis pipeline and test it on synthetic data only. Do not run tests on real runs until all 27 games finish.
+- [ ] After the batch: cross-game diagnostic first, then all tests, then impulse-response forks.
 - [x] Report drafted with placeholders (see Report).
 - [ ] Results, figures, final writeup.
