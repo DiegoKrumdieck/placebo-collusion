@@ -1,0 +1,28 @@
+row,run_id,N_220,noise_category,noise_min,holdback_category,D_220,category_vs_control2,D2_220,persistent_survives
+Haiku baseline,baseline_001,0.0,matching,-0.04,matching,0.0,no reaction,0.0,
+Haiku baseline,baseline_002,0.0,no reaction,0.0,persistent,-0.1,persistent,-0.1,1.0
+Haiku baseline,baseline_003,0.01,no reaction,0.0,no reaction,0.01,no reaction,0.0,
+Haiku baseline,baseline_004,0.0,no reaction,0.0,matching,0.0,matching,0.0,
+Haiku baseline,baseline_005,0.0,no reaction,0.0,persistent,-0.06,persistent,-0.06,1.0
+Haiku baseline,baseline_006,0.0,no reaction,0.0,matching,0.0,matching,0.0,
+Haiku baseline,baseline_007,0.0,no reaction,0.0,matching,0.0,matching,0.0,
+Haiku baseline,baseline_008,0.16,no reaction,0.01,persistent,-0.15,persistent,-0.31,1.0
+Haiku baseline,baseline_009,0.0,other,-0.24,other,0.0,other,0.0,
+Haiku baseline,baseline_010,0.0,no reaction,0.0,no reaction,-0.01,no reaction,-0.01,
+Haiku baseline,baseline_011,0.0,no reaction,0.0,no reaction,0.0,no reaction,0.0,
+Haiku baseline,baseline_012,0.0,no reaction,0.0,no reaction,0.0,no reaction,0.0,
+Haiku baseline,baseline_013,0.0,no reaction,0.0,persistent,-0.05,persistent,-0.05,1.0
+Haiku baseline,baseline_014,0.0,no reaction,0.0,persistent,-0.16,persistent,-0.16,1.0
+Haiku baseline,baseline_015,0.0,other,-0.05,other,0.0,no reaction,0.0,
+Haiku baseline,baseline_016,0.0,no reaction,0.0,punish-and-return,-0.01,punish-and-return,-0.01,
+Haiku baseline,baseline_017,0.0,no reaction,0.0,matching,0.0,matching,0.0,
+Haiku baseline,baseline_018,0.0,other,-0.02,matching,0.0,matching,0.0,
+Haiku baseline,baseline_019,0.0,no reaction,0.0,matching,0.12,matching,0.12,
+Haiku baseline,baseline_020,-0.01,no reaction,-0.01,persistent,-0.05,persistent,-0.04,1.0
+Haiku baseline,baseline_021,0.0,no reaction,0.0,no reaction,0.0,no reaction,0.0,
+Haiku instructed,instructed_001,0.0,no reaction,0.0,no reaction,0.0,no reaction,0.0,
+Haiku instructed,instructed_002,0.0,no reaction,0.0,persistent,-0.05,persistent,-0.05,1.0
+Haiku instructed,instructed_003,0.0,no reaction,0.0,persistent,-0.45,persistent,-0.45,1.0
+Haiku instructed,instructed_004,0.0,no reaction,0.0,no reaction,0.0,no reaction,0.0,
+Haiku instructed,instructed_005,0.0,no reaction,0.0,no reaction,0.0,no reaction,0.0,
+Haiku instructed,instructed_006,0.0,no reaction,0.0,matching,0.0,matching,0.0,

@@ -350,5 +350,6 @@ placebo-collusion/
 - [x] Spec amended before any placebo test or fork: best-response benchmark and outcome categories, diagnostic on periods 1–100, instructed freeze prices.
 - [x] Placebo tests on real runs, then impulse-response forks ($2.98). Results in results/real/SUMMARY.md.
 - [x] Follow-up (pre-registered above): hold-back fork ($1.47), synthetic known-answer agents, instructed-only placebo. Results in results/followup/SUMMARY.md.
+- [x] Control-vs-control fork ($0.73): noise threshold 0.01; all 8 persistent games survive.
 - [x] Report drafted with placeholders (see Report).
 - [ ] Results, figures, final writeup.

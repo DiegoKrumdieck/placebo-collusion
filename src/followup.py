@@ -96,6 +96,43 @@ def run_haiku_holdback() -> None:
     print(per_game.round(3).to_string(index=False))
 
 
+def run_noise() -> None:
+    """Control-vs-control fork (CLAUDE.md, Follow-up (e)): branch noise and which persistent games survive it."""
+    root = ROOT / "data" / "holdback"
+
+    def firm1(gdir, branch):
+        df = pd.read_csv(gdir / branch / "periods.csv")
+        if df.period.max() < 220:
+            raise SystemExit(f"{gdir.name} {branch} unfinished")
+        return df[df.firm == 1].set_index("period").price
+
+    hb = pd.read_csv(OUT / "haiku_holdback_per_game.csv").set_index("run_id")
+    rows = []
+    for cond in ("baseline", "instructed"):
+        for gdir in sorted(d for d in (root / cond).iterdir() if d.is_dir()):
+            f, c, c2 = (firm1(gdir, b) for b in ("forced", "control", "control2"))
+            N = {t: c2[t] - c[t] for t in range(202, 221)}
+            D2 = {t: f[t] - c2[t] for t in range(202, 221)}
+            noise_cat = classify(N)
+            vs_c2 = classify(D2)
+            rows.append({"row": f"Haiku {cond}", "run_id": gdir.name,
+                         "N_220": round(N[220], 2), "noise_category": noise_cat["category"],
+                         "noise_min": noise_cat["min_D"],
+                         "holdback_category": hb.loc[gdir.name, "category"], "D_220": hb.loc[gdir.name, "D_220"],
+                         "category_vs_control2": vs_c2["category"], "D2_220": vs_c2["D_220"]})
+    df = pd.DataFrame(rows)
+    T = max(0.01, float(np.quantile(df.N_220.abs(), 0.95)))
+    df["persistent_survives"] = np.where(df.holdback_category == "persistent", df.D_220 < -T - 1e-9, np.nan)
+    df.to_csv(OUT / "noise_per_game.csv", index=False)
+    (OUT / "noise_threshold.json").write_text(json.dumps({"T": T, "abs_N220_values": sorted(df.N_220.abs().tolist())}, indent=2),
+                                              encoding="utf-8")
+    print(f"noise threshold T = {T:.3f}; |N(220)| values: {sorted(df.N_220.abs().tolist())}")
+    print(pd.crosstab(df.row, df.noise_category).to_string())
+    p = df[df.holdback_category == "persistent"]
+    print(p[["row", "run_id", "D_220", "persistent_survives", "category_vs_control2", "D2_220", "N_220", "noise_category"]]
+          .to_string(index=False))
+
+
 def main_table() -> pd.DataFrame:
     syn = pd.read_csv(OUT / "synthetic_tests.csv")
     base = pd.read_csv(ROOT / "results" / "real" / "tests_summary.csv")
@@ -135,10 +172,10 @@ def run_summary() -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "summary"])
+    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "summary"])
     args = ap.parse_args()
     {"synthetic": run_synthetic, "instructed": run_instructed, "holdback": run_haiku_holdback,
-     "summary": run_summary}[args.cmd]()
+     "noise": run_noise, "summary": run_summary}[args.cmd]()
 
 
 if __name__ == "__main__":

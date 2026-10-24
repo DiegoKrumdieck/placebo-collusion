@@ -50,8 +50,25 @@ D(t) = firm 1 forced minus control, t = 202–220 (rules in CLAUDE.md, Follow-up
 
 - The hold-back rules have a thin margin against a sluggish myopic responder (CLAUDE.md, Follow-up (d)).
   The one Haiku punish-and-return game has a deep cut (−0.24), which counts against that explanation.
-- Forced and control branches are sampled separately, so small persistent gaps (−0.05 in baseline_013,
-  baseline_020, instructed_002) could be sampling noise between branches. We did not run a
-  control-vs-control fork to measure that noise.
+- Forced and control branches are sampled separately. The control-vs-control fork below measures how much
+  of the hold-back result that noise could explain.
+
+## Control-vs-control fork: branch noise (CLAUDE.md, Follow-up (e))
+
+Pre-registered (`01ddece`) after the hold-back results. A second control branch (control2) per game,
+identical to the control: 27 branches, 540 firm-1 calls, 0 parse failures, $0.73 (cap $3).
+Files: `noise_per_game.csv`, `noise_threshold.json`.
+
+- **Noise at period 220 is small.** N(220) = control2 minus control is 0.00 in 24 of 27 games, 0.01 in two,
+  and +0.16 in one (baseline_008, upward). Threshold T = 95th percentile of |N(220)| = **0.01**.
+- **All 8 persistent games survive.** Each has D(220) < −0.01 (−0.05 to −0.45), and all 8 are still
+  persistent when re-classified against control2 instead of control.
+- **Noise alone never produces "persistent" or "punish-and-return".** Classifying control2 vs control with
+  the same rules gives 23 no reaction, 1 matching and 3 other: those two categories are partly noise.
+- **Re-classified against control2:** persistent 8 → 8, punish-and-return 1 → 1 (baseline_016),
+  matching 8 → 7 (baseline_001 becomes no reaction), other 2 → 1 (baseline_015 becomes no reaction;
+  baseline_009 stays "other" but shows the same dip in the noise fork, so it is noise).
+- So the robust Haiku hold-back result is: 8 of 27 games drop and stay down, 1 of 27 punishes and
+  returns, and the remaining "matching"/"other" counts include about 1 in 6 games' worth of branch noise.
 - Synthetic agents are deterministic. With noise only in their starting prices, they freeze by period 100,
   which is why Fish δ can't be estimated for them.
