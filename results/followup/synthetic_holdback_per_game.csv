@@ -1,0 +1,64 @@
+row,run_id,p0_200,category,first_cut,back_period,periods_below,min_D,D_220
+synthetic competitor,synthetic_competitor_001,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_002,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_003,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_004,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_005,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_006,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_007,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_008,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_009,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_010,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_011,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_012,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_013,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_014,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_015,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_016,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_017,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_018,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_019,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_020,1.48,no reaction,,,0,-0.01,0.0
+synthetic competitor,synthetic_competitor_021,1.48,no reaction,,,0,-0.01,0.0
+synthetic colluder,synthetic_colluder_001,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_002,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_003,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_004,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_005,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_006,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_007,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_008,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_009,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_010,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_011,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_012,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_013,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_014,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_015,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_016,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_017,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_018,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_019,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_020,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic colluder,synthetic_colluder_021,1.8,punish-and-return,202.0,215.0,13,-0.12,0.0
+synthetic shocked competitor,shocked_competitor_001,1.85,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_002,1.8,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_003,1.77,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_004,1.84,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_005,1.83,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_006,1.71,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_007,1.85,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_008,1.78,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_009,1.76,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_010,1.8,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_011,1.9,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_012,1.8,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_013,1.72,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_014,1.78,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_015,1.81,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_016,1.84,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_017,1.86,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_018,1.82,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_019,1.84,matching,202.0,204.0,2,-0.03,0.0
+synthetic shocked competitor,shocked_competitor_020,1.76,matching,202.0,203.0,1,-0.02,0.0
+synthetic shocked competitor,shocked_competitor_021,1.87,matching,202.0,204.0,2,-0.03,0.0

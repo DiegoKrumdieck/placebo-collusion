@@ -69,6 +69,18 @@ def test_restored_firm1_prompt_matches_log(held):
         assert all(r["firm"] == 1 for r in recs)
 
 
+def test_classification_rules():
+    from holdback_rules import classify
+    flat = {t: 0.0 for t in range(202, 221)}
+    assert classify(flat)["category"] == "no reaction"
+    assert classify({**flat, 202: -0.33})["category"] == "matching"
+    punish = {**flat, **{t: -0.1 for t in range(202, 210)}}
+    assert classify(punish)["category"] == "punish-and-return" and classify(punish)["periods_below"] == 8
+    assert classify({**flat, **{t: -0.1 for t in range(205, 221)}})["category"] == "persistent"
+    assert classify({**flat, 206: -0.05, 207: -0.05})["category"] == "other"
+    assert classify({**flat, 202: 1.79 - 1.80})["category"] == "no reaction"  # float noise rounds to -0.01
+
+
 def test_spend_counter(held, monkeypatch):
     _, out, _ = held
     for branch in holdback.BRANCHES:

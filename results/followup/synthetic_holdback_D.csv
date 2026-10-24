@@ -1,0 +1,1198 @@
+row,run_id,period,D
+synthetic competitor,synthetic_competitor_001,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_001,203,0.0
+synthetic competitor,synthetic_competitor_001,204,0.0
+synthetic competitor,synthetic_competitor_001,205,0.0
+synthetic competitor,synthetic_competitor_001,206,0.0
+synthetic competitor,synthetic_competitor_001,207,0.0
+synthetic competitor,synthetic_competitor_001,208,0.0
+synthetic competitor,synthetic_competitor_001,209,0.0
+synthetic competitor,synthetic_competitor_001,210,0.0
+synthetic competitor,synthetic_competitor_001,211,0.0
+synthetic competitor,synthetic_competitor_001,212,0.0
+synthetic competitor,synthetic_competitor_001,213,0.0
+synthetic competitor,synthetic_competitor_001,214,0.0
+synthetic competitor,synthetic_competitor_001,215,0.0
+synthetic competitor,synthetic_competitor_001,216,0.0
+synthetic competitor,synthetic_competitor_001,217,0.0
+synthetic competitor,synthetic_competitor_001,218,0.0
+synthetic competitor,synthetic_competitor_001,219,0.0
+synthetic competitor,synthetic_competitor_001,220,0.0
+synthetic competitor,synthetic_competitor_002,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_002,203,0.0
+synthetic competitor,synthetic_competitor_002,204,0.0
+synthetic competitor,synthetic_competitor_002,205,0.0
+synthetic competitor,synthetic_competitor_002,206,0.0
+synthetic competitor,synthetic_competitor_002,207,0.0
+synthetic competitor,synthetic_competitor_002,208,0.0
+synthetic competitor,synthetic_competitor_002,209,0.0
+synthetic competitor,synthetic_competitor_002,210,0.0
+synthetic competitor,synthetic_competitor_002,211,0.0
+synthetic competitor,synthetic_competitor_002,212,0.0
+synthetic competitor,synthetic_competitor_002,213,0.0
+synthetic competitor,synthetic_competitor_002,214,0.0
+synthetic competitor,synthetic_competitor_002,215,0.0
+synthetic competitor,synthetic_competitor_002,216,0.0
+synthetic competitor,synthetic_competitor_002,217,0.0
+synthetic competitor,synthetic_competitor_002,218,0.0
+synthetic competitor,synthetic_competitor_002,219,0.0
+synthetic competitor,synthetic_competitor_002,220,0.0
+synthetic competitor,synthetic_competitor_003,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_003,203,0.0
+synthetic competitor,synthetic_competitor_003,204,0.0
+synthetic competitor,synthetic_competitor_003,205,0.0
+synthetic competitor,synthetic_competitor_003,206,0.0
+synthetic competitor,synthetic_competitor_003,207,0.0
+synthetic competitor,synthetic_competitor_003,208,0.0
+synthetic competitor,synthetic_competitor_003,209,0.0
+synthetic competitor,synthetic_competitor_003,210,0.0
+synthetic competitor,synthetic_competitor_003,211,0.0
+synthetic competitor,synthetic_competitor_003,212,0.0
+synthetic competitor,synthetic_competitor_003,213,0.0
+synthetic competitor,synthetic_competitor_003,214,0.0
+synthetic competitor,synthetic_competitor_003,215,0.0
+synthetic competitor,synthetic_competitor_003,216,0.0
+synthetic competitor,synthetic_competitor_003,217,0.0
+synthetic competitor,synthetic_competitor_003,218,0.0
+synthetic competitor,synthetic_competitor_003,219,0.0
+synthetic competitor,synthetic_competitor_003,220,0.0
+synthetic competitor,synthetic_competitor_004,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_004,203,0.0
+synthetic competitor,synthetic_competitor_004,204,0.0
+synthetic competitor,synthetic_competitor_004,205,0.0
+synthetic competitor,synthetic_competitor_004,206,0.0
+synthetic competitor,synthetic_competitor_004,207,0.0
+synthetic competitor,synthetic_competitor_004,208,0.0
+synthetic competitor,synthetic_competitor_004,209,0.0
+synthetic competitor,synthetic_competitor_004,210,0.0
+synthetic competitor,synthetic_competitor_004,211,0.0
+synthetic competitor,synthetic_competitor_004,212,0.0
+synthetic competitor,synthetic_competitor_004,213,0.0
+synthetic competitor,synthetic_competitor_004,214,0.0
+synthetic competitor,synthetic_competitor_004,215,0.0
+synthetic competitor,synthetic_competitor_004,216,0.0
+synthetic competitor,synthetic_competitor_004,217,0.0
+synthetic competitor,synthetic_competitor_004,218,0.0
+synthetic competitor,synthetic_competitor_004,219,0.0
+synthetic competitor,synthetic_competitor_004,220,0.0
+synthetic competitor,synthetic_competitor_005,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_005,203,0.0
+synthetic competitor,synthetic_competitor_005,204,0.0
+synthetic competitor,synthetic_competitor_005,205,0.0
+synthetic competitor,synthetic_competitor_005,206,0.0
+synthetic competitor,synthetic_competitor_005,207,0.0
+synthetic competitor,synthetic_competitor_005,208,0.0
+synthetic competitor,synthetic_competitor_005,209,0.0
+synthetic competitor,synthetic_competitor_005,210,0.0
+synthetic competitor,synthetic_competitor_005,211,0.0
+synthetic competitor,synthetic_competitor_005,212,0.0
+synthetic competitor,synthetic_competitor_005,213,0.0
+synthetic competitor,synthetic_competitor_005,214,0.0
+synthetic competitor,synthetic_competitor_005,215,0.0
+synthetic competitor,synthetic_competitor_005,216,0.0
+synthetic competitor,synthetic_competitor_005,217,0.0
+synthetic competitor,synthetic_competitor_005,218,0.0
+synthetic competitor,synthetic_competitor_005,219,0.0
+synthetic competitor,synthetic_competitor_005,220,0.0
+synthetic competitor,synthetic_competitor_006,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_006,203,0.0
+synthetic competitor,synthetic_competitor_006,204,0.0
+synthetic competitor,synthetic_competitor_006,205,0.0
+synthetic competitor,synthetic_competitor_006,206,0.0
+synthetic competitor,synthetic_competitor_006,207,0.0
+synthetic competitor,synthetic_competitor_006,208,0.0
+synthetic competitor,synthetic_competitor_006,209,0.0
+synthetic competitor,synthetic_competitor_006,210,0.0
+synthetic competitor,synthetic_competitor_006,211,0.0
+synthetic competitor,synthetic_competitor_006,212,0.0
+synthetic competitor,synthetic_competitor_006,213,0.0
+synthetic competitor,synthetic_competitor_006,214,0.0
+synthetic competitor,synthetic_competitor_006,215,0.0
+synthetic competitor,synthetic_competitor_006,216,0.0
+synthetic competitor,synthetic_competitor_006,217,0.0
+synthetic competitor,synthetic_competitor_006,218,0.0
+synthetic competitor,synthetic_competitor_006,219,0.0
+synthetic competitor,synthetic_competitor_006,220,0.0
+synthetic competitor,synthetic_competitor_007,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_007,203,0.0
+synthetic competitor,synthetic_competitor_007,204,0.0
+synthetic competitor,synthetic_competitor_007,205,0.0
+synthetic competitor,synthetic_competitor_007,206,0.0
+synthetic competitor,synthetic_competitor_007,207,0.0
+synthetic competitor,synthetic_competitor_007,208,0.0
+synthetic competitor,synthetic_competitor_007,209,0.0
+synthetic competitor,synthetic_competitor_007,210,0.0
+synthetic competitor,synthetic_competitor_007,211,0.0
+synthetic competitor,synthetic_competitor_007,212,0.0
+synthetic competitor,synthetic_competitor_007,213,0.0
+synthetic competitor,synthetic_competitor_007,214,0.0
+synthetic competitor,synthetic_competitor_007,215,0.0
+synthetic competitor,synthetic_competitor_007,216,0.0
+synthetic competitor,synthetic_competitor_007,217,0.0
+synthetic competitor,synthetic_competitor_007,218,0.0
+synthetic competitor,synthetic_competitor_007,219,0.0
+synthetic competitor,synthetic_competitor_007,220,0.0
+synthetic competitor,synthetic_competitor_008,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_008,203,0.0
+synthetic competitor,synthetic_competitor_008,204,0.0
+synthetic competitor,synthetic_competitor_008,205,0.0
+synthetic competitor,synthetic_competitor_008,206,0.0
+synthetic competitor,synthetic_competitor_008,207,0.0
+synthetic competitor,synthetic_competitor_008,208,0.0
+synthetic competitor,synthetic_competitor_008,209,0.0
+synthetic competitor,synthetic_competitor_008,210,0.0
+synthetic competitor,synthetic_competitor_008,211,0.0
+synthetic competitor,synthetic_competitor_008,212,0.0
+synthetic competitor,synthetic_competitor_008,213,0.0
+synthetic competitor,synthetic_competitor_008,214,0.0
+synthetic competitor,synthetic_competitor_008,215,0.0
+synthetic competitor,synthetic_competitor_008,216,0.0
+synthetic competitor,synthetic_competitor_008,217,0.0
+synthetic competitor,synthetic_competitor_008,218,0.0
+synthetic competitor,synthetic_competitor_008,219,0.0
+synthetic competitor,synthetic_competitor_008,220,0.0
+synthetic competitor,synthetic_competitor_009,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_009,203,0.0
+synthetic competitor,synthetic_competitor_009,204,0.0
+synthetic competitor,synthetic_competitor_009,205,0.0
+synthetic competitor,synthetic_competitor_009,206,0.0
+synthetic competitor,synthetic_competitor_009,207,0.0
+synthetic competitor,synthetic_competitor_009,208,0.0
+synthetic competitor,synthetic_competitor_009,209,0.0
+synthetic competitor,synthetic_competitor_009,210,0.0
+synthetic competitor,synthetic_competitor_009,211,0.0
+synthetic competitor,synthetic_competitor_009,212,0.0
+synthetic competitor,synthetic_competitor_009,213,0.0
+synthetic competitor,synthetic_competitor_009,214,0.0
+synthetic competitor,synthetic_competitor_009,215,0.0
+synthetic competitor,synthetic_competitor_009,216,0.0
+synthetic competitor,synthetic_competitor_009,217,0.0
+synthetic competitor,synthetic_competitor_009,218,0.0
+synthetic competitor,synthetic_competitor_009,219,0.0
+synthetic competitor,synthetic_competitor_009,220,0.0
+synthetic competitor,synthetic_competitor_010,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_010,203,0.0
+synthetic competitor,synthetic_competitor_010,204,0.0
+synthetic competitor,synthetic_competitor_010,205,0.0
+synthetic competitor,synthetic_competitor_010,206,0.0
+synthetic competitor,synthetic_competitor_010,207,0.0
+synthetic competitor,synthetic_competitor_010,208,0.0
+synthetic competitor,synthetic_competitor_010,209,0.0
+synthetic competitor,synthetic_competitor_010,210,0.0
+synthetic competitor,synthetic_competitor_010,211,0.0
+synthetic competitor,synthetic_competitor_010,212,0.0
+synthetic competitor,synthetic_competitor_010,213,0.0
+synthetic competitor,synthetic_competitor_010,214,0.0
+synthetic competitor,synthetic_competitor_010,215,0.0
+synthetic competitor,synthetic_competitor_010,216,0.0
+synthetic competitor,synthetic_competitor_010,217,0.0
+synthetic competitor,synthetic_competitor_010,218,0.0
+synthetic competitor,synthetic_competitor_010,219,0.0
+synthetic competitor,synthetic_competitor_010,220,0.0
+synthetic competitor,synthetic_competitor_011,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_011,203,0.0
+synthetic competitor,synthetic_competitor_011,204,0.0
+synthetic competitor,synthetic_competitor_011,205,0.0
+synthetic competitor,synthetic_competitor_011,206,0.0
+synthetic competitor,synthetic_competitor_011,207,0.0
+synthetic competitor,synthetic_competitor_011,208,0.0
+synthetic competitor,synthetic_competitor_011,209,0.0
+synthetic competitor,synthetic_competitor_011,210,0.0
+synthetic competitor,synthetic_competitor_011,211,0.0
+synthetic competitor,synthetic_competitor_011,212,0.0
+synthetic competitor,synthetic_competitor_011,213,0.0
+synthetic competitor,synthetic_competitor_011,214,0.0
+synthetic competitor,synthetic_competitor_011,215,0.0
+synthetic competitor,synthetic_competitor_011,216,0.0
+synthetic competitor,synthetic_competitor_011,217,0.0
+synthetic competitor,synthetic_competitor_011,218,0.0
+synthetic competitor,synthetic_competitor_011,219,0.0
+synthetic competitor,synthetic_competitor_011,220,0.0
+synthetic competitor,synthetic_competitor_012,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_012,203,0.0
+synthetic competitor,synthetic_competitor_012,204,0.0
+synthetic competitor,synthetic_competitor_012,205,0.0
+synthetic competitor,synthetic_competitor_012,206,0.0
+synthetic competitor,synthetic_competitor_012,207,0.0
+synthetic competitor,synthetic_competitor_012,208,0.0
+synthetic competitor,synthetic_competitor_012,209,0.0
+synthetic competitor,synthetic_competitor_012,210,0.0
+synthetic competitor,synthetic_competitor_012,211,0.0
+synthetic competitor,synthetic_competitor_012,212,0.0
+synthetic competitor,synthetic_competitor_012,213,0.0
+synthetic competitor,synthetic_competitor_012,214,0.0
+synthetic competitor,synthetic_competitor_012,215,0.0
+synthetic competitor,synthetic_competitor_012,216,0.0
+synthetic competitor,synthetic_competitor_012,217,0.0
+synthetic competitor,synthetic_competitor_012,218,0.0
+synthetic competitor,synthetic_competitor_012,219,0.0
+synthetic competitor,synthetic_competitor_012,220,0.0
+synthetic competitor,synthetic_competitor_013,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_013,203,0.0
+synthetic competitor,synthetic_competitor_013,204,0.0
+synthetic competitor,synthetic_competitor_013,205,0.0
+synthetic competitor,synthetic_competitor_013,206,0.0
+synthetic competitor,synthetic_competitor_013,207,0.0
+synthetic competitor,synthetic_competitor_013,208,0.0
+synthetic competitor,synthetic_competitor_013,209,0.0
+synthetic competitor,synthetic_competitor_013,210,0.0
+synthetic competitor,synthetic_competitor_013,211,0.0
+synthetic competitor,synthetic_competitor_013,212,0.0
+synthetic competitor,synthetic_competitor_013,213,0.0
+synthetic competitor,synthetic_competitor_013,214,0.0
+synthetic competitor,synthetic_competitor_013,215,0.0
+synthetic competitor,synthetic_competitor_013,216,0.0
+synthetic competitor,synthetic_competitor_013,217,0.0
+synthetic competitor,synthetic_competitor_013,218,0.0
+synthetic competitor,synthetic_competitor_013,219,0.0
+synthetic competitor,synthetic_competitor_013,220,0.0
+synthetic competitor,synthetic_competitor_014,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_014,203,0.0
+synthetic competitor,synthetic_competitor_014,204,0.0
+synthetic competitor,synthetic_competitor_014,205,0.0
+synthetic competitor,synthetic_competitor_014,206,0.0
+synthetic competitor,synthetic_competitor_014,207,0.0
+synthetic competitor,synthetic_competitor_014,208,0.0
+synthetic competitor,synthetic_competitor_014,209,0.0
+synthetic competitor,synthetic_competitor_014,210,0.0
+synthetic competitor,synthetic_competitor_014,211,0.0
+synthetic competitor,synthetic_competitor_014,212,0.0
+synthetic competitor,synthetic_competitor_014,213,0.0
+synthetic competitor,synthetic_competitor_014,214,0.0
+synthetic competitor,synthetic_competitor_014,215,0.0
+synthetic competitor,synthetic_competitor_014,216,0.0
+synthetic competitor,synthetic_competitor_014,217,0.0
+synthetic competitor,synthetic_competitor_014,218,0.0
+synthetic competitor,synthetic_competitor_014,219,0.0
+synthetic competitor,synthetic_competitor_014,220,0.0
+synthetic competitor,synthetic_competitor_015,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_015,203,0.0
+synthetic competitor,synthetic_competitor_015,204,0.0
+synthetic competitor,synthetic_competitor_015,205,0.0
+synthetic competitor,synthetic_competitor_015,206,0.0
+synthetic competitor,synthetic_competitor_015,207,0.0
+synthetic competitor,synthetic_competitor_015,208,0.0
+synthetic competitor,synthetic_competitor_015,209,0.0
+synthetic competitor,synthetic_competitor_015,210,0.0
+synthetic competitor,synthetic_competitor_015,211,0.0
+synthetic competitor,synthetic_competitor_015,212,0.0
+synthetic competitor,synthetic_competitor_015,213,0.0
+synthetic competitor,synthetic_competitor_015,214,0.0
+synthetic competitor,synthetic_competitor_015,215,0.0
+synthetic competitor,synthetic_competitor_015,216,0.0
+synthetic competitor,synthetic_competitor_015,217,0.0
+synthetic competitor,synthetic_competitor_015,218,0.0
+synthetic competitor,synthetic_competitor_015,219,0.0
+synthetic competitor,synthetic_competitor_015,220,0.0
+synthetic competitor,synthetic_competitor_016,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_016,203,0.0
+synthetic competitor,synthetic_competitor_016,204,0.0
+synthetic competitor,synthetic_competitor_016,205,0.0
+synthetic competitor,synthetic_competitor_016,206,0.0
+synthetic competitor,synthetic_competitor_016,207,0.0
+synthetic competitor,synthetic_competitor_016,208,0.0
+synthetic competitor,synthetic_competitor_016,209,0.0
+synthetic competitor,synthetic_competitor_016,210,0.0
+synthetic competitor,synthetic_competitor_016,211,0.0
+synthetic competitor,synthetic_competitor_016,212,0.0
+synthetic competitor,synthetic_competitor_016,213,0.0
+synthetic competitor,synthetic_competitor_016,214,0.0
+synthetic competitor,synthetic_competitor_016,215,0.0
+synthetic competitor,synthetic_competitor_016,216,0.0
+synthetic competitor,synthetic_competitor_016,217,0.0
+synthetic competitor,synthetic_competitor_016,218,0.0
+synthetic competitor,synthetic_competitor_016,219,0.0
+synthetic competitor,synthetic_competitor_016,220,0.0
+synthetic competitor,synthetic_competitor_017,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_017,203,0.0
+synthetic competitor,synthetic_competitor_017,204,0.0
+synthetic competitor,synthetic_competitor_017,205,0.0
+synthetic competitor,synthetic_competitor_017,206,0.0
+synthetic competitor,synthetic_competitor_017,207,0.0
+synthetic competitor,synthetic_competitor_017,208,0.0
+synthetic competitor,synthetic_competitor_017,209,0.0
+synthetic competitor,synthetic_competitor_017,210,0.0
+synthetic competitor,synthetic_competitor_017,211,0.0
+synthetic competitor,synthetic_competitor_017,212,0.0
+synthetic competitor,synthetic_competitor_017,213,0.0
+synthetic competitor,synthetic_competitor_017,214,0.0
+synthetic competitor,synthetic_competitor_017,215,0.0
+synthetic competitor,synthetic_competitor_017,216,0.0
+synthetic competitor,synthetic_competitor_017,217,0.0
+synthetic competitor,synthetic_competitor_017,218,0.0
+synthetic competitor,synthetic_competitor_017,219,0.0
+synthetic competitor,synthetic_competitor_017,220,0.0
+synthetic competitor,synthetic_competitor_018,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_018,203,0.0
+synthetic competitor,synthetic_competitor_018,204,0.0
+synthetic competitor,synthetic_competitor_018,205,0.0
+synthetic competitor,synthetic_competitor_018,206,0.0
+synthetic competitor,synthetic_competitor_018,207,0.0
+synthetic competitor,synthetic_competitor_018,208,0.0
+synthetic competitor,synthetic_competitor_018,209,0.0
+synthetic competitor,synthetic_competitor_018,210,0.0
+synthetic competitor,synthetic_competitor_018,211,0.0
+synthetic competitor,synthetic_competitor_018,212,0.0
+synthetic competitor,synthetic_competitor_018,213,0.0
+synthetic competitor,synthetic_competitor_018,214,0.0
+synthetic competitor,synthetic_competitor_018,215,0.0
+synthetic competitor,synthetic_competitor_018,216,0.0
+synthetic competitor,synthetic_competitor_018,217,0.0
+synthetic competitor,synthetic_competitor_018,218,0.0
+synthetic competitor,synthetic_competitor_018,219,0.0
+synthetic competitor,synthetic_competitor_018,220,0.0
+synthetic competitor,synthetic_competitor_019,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_019,203,0.0
+synthetic competitor,synthetic_competitor_019,204,0.0
+synthetic competitor,synthetic_competitor_019,205,0.0
+synthetic competitor,synthetic_competitor_019,206,0.0
+synthetic competitor,synthetic_competitor_019,207,0.0
+synthetic competitor,synthetic_competitor_019,208,0.0
+synthetic competitor,synthetic_competitor_019,209,0.0
+synthetic competitor,synthetic_competitor_019,210,0.0
+synthetic competitor,synthetic_competitor_019,211,0.0
+synthetic competitor,synthetic_competitor_019,212,0.0
+synthetic competitor,synthetic_competitor_019,213,0.0
+synthetic competitor,synthetic_competitor_019,214,0.0
+synthetic competitor,synthetic_competitor_019,215,0.0
+synthetic competitor,synthetic_competitor_019,216,0.0
+synthetic competitor,synthetic_competitor_019,217,0.0
+synthetic competitor,synthetic_competitor_019,218,0.0
+synthetic competitor,synthetic_competitor_019,219,0.0
+synthetic competitor,synthetic_competitor_019,220,0.0
+synthetic competitor,synthetic_competitor_020,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_020,203,0.0
+synthetic competitor,synthetic_competitor_020,204,0.0
+synthetic competitor,synthetic_competitor_020,205,0.0
+synthetic competitor,synthetic_competitor_020,206,0.0
+synthetic competitor,synthetic_competitor_020,207,0.0
+synthetic competitor,synthetic_competitor_020,208,0.0
+synthetic competitor,synthetic_competitor_020,209,0.0
+synthetic competitor,synthetic_competitor_020,210,0.0
+synthetic competitor,synthetic_competitor_020,211,0.0
+synthetic competitor,synthetic_competitor_020,212,0.0
+synthetic competitor,synthetic_competitor_020,213,0.0
+synthetic competitor,synthetic_competitor_020,214,0.0
+synthetic competitor,synthetic_competitor_020,215,0.0
+synthetic competitor,synthetic_competitor_020,216,0.0
+synthetic competitor,synthetic_competitor_020,217,0.0
+synthetic competitor,synthetic_competitor_020,218,0.0
+synthetic competitor,synthetic_competitor_020,219,0.0
+synthetic competitor,synthetic_competitor_020,220,0.0
+synthetic competitor,synthetic_competitor_021,202,-0.010000000000000009
+synthetic competitor,synthetic_competitor_021,203,0.0
+synthetic competitor,synthetic_competitor_021,204,0.0
+synthetic competitor,synthetic_competitor_021,205,0.0
+synthetic competitor,synthetic_competitor_021,206,0.0
+synthetic competitor,synthetic_competitor_021,207,0.0
+synthetic competitor,synthetic_competitor_021,208,0.0
+synthetic competitor,synthetic_competitor_021,209,0.0
+synthetic competitor,synthetic_competitor_021,210,0.0
+synthetic competitor,synthetic_competitor_021,211,0.0
+synthetic competitor,synthetic_competitor_021,212,0.0
+synthetic competitor,synthetic_competitor_021,213,0.0
+synthetic competitor,synthetic_competitor_021,214,0.0
+synthetic competitor,synthetic_competitor_021,215,0.0
+synthetic competitor,synthetic_competitor_021,216,0.0
+synthetic competitor,synthetic_competitor_021,217,0.0
+synthetic competitor,synthetic_competitor_021,218,0.0
+synthetic competitor,synthetic_competitor_021,219,0.0
+synthetic competitor,synthetic_competitor_021,220,0.0
+synthetic colluder,synthetic_colluder_001,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_001,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_001,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_001,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_001,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_001,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_001,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_001,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_001,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_001,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_001,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_001,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_001,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_001,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_001,216,0.0
+synthetic colluder,synthetic_colluder_001,217,0.0
+synthetic colluder,synthetic_colluder_001,218,0.0
+synthetic colluder,synthetic_colluder_001,219,0.0
+synthetic colluder,synthetic_colluder_001,220,0.0
+synthetic colluder,synthetic_colluder_002,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_002,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_002,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_002,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_002,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_002,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_002,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_002,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_002,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_002,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_002,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_002,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_002,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_002,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_002,216,0.0
+synthetic colluder,synthetic_colluder_002,217,0.0
+synthetic colluder,synthetic_colluder_002,218,0.0
+synthetic colluder,synthetic_colluder_002,219,0.0
+synthetic colluder,synthetic_colluder_002,220,0.0
+synthetic colluder,synthetic_colluder_003,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_003,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_003,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_003,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_003,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_003,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_003,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_003,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_003,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_003,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_003,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_003,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_003,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_003,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_003,216,0.0
+synthetic colluder,synthetic_colluder_003,217,0.0
+synthetic colluder,synthetic_colluder_003,218,0.0
+synthetic colluder,synthetic_colluder_003,219,0.0
+synthetic colluder,synthetic_colluder_003,220,0.0
+synthetic colluder,synthetic_colluder_004,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_004,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_004,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_004,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_004,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_004,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_004,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_004,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_004,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_004,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_004,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_004,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_004,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_004,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_004,216,0.0
+synthetic colluder,synthetic_colluder_004,217,0.0
+synthetic colluder,synthetic_colluder_004,218,0.0
+synthetic colluder,synthetic_colluder_004,219,0.0
+synthetic colluder,synthetic_colluder_004,220,0.0
+synthetic colluder,synthetic_colluder_005,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_005,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_005,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_005,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_005,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_005,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_005,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_005,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_005,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_005,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_005,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_005,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_005,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_005,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_005,216,0.0
+synthetic colluder,synthetic_colluder_005,217,0.0
+synthetic colluder,synthetic_colluder_005,218,0.0
+synthetic colluder,synthetic_colluder_005,219,0.0
+synthetic colluder,synthetic_colluder_005,220,0.0
+synthetic colluder,synthetic_colluder_006,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_006,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_006,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_006,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_006,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_006,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_006,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_006,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_006,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_006,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_006,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_006,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_006,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_006,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_006,216,0.0
+synthetic colluder,synthetic_colluder_006,217,0.0
+synthetic colluder,synthetic_colluder_006,218,0.0
+synthetic colluder,synthetic_colluder_006,219,0.0
+synthetic colluder,synthetic_colluder_006,220,0.0
+synthetic colluder,synthetic_colluder_007,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_007,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_007,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_007,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_007,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_007,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_007,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_007,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_007,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_007,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_007,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_007,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_007,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_007,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_007,216,0.0
+synthetic colluder,synthetic_colluder_007,217,0.0
+synthetic colluder,synthetic_colluder_007,218,0.0
+synthetic colluder,synthetic_colluder_007,219,0.0
+synthetic colluder,synthetic_colluder_007,220,0.0
+synthetic colluder,synthetic_colluder_008,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_008,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_008,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_008,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_008,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_008,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_008,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_008,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_008,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_008,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_008,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_008,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_008,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_008,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_008,216,0.0
+synthetic colluder,synthetic_colluder_008,217,0.0
+synthetic colluder,synthetic_colluder_008,218,0.0
+synthetic colluder,synthetic_colluder_008,219,0.0
+synthetic colluder,synthetic_colluder_008,220,0.0
+synthetic colluder,synthetic_colluder_009,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_009,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_009,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_009,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_009,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_009,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_009,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_009,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_009,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_009,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_009,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_009,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_009,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_009,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_009,216,0.0
+synthetic colluder,synthetic_colluder_009,217,0.0
+synthetic colluder,synthetic_colluder_009,218,0.0
+synthetic colluder,synthetic_colluder_009,219,0.0
+synthetic colluder,synthetic_colluder_009,220,0.0
+synthetic colluder,synthetic_colluder_010,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_010,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_010,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_010,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_010,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_010,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_010,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_010,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_010,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_010,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_010,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_010,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_010,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_010,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_010,216,0.0
+synthetic colluder,synthetic_colluder_010,217,0.0
+synthetic colluder,synthetic_colluder_010,218,0.0
+synthetic colluder,synthetic_colluder_010,219,0.0
+synthetic colluder,synthetic_colluder_010,220,0.0
+synthetic colluder,synthetic_colluder_011,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_011,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_011,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_011,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_011,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_011,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_011,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_011,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_011,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_011,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_011,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_011,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_011,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_011,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_011,216,0.0
+synthetic colluder,synthetic_colluder_011,217,0.0
+synthetic colluder,synthetic_colluder_011,218,0.0
+synthetic colluder,synthetic_colluder_011,219,0.0
+synthetic colluder,synthetic_colluder_011,220,0.0
+synthetic colluder,synthetic_colluder_012,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_012,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_012,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_012,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_012,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_012,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_012,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_012,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_012,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_012,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_012,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_012,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_012,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_012,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_012,216,0.0
+synthetic colluder,synthetic_colluder_012,217,0.0
+synthetic colluder,synthetic_colluder_012,218,0.0
+synthetic colluder,synthetic_colluder_012,219,0.0
+synthetic colluder,synthetic_colluder_012,220,0.0
+synthetic colluder,synthetic_colluder_013,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_013,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_013,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_013,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_013,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_013,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_013,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_013,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_013,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_013,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_013,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_013,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_013,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_013,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_013,216,0.0
+synthetic colluder,synthetic_colluder_013,217,0.0
+synthetic colluder,synthetic_colluder_013,218,0.0
+synthetic colluder,synthetic_colluder_013,219,0.0
+synthetic colluder,synthetic_colluder_013,220,0.0
+synthetic colluder,synthetic_colluder_014,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_014,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_014,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_014,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_014,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_014,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_014,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_014,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_014,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_014,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_014,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_014,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_014,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_014,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_014,216,0.0
+synthetic colluder,synthetic_colluder_014,217,0.0
+synthetic colluder,synthetic_colluder_014,218,0.0
+synthetic colluder,synthetic_colluder_014,219,0.0
+synthetic colluder,synthetic_colluder_014,220,0.0
+synthetic colluder,synthetic_colluder_015,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_015,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_015,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_015,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_015,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_015,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_015,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_015,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_015,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_015,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_015,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_015,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_015,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_015,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_015,216,0.0
+synthetic colluder,synthetic_colluder_015,217,0.0
+synthetic colluder,synthetic_colluder_015,218,0.0
+synthetic colluder,synthetic_colluder_015,219,0.0
+synthetic colluder,synthetic_colluder_015,220,0.0
+synthetic colluder,synthetic_colluder_016,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_016,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_016,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_016,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_016,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_016,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_016,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_016,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_016,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_016,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_016,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_016,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_016,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_016,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_016,216,0.0
+synthetic colluder,synthetic_colluder_016,217,0.0
+synthetic colluder,synthetic_colluder_016,218,0.0
+synthetic colluder,synthetic_colluder_016,219,0.0
+synthetic colluder,synthetic_colluder_016,220,0.0
+synthetic colluder,synthetic_colluder_017,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_017,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_017,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_017,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_017,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_017,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_017,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_017,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_017,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_017,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_017,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_017,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_017,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_017,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_017,216,0.0
+synthetic colluder,synthetic_colluder_017,217,0.0
+synthetic colluder,synthetic_colluder_017,218,0.0
+synthetic colluder,synthetic_colluder_017,219,0.0
+synthetic colluder,synthetic_colluder_017,220,0.0
+synthetic colluder,synthetic_colluder_018,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_018,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_018,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_018,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_018,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_018,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_018,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_018,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_018,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_018,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_018,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_018,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_018,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_018,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_018,216,0.0
+synthetic colluder,synthetic_colluder_018,217,0.0
+synthetic colluder,synthetic_colluder_018,218,0.0
+synthetic colluder,synthetic_colluder_018,219,0.0
+synthetic colluder,synthetic_colluder_018,220,0.0
+synthetic colluder,synthetic_colluder_019,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_019,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_019,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_019,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_019,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_019,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_019,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_019,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_019,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_019,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_019,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_019,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_019,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_019,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_019,216,0.0
+synthetic colluder,synthetic_colluder_019,217,0.0
+synthetic colluder,synthetic_colluder_019,218,0.0
+synthetic colluder,synthetic_colluder_019,219,0.0
+synthetic colluder,synthetic_colluder_019,220,0.0
+synthetic colluder,synthetic_colluder_020,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_020,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_020,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_020,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_020,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_020,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_020,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_020,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_020,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_020,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_020,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_020,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_020,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_020,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_020,216,0.0
+synthetic colluder,synthetic_colluder_020,217,0.0
+synthetic colluder,synthetic_colluder_020,218,0.0
+synthetic colluder,synthetic_colluder_020,219,0.0
+synthetic colluder,synthetic_colluder_020,220,0.0
+synthetic colluder,synthetic_colluder_021,202,-0.050000000000000044
+synthetic colluder,synthetic_colluder_021,203,-0.07000000000000006
+synthetic colluder,synthetic_colluder_021,204,-0.09000000000000008
+synthetic colluder,synthetic_colluder_021,205,-0.1100000000000001
+synthetic colluder,synthetic_colluder_021,206,-0.1200000000000001
+synthetic colluder,synthetic_colluder_021,207,-0.10000000000000009
+synthetic colluder,synthetic_colluder_021,208,-0.08000000000000007
+synthetic colluder,synthetic_colluder_021,209,-0.07000000000000006
+synthetic colluder,synthetic_colluder_021,210,-0.06000000000000005
+synthetic colluder,synthetic_colluder_021,211,-0.050000000000000044
+synthetic colluder,synthetic_colluder_021,212,-0.040000000000000036
+synthetic colluder,synthetic_colluder_021,213,-0.030000000000000027
+synthetic colluder,synthetic_colluder_021,214,-0.020000000000000018
+synthetic colluder,synthetic_colluder_021,215,-0.010000000000000009
+synthetic colluder,synthetic_colluder_021,216,0.0
+synthetic colluder,synthetic_colluder_021,217,0.0
+synthetic colluder,synthetic_colluder_021,218,0.0
+synthetic colluder,synthetic_colluder_021,219,0.0
+synthetic colluder,synthetic_colluder_021,220,0.0
+synthetic shocked competitor,shocked_competitor_001,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_001,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_001,204,-0.009999999999999787
+synthetic shocked competitor,shocked_competitor_001,205,0.0
+synthetic shocked competitor,shocked_competitor_001,206,0.0
+synthetic shocked competitor,shocked_competitor_001,207,0.0
+synthetic shocked competitor,shocked_competitor_001,208,0.0
+synthetic shocked competitor,shocked_competitor_001,209,0.0
+synthetic shocked competitor,shocked_competitor_001,210,0.0
+synthetic shocked competitor,shocked_competitor_001,211,0.0
+synthetic shocked competitor,shocked_competitor_001,212,0.0
+synthetic shocked competitor,shocked_competitor_001,213,0.0
+synthetic shocked competitor,shocked_competitor_001,214,0.0
+synthetic shocked competitor,shocked_competitor_001,215,0.0
+synthetic shocked competitor,shocked_competitor_001,216,0.0
+synthetic shocked competitor,shocked_competitor_001,217,0.0
+synthetic shocked competitor,shocked_competitor_001,218,0.0
+synthetic shocked competitor,shocked_competitor_001,219,0.0
+synthetic shocked competitor,shocked_competitor_001,220,0.0
+synthetic shocked competitor,shocked_competitor_002,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_002,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_002,204,0.0
+synthetic shocked competitor,shocked_competitor_002,205,0.0
+synthetic shocked competitor,shocked_competitor_002,206,0.0
+synthetic shocked competitor,shocked_competitor_002,207,0.0
+synthetic shocked competitor,shocked_competitor_002,208,0.0
+synthetic shocked competitor,shocked_competitor_002,209,0.0
+synthetic shocked competitor,shocked_competitor_002,210,0.0
+synthetic shocked competitor,shocked_competitor_002,211,0.0
+synthetic shocked competitor,shocked_competitor_002,212,0.0
+synthetic shocked competitor,shocked_competitor_002,213,0.0
+synthetic shocked competitor,shocked_competitor_002,214,0.0
+synthetic shocked competitor,shocked_competitor_002,215,0.0
+synthetic shocked competitor,shocked_competitor_002,216,0.0
+synthetic shocked competitor,shocked_competitor_002,217,0.0
+synthetic shocked competitor,shocked_competitor_002,218,0.0
+synthetic shocked competitor,shocked_competitor_002,219,0.0
+synthetic shocked competitor,shocked_competitor_002,220,0.0
+synthetic shocked competitor,shocked_competitor_003,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_003,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_003,204,0.0
+synthetic shocked competitor,shocked_competitor_003,205,0.0
+synthetic shocked competitor,shocked_competitor_003,206,0.0
+synthetic shocked competitor,shocked_competitor_003,207,0.0
+synthetic shocked competitor,shocked_competitor_003,208,0.0
+synthetic shocked competitor,shocked_competitor_003,209,0.0
+synthetic shocked competitor,shocked_competitor_003,210,0.0
+synthetic shocked competitor,shocked_competitor_003,211,0.0
+synthetic shocked competitor,shocked_competitor_003,212,0.0
+synthetic shocked competitor,shocked_competitor_003,213,0.0
+synthetic shocked competitor,shocked_competitor_003,214,0.0
+synthetic shocked competitor,shocked_competitor_003,215,0.0
+synthetic shocked competitor,shocked_competitor_003,216,0.0
+synthetic shocked competitor,shocked_competitor_003,217,0.0
+synthetic shocked competitor,shocked_competitor_003,218,0.0
+synthetic shocked competitor,shocked_competitor_003,219,0.0
+synthetic shocked competitor,shocked_competitor_003,220,0.0
+synthetic shocked competitor,shocked_competitor_004,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_004,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_004,204,-0.009999999999999787
+synthetic shocked competitor,shocked_competitor_004,205,0.0
+synthetic shocked competitor,shocked_competitor_004,206,0.0
+synthetic shocked competitor,shocked_competitor_004,207,0.0
+synthetic shocked competitor,shocked_competitor_004,208,0.0
+synthetic shocked competitor,shocked_competitor_004,209,0.0
+synthetic shocked competitor,shocked_competitor_004,210,0.0
+synthetic shocked competitor,shocked_competitor_004,211,0.0
+synthetic shocked competitor,shocked_competitor_004,212,0.0
+synthetic shocked competitor,shocked_competitor_004,213,0.0
+synthetic shocked competitor,shocked_competitor_004,214,0.0
+synthetic shocked competitor,shocked_competitor_004,215,0.0
+synthetic shocked competitor,shocked_competitor_004,216,0.0
+synthetic shocked competitor,shocked_competitor_004,217,0.0
+synthetic shocked competitor,shocked_competitor_004,218,0.0
+synthetic shocked competitor,shocked_competitor_004,219,0.0
+synthetic shocked competitor,shocked_competitor_004,220,0.0
+synthetic shocked competitor,shocked_competitor_005,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_005,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_005,204,-0.009999999999999787
+synthetic shocked competitor,shocked_competitor_005,205,0.0
+synthetic shocked competitor,shocked_competitor_005,206,0.0
+synthetic shocked competitor,shocked_competitor_005,207,0.0
+synthetic shocked competitor,shocked_competitor_005,208,0.0
+synthetic shocked competitor,shocked_competitor_005,209,0.0
+synthetic shocked competitor,shocked_competitor_005,210,0.0
+synthetic shocked competitor,shocked_competitor_005,211,0.0
+synthetic shocked competitor,shocked_competitor_005,212,0.0
+synthetic shocked competitor,shocked_competitor_005,213,0.0
+synthetic shocked competitor,shocked_competitor_005,214,0.0
+synthetic shocked competitor,shocked_competitor_005,215,0.0
+synthetic shocked competitor,shocked_competitor_005,216,0.0
+synthetic shocked competitor,shocked_competitor_005,217,0.0
+synthetic shocked competitor,shocked_competitor_005,218,0.0
+synthetic shocked competitor,shocked_competitor_005,219,0.0
+synthetic shocked competitor,shocked_competitor_005,220,0.0
+synthetic shocked competitor,shocked_competitor_006,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_006,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_006,204,0.0
+synthetic shocked competitor,shocked_competitor_006,205,0.0
+synthetic shocked competitor,shocked_competitor_006,206,0.0
+synthetic shocked competitor,shocked_competitor_006,207,0.0
+synthetic shocked competitor,shocked_competitor_006,208,0.0
+synthetic shocked competitor,shocked_competitor_006,209,0.0
+synthetic shocked competitor,shocked_competitor_006,210,0.0
+synthetic shocked competitor,shocked_competitor_006,211,0.0
+synthetic shocked competitor,shocked_competitor_006,212,0.0
+synthetic shocked competitor,shocked_competitor_006,213,0.0
+synthetic shocked competitor,shocked_competitor_006,214,0.0
+synthetic shocked competitor,shocked_competitor_006,215,0.0
+synthetic shocked competitor,shocked_competitor_006,216,0.0
+synthetic shocked competitor,shocked_competitor_006,217,0.0
+synthetic shocked competitor,shocked_competitor_006,218,0.0
+synthetic shocked competitor,shocked_competitor_006,219,0.0
+synthetic shocked competitor,shocked_competitor_006,220,0.0
+synthetic shocked competitor,shocked_competitor_007,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_007,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_007,204,-0.009999999999999787
+synthetic shocked competitor,shocked_competitor_007,205,0.0
+synthetic shocked competitor,shocked_competitor_007,206,0.0
+synthetic shocked competitor,shocked_competitor_007,207,0.0
+synthetic shocked competitor,shocked_competitor_007,208,0.0
+synthetic shocked competitor,shocked_competitor_007,209,0.0
+synthetic shocked competitor,shocked_competitor_007,210,0.0
+synthetic shocked competitor,shocked_competitor_007,211,0.0
+synthetic shocked competitor,shocked_competitor_007,212,0.0
+synthetic shocked competitor,shocked_competitor_007,213,0.0
+synthetic shocked competitor,shocked_competitor_007,214,0.0
+synthetic shocked competitor,shocked_competitor_007,215,0.0
+synthetic shocked competitor,shocked_competitor_007,216,0.0
+synthetic shocked competitor,shocked_competitor_007,217,0.0
+synthetic shocked competitor,shocked_competitor_007,218,0.0
+synthetic shocked competitor,shocked_competitor_007,219,0.0
+synthetic shocked competitor,shocked_competitor_007,220,0.0
+synthetic shocked competitor,shocked_competitor_008,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_008,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_008,204,0.0
+synthetic shocked competitor,shocked_competitor_008,205,0.0
+synthetic shocked competitor,shocked_competitor_008,206,0.0
+synthetic shocked competitor,shocked_competitor_008,207,0.0
+synthetic shocked competitor,shocked_competitor_008,208,0.0
+synthetic shocked competitor,shocked_competitor_008,209,0.0
+synthetic shocked competitor,shocked_competitor_008,210,0.0
+synthetic shocked competitor,shocked_competitor_008,211,0.0
+synthetic shocked competitor,shocked_competitor_008,212,0.0
+synthetic shocked competitor,shocked_competitor_008,213,0.0
+synthetic shocked competitor,shocked_competitor_008,214,0.0
+synthetic shocked competitor,shocked_competitor_008,215,0.0
+synthetic shocked competitor,shocked_competitor_008,216,0.0
+synthetic shocked competitor,shocked_competitor_008,217,0.0
+synthetic shocked competitor,shocked_competitor_008,218,0.0
+synthetic shocked competitor,shocked_competitor_008,219,0.0
+synthetic shocked competitor,shocked_competitor_008,220,0.0
+synthetic shocked competitor,shocked_competitor_009,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_009,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_009,204,0.0
+synthetic shocked competitor,shocked_competitor_009,205,0.0
+synthetic shocked competitor,shocked_competitor_009,206,0.0
+synthetic shocked competitor,shocked_competitor_009,207,0.0
+synthetic shocked competitor,shocked_competitor_009,208,0.0
+synthetic shocked competitor,shocked_competitor_009,209,0.0
+synthetic shocked competitor,shocked_competitor_009,210,0.0
+synthetic shocked competitor,shocked_competitor_009,211,0.0
+synthetic shocked competitor,shocked_competitor_009,212,0.0
+synthetic shocked competitor,shocked_competitor_009,213,0.0
+synthetic shocked competitor,shocked_competitor_009,214,0.0
+synthetic shocked competitor,shocked_competitor_009,215,0.0
+synthetic shocked competitor,shocked_competitor_009,216,0.0
+synthetic shocked competitor,shocked_competitor_009,217,0.0
+synthetic shocked competitor,shocked_competitor_009,218,0.0
+synthetic shocked competitor,shocked_competitor_009,219,0.0
+synthetic shocked competitor,shocked_competitor_009,220,0.0
+synthetic shocked competitor,shocked_competitor_010,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_010,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_010,204,0.0
+synthetic shocked competitor,shocked_competitor_010,205,0.0
+synthetic shocked competitor,shocked_competitor_010,206,0.0
+synthetic shocked competitor,shocked_competitor_010,207,0.0
+synthetic shocked competitor,shocked_competitor_010,208,0.0
+synthetic shocked competitor,shocked_competitor_010,209,0.0
+synthetic shocked competitor,shocked_competitor_010,210,0.0
+synthetic shocked competitor,shocked_competitor_010,211,0.0
+synthetic shocked competitor,shocked_competitor_010,212,0.0
+synthetic shocked competitor,shocked_competitor_010,213,0.0
+synthetic shocked competitor,shocked_competitor_010,214,0.0
+synthetic shocked competitor,shocked_competitor_010,215,0.0
+synthetic shocked competitor,shocked_competitor_010,216,0.0
+synthetic shocked competitor,shocked_competitor_010,217,0.0
+synthetic shocked competitor,shocked_competitor_010,218,0.0
+synthetic shocked competitor,shocked_competitor_010,219,0.0
+synthetic shocked competitor,shocked_competitor_010,220,0.0
+synthetic shocked competitor,shocked_competitor_011,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_011,203,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_011,204,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_011,205,0.0
+synthetic shocked competitor,shocked_competitor_011,206,0.0
+synthetic shocked competitor,shocked_competitor_011,207,0.0
+synthetic shocked competitor,shocked_competitor_011,208,0.0
+synthetic shocked competitor,shocked_competitor_011,209,0.0
+synthetic shocked competitor,shocked_competitor_011,210,0.0
+synthetic shocked competitor,shocked_competitor_011,211,0.0
+synthetic shocked competitor,shocked_competitor_011,212,0.0
+synthetic shocked competitor,shocked_competitor_011,213,0.0
+synthetic shocked competitor,shocked_competitor_011,214,0.0
+synthetic shocked competitor,shocked_competitor_011,215,0.0
+synthetic shocked competitor,shocked_competitor_011,216,0.0
+synthetic shocked competitor,shocked_competitor_011,217,0.0
+synthetic shocked competitor,shocked_competitor_011,218,0.0
+synthetic shocked competitor,shocked_competitor_011,219,0.0
+synthetic shocked competitor,shocked_competitor_011,220,0.0
+synthetic shocked competitor,shocked_competitor_012,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_012,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_012,204,0.0
+synthetic shocked competitor,shocked_competitor_012,205,0.0
+synthetic shocked competitor,shocked_competitor_012,206,0.0
+synthetic shocked competitor,shocked_competitor_012,207,0.0
+synthetic shocked competitor,shocked_competitor_012,208,0.0
+synthetic shocked competitor,shocked_competitor_012,209,0.0
+synthetic shocked competitor,shocked_competitor_012,210,0.0
+synthetic shocked competitor,shocked_competitor_012,211,0.0
+synthetic shocked competitor,shocked_competitor_012,212,0.0
+synthetic shocked competitor,shocked_competitor_012,213,0.0
+synthetic shocked competitor,shocked_competitor_012,214,0.0
+synthetic shocked competitor,shocked_competitor_012,215,0.0
+synthetic shocked competitor,shocked_competitor_012,216,0.0
+synthetic shocked competitor,shocked_competitor_012,217,0.0
+synthetic shocked competitor,shocked_competitor_012,218,0.0
+synthetic shocked competitor,shocked_competitor_012,219,0.0
+synthetic shocked competitor,shocked_competitor_012,220,0.0
+synthetic shocked competitor,shocked_competitor_013,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_013,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_013,204,0.0
+synthetic shocked competitor,shocked_competitor_013,205,0.0
+synthetic shocked competitor,shocked_competitor_013,206,0.0
+synthetic shocked competitor,shocked_competitor_013,207,0.0
+synthetic shocked competitor,shocked_competitor_013,208,0.0
+synthetic shocked competitor,shocked_competitor_013,209,0.0
+synthetic shocked competitor,shocked_competitor_013,210,0.0
+synthetic shocked competitor,shocked_competitor_013,211,0.0
+synthetic shocked competitor,shocked_competitor_013,212,0.0
+synthetic shocked competitor,shocked_competitor_013,213,0.0
+synthetic shocked competitor,shocked_competitor_013,214,0.0
+synthetic shocked competitor,shocked_competitor_013,215,0.0
+synthetic shocked competitor,shocked_competitor_013,216,0.0
+synthetic shocked competitor,shocked_competitor_013,217,0.0
+synthetic shocked competitor,shocked_competitor_013,218,0.0
+synthetic shocked competitor,shocked_competitor_013,219,0.0
+synthetic shocked competitor,shocked_competitor_013,220,0.0
+synthetic shocked competitor,shocked_competitor_014,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_014,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_014,204,0.0
+synthetic shocked competitor,shocked_competitor_014,205,0.0
+synthetic shocked competitor,shocked_competitor_014,206,0.0
+synthetic shocked competitor,shocked_competitor_014,207,0.0
+synthetic shocked competitor,shocked_competitor_014,208,0.0
+synthetic shocked competitor,shocked_competitor_014,209,0.0
+synthetic shocked competitor,shocked_competitor_014,210,0.0
+synthetic shocked competitor,shocked_competitor_014,211,0.0
+synthetic shocked competitor,shocked_competitor_014,212,0.0
+synthetic shocked competitor,shocked_competitor_014,213,0.0
+synthetic shocked competitor,shocked_competitor_014,214,0.0
+synthetic shocked competitor,shocked_competitor_014,215,0.0
+synthetic shocked competitor,shocked_competitor_014,216,0.0
+synthetic shocked competitor,shocked_competitor_014,217,0.0
+synthetic shocked competitor,shocked_competitor_014,218,0.0
+synthetic shocked competitor,shocked_competitor_014,219,0.0
+synthetic shocked competitor,shocked_competitor_014,220,0.0
+synthetic shocked competitor,shocked_competitor_015,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_015,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_015,204,0.0
+synthetic shocked competitor,shocked_competitor_015,205,0.0
+synthetic shocked competitor,shocked_competitor_015,206,0.0
+synthetic shocked competitor,shocked_competitor_015,207,0.0
+synthetic shocked competitor,shocked_competitor_015,208,0.0
+synthetic shocked competitor,shocked_competitor_015,209,0.0
+synthetic shocked competitor,shocked_competitor_015,210,0.0
+synthetic shocked competitor,shocked_competitor_015,211,0.0
+synthetic shocked competitor,shocked_competitor_015,212,0.0
+synthetic shocked competitor,shocked_competitor_015,213,0.0
+synthetic shocked competitor,shocked_competitor_015,214,0.0
+synthetic shocked competitor,shocked_competitor_015,215,0.0
+synthetic shocked competitor,shocked_competitor_015,216,0.0
+synthetic shocked competitor,shocked_competitor_015,217,0.0
+synthetic shocked competitor,shocked_competitor_015,218,0.0
+synthetic shocked competitor,shocked_competitor_015,219,0.0
+synthetic shocked competitor,shocked_competitor_015,220,0.0
+synthetic shocked competitor,shocked_competitor_016,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_016,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_016,204,-0.009999999999999787
+synthetic shocked competitor,shocked_competitor_016,205,0.0
+synthetic shocked competitor,shocked_competitor_016,206,0.0
+synthetic shocked competitor,shocked_competitor_016,207,0.0
+synthetic shocked competitor,shocked_competitor_016,208,0.0
+synthetic shocked competitor,shocked_competitor_016,209,0.0
+synthetic shocked competitor,shocked_competitor_016,210,0.0
+synthetic shocked competitor,shocked_competitor_016,211,0.0
+synthetic shocked competitor,shocked_competitor_016,212,0.0
+synthetic shocked competitor,shocked_competitor_016,213,0.0
+synthetic shocked competitor,shocked_competitor_016,214,0.0
+synthetic shocked competitor,shocked_competitor_016,215,0.0
+synthetic shocked competitor,shocked_competitor_016,216,0.0
+synthetic shocked competitor,shocked_competitor_016,217,0.0
+synthetic shocked competitor,shocked_competitor_016,218,0.0
+synthetic shocked competitor,shocked_competitor_016,219,0.0
+synthetic shocked competitor,shocked_competitor_016,220,0.0
+synthetic shocked competitor,shocked_competitor_017,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_017,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_017,204,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_017,205,0.0
+synthetic shocked competitor,shocked_competitor_017,206,0.0
+synthetic shocked competitor,shocked_competitor_017,207,0.0
+synthetic shocked competitor,shocked_competitor_017,208,0.0
+synthetic shocked competitor,shocked_competitor_017,209,0.0
+synthetic shocked competitor,shocked_competitor_017,210,0.0
+synthetic shocked competitor,shocked_competitor_017,211,0.0
+synthetic shocked competitor,shocked_competitor_017,212,0.0
+synthetic shocked competitor,shocked_competitor_017,213,0.0
+synthetic shocked competitor,shocked_competitor_017,214,0.0
+synthetic shocked competitor,shocked_competitor_017,215,0.0
+synthetic shocked competitor,shocked_competitor_017,216,0.0
+synthetic shocked competitor,shocked_competitor_017,217,0.0
+synthetic shocked competitor,shocked_competitor_017,218,0.0
+synthetic shocked competitor,shocked_competitor_017,219,0.0
+synthetic shocked competitor,shocked_competitor_017,220,0.0
+synthetic shocked competitor,shocked_competitor_018,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_018,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_018,204,0.0
+synthetic shocked competitor,shocked_competitor_018,205,0.0
+synthetic shocked competitor,shocked_competitor_018,206,0.0
+synthetic shocked competitor,shocked_competitor_018,207,0.0
+synthetic shocked competitor,shocked_competitor_018,208,0.0
+synthetic shocked competitor,shocked_competitor_018,209,0.0
+synthetic shocked competitor,shocked_competitor_018,210,0.0
+synthetic shocked competitor,shocked_competitor_018,211,0.0
+synthetic shocked competitor,shocked_competitor_018,212,0.0
+synthetic shocked competitor,shocked_competitor_018,213,0.0
+synthetic shocked competitor,shocked_competitor_018,214,0.0
+synthetic shocked competitor,shocked_competitor_018,215,0.0
+synthetic shocked competitor,shocked_competitor_018,216,0.0
+synthetic shocked competitor,shocked_competitor_018,217,0.0
+synthetic shocked competitor,shocked_competitor_018,218,0.0
+synthetic shocked competitor,shocked_competitor_018,219,0.0
+synthetic shocked competitor,shocked_competitor_018,220,0.0
+synthetic shocked competitor,shocked_competitor_019,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_019,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_019,204,-0.009999999999999787
+synthetic shocked competitor,shocked_competitor_019,205,0.0
+synthetic shocked competitor,shocked_competitor_019,206,0.0
+synthetic shocked competitor,shocked_competitor_019,207,0.0
+synthetic shocked competitor,shocked_competitor_019,208,0.0
+synthetic shocked competitor,shocked_competitor_019,209,0.0
+synthetic shocked competitor,shocked_competitor_019,210,0.0
+synthetic shocked competitor,shocked_competitor_019,211,0.0
+synthetic shocked competitor,shocked_competitor_019,212,0.0
+synthetic shocked competitor,shocked_competitor_019,213,0.0
+synthetic shocked competitor,shocked_competitor_019,214,0.0
+synthetic shocked competitor,shocked_competitor_019,215,0.0
+synthetic shocked competitor,shocked_competitor_019,216,0.0
+synthetic shocked competitor,shocked_competitor_019,217,0.0
+synthetic shocked competitor,shocked_competitor_019,218,0.0
+synthetic shocked competitor,shocked_competitor_019,219,0.0
+synthetic shocked competitor,shocked_competitor_019,220,0.0
+synthetic shocked competitor,shocked_competitor_020,202,-0.020000000000000018
+synthetic shocked competitor,shocked_competitor_020,203,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_020,204,0.0
+synthetic shocked competitor,shocked_competitor_020,205,0.0
+synthetic shocked competitor,shocked_competitor_020,206,0.0
+synthetic shocked competitor,shocked_competitor_020,207,0.0
+synthetic shocked competitor,shocked_competitor_020,208,0.0
+synthetic shocked competitor,shocked_competitor_020,209,0.0
+synthetic shocked competitor,shocked_competitor_020,210,0.0
+synthetic shocked competitor,shocked_competitor_020,211,0.0
+synthetic shocked competitor,shocked_competitor_020,212,0.0
+synthetic shocked competitor,shocked_competitor_020,213,0.0
+synthetic shocked competitor,shocked_competitor_020,214,0.0
+synthetic shocked competitor,shocked_competitor_020,215,0.0
+synthetic shocked competitor,shocked_competitor_020,216,0.0
+synthetic shocked competitor,shocked_competitor_020,217,0.0
+synthetic shocked competitor,shocked_competitor_020,218,0.0
+synthetic shocked competitor,shocked_competitor_020,219,0.0
+synthetic shocked competitor,shocked_competitor_020,220,0.0
+synthetic shocked competitor,shocked_competitor_021,202,-0.029999999999999805
+synthetic shocked competitor,shocked_competitor_021,203,-0.019999999999999796
+synthetic shocked competitor,shocked_competitor_021,204,-0.010000000000000009
+synthetic shocked competitor,shocked_competitor_021,205,0.0
+synthetic shocked competitor,shocked_competitor_021,206,0.0
+synthetic shocked competitor,shocked_competitor_021,207,0.0
+synthetic shocked competitor,shocked_competitor_021,208,0.0
+synthetic shocked competitor,shocked_competitor_021,209,0.0
+synthetic shocked competitor,shocked_competitor_021,210,0.0
+synthetic shocked competitor,shocked_competitor_021,211,0.0
+synthetic shocked competitor,shocked_competitor_021,212,0.0
+synthetic shocked competitor,shocked_competitor_021,213,0.0
+synthetic shocked competitor,shocked_competitor_021,214,0.0
+synthetic shocked competitor,shocked_competitor_021,215,0.0
+synthetic shocked competitor,shocked_competitor_021,216,0.0
+synthetic shocked competitor,shocked_competitor_021,217,0.0
+synthetic shocked competitor,shocked_competitor_021,218,0.0
+synthetic shocked competitor,shocked_competitor_021,219,0.0
+synthetic shocked competitor,shocked_competitor_021,220,0.0
