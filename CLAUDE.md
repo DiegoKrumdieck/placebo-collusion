@@ -147,10 +147,13 @@ The placebo is informative only if games differ from each other in their period-
   - High cross-game correlation of first differences: games are near-copies. Passive data can't then separate reproducible reaction from shared trajectory, and the impulse-response test becomes required.
   - Prices almost never change after period 100: no test has variation to work with. Report that as a finding and a limitation.
 - Report this diagnostic in the writeup either way.
+- **Also run it on periods 1–100** (levels and first differences), since naive δ uses those periods. Report it next to the 101–300 version.
+- **Wording for the writeup:** describe a near-zero 101–300 result as "sellers in different games don't change price in the same periods", not as "independent". (With few price changes, near-zero correlation of first differences mostly says the changes don't line up in time.)
 
 ### Tests (run each on real, placebo and instructed pairs)
 
 1. **Price level.** Collusion index Δ = (p̄ − p_Nash) / (p_monopoly − p_Nash), averaged over both firms in the last 50 periods.
+   - Also report, per game, the prices each firm held in the last 50 periods and the game's Δ, for instructed games (most froze) alongside baseline games.
 2. **Price correlation** between the two firms, in levels and in first differences.
 3. **Fish δ, exact specification:**
    - periods 101–300 only;
@@ -169,6 +172,16 @@ The placebo is informative only if games differ from each other in their period-
    - **Outcome:** firm 1's price in periods 202–220, forced minus control, per game. A drop after the forced cut followed by a return is the reward–punishment signature. Also report firm 0's own prices after the forced period.
    - Report the average response by period, and the share of games whose firm 1 cut its price within 3 periods of the forced cut, for baseline and instructed games.
    - Estimated cost: 27 games × 2 branches × 20 periods × 2 calls ≈ 2,160 calls, about $4.
+   - **Best-response benchmark** (analysis only; the forks don't change). Fixed before any fork is run:
+     - For each game, compute firm 1's static best response BR(p0): the price maximizing firm 1's one-period profit (EconEvals `get_profits`, α = 1), searched over [marginal cost, price ceiling] = [1, 1.5 × p_monopoly], at (a) firm 0's actual price in period 200 and (b) 1.47.
+     - dBR = BR(1.47) − BR(p0 at period 200): how much a purely myopic seller would cut.
+     - Let D(t) = firm 1's price in the forced branch minus the control branch, t = 202–220.
+   - **Outcome categories per game**, applied identically to baseline and instructed games:
+     - **Responded:** D(t) < −0.01 in any of periods 202–204.
+     - **Punishment-like:** min D(t) over 202–204 is below −|dBR| (a deeper cut than myopic), OR firm 1 stays cut after firm 0 is back: with t₀ the first period ≥ 202 in which firm 0's forced-branch price is within 0.01 of its own period-200 price, D(t) < −0.01 in each of periods t₀+1, t₀+2, t₀+3 (all ≤ 220). If firm 0 never comes back by period 220, only the first clause applies.
+     - **Returned:** |D(220)| ≤ 0.01. Also report it among games that responded.
+     - **Firm 0's own path:** whether firm 0's forced-branch price comes back within 0.01 of its period-200 price, and t₀ when it does.
+   - Report counts in each category for baseline and instructed games, and the mean D(t) by period with the mean dBR drawn as a reference line.
 
 ### Rule for games that stop moving (fixed before any test is computed)
 
@@ -264,6 +277,8 @@ placebo-collusion/
 - [x] Model: claude-haiku-5-5, thinking disabled. Diego approved the full batch.
 - [x] Batch launched: 21 baseline + 6 instructed, 300 periods. Wave 1 (7 baseline + 2 instructed) finished; most games lock into one price after about period 100–150.
 - [ ] Build the analysis pipeline and test it on synthetic data only. Do not run tests on real runs until all 27 games finish.
-- [ ] After the batch: cross-game diagnostic first, then all tests, then impulse-response forks.
+- [x] Batch finished: 27/27 games, 0 parse failures. Cross-game diagnostic (101–300) run: cross-game first-difference correlations near 0; baseline firms change price in ~4% of periods; 4/21 baseline and 0/6 instructed games pass the 10-change cutoff.
+- [x] Spec amended before any placebo test or fork: best-response benchmark and outcome categories, diagnostic on periods 1–100, instructed freeze prices.
+- [ ] Placebo tests on real runs, then impulse-response forks (approved, ~$4).
 - [x] Report drafted with placeholders (see Report).
 - [ ] Results, figures, final writeup.
