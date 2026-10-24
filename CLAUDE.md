@@ -212,6 +212,47 @@ The placebo is informative only if games differ from each other in their period-
 2. The same plot for naive δ.
 3. Price paths for a few real runs, with the Nash and monopoly lines.
 
+## Follow-up study (pre-registered 2026-10-24, designed AFTER seeing the first fork results)
+
+This follow-up was designed after the first impulse-response fork. In that fork firm 0 was an LLM after its forced cut, and it often stayed low on its own, so firm 1's lower price could be plain following rather than punishment. The hold-back fork removes firm 0's choice. Everything below is fixed before any of it runs, except the hold-back classification rules, which are fixed on synthetic agents only (step (d)) and committed before any Haiku hold-back result is read.
+
+### (a) Hold-back fork (approved, hard cap $5)
+
+- Fork **every** real game (21 baseline + 6 instructed) at period 200, restoring firm 1's price history and notes from the logs, as in the first fork.
+- **Forced branch:** firm 0's price is 1.47 in period 201, then firm 0's own period-200 price in every period 202–220.
+- **Control branch:** firm 0's price is its own period-200 price in every period 201–220.
+- Firm 0 is not queried in either branch. **Firm 1 is the only LLM call**: 27 games × 2 branches × 20 periods = 1,080 calls, about $1.50. The launcher stops starting branches once logged spend reaches $4.50 and stops running ones at $5.
+- Same model and settings as the batch. Quantities and profits come from the market function at the prices actually set.
+- Data collection only: no Haiku hold-back result is analyzed, summarized or printed until the classification rules from (d) are committed. Fork processes print only progress, not prices.
+- Outcome: D(t) = firm 1's forced-branch price minus its control-branch price, t = 202–220. Also report the share of periods 202–220 in which firm 1 prices below 1.47, in each branch.
+
+### (b) Synthetic known-answer agents (no API cost)
+
+Two deterministic agent types, used for both firms of a game. Prices are rounded to cents. BR(q) is firm 1's static best response to a rival price q: maximize one-period profit (`get_profits`, α = 1) over [marginal cost, ceiling] = [1, 1.5 × p_monopoly].
+
+- **Sticky competitor:** p_t = 0.84 · p_{t−1} + 0.16 · BR(rival p_{t−1}).
+- **Sticky colluder:** target 1.80 while the rival's last price is ≥ 1.78. Otherwise it punishes for 5 periods, with target BR(rival p_{t−1}) in each of those periods, then returns to target 1.80 (checking the trigger again from then on). p_t = 0.84 · p_{t−1} + 0.16 · target_t.
+- **Rounding rule (needed, found before any run):** with whole cents, 0.84 stickiness stalls 3 cents short of its target (0.16 × gap < half a cent), e.g. at 1.77 when climbing to 1.80, which is below the 1.78 trigger and would set off the rival's punishment forever. So: if rounding leaves the price unchanged while it differs from its target, it moves one cent toward the target. This applies to both agent types.
+- **Starting prices:** both firms start at 1.80 + U(−0.02, +0.02), rounded to cents, independently per firm and game. The draw stays at or above 1.78, so colluders never trigger on path. (These colluders have no forgiveness: two that both trigger keep re-triggering each other. A start above the trigger avoids that.)
+- 21 games of each type, 300 periods, seed fixed in code.
+- Run Fish δ and naive δ through the existing placebo pipeline: real pairs vs re-pairings within each agent type.
+- Run the same hold-back fork on every synthetic game: simulate to period 200, then run both branches deterministically with firm 0 exogenous, as in (a).
+
+### (c) Instructed-only placebo (no API cost)
+
+- Re-pair instructed firms across the 6 instructed games: firm 0 of game i with firm 1 of game j, i ≠ j (30 ordered pairs; derangements of 6 for pooled statistics).
+- Report the per-pair price-level (Δ) AUROC, real instructed pairs vs instructed placebo pairs. Also run Fish δ and naive δ on the instructed games against this instructed placebo.
+
+### (d) Hold-back classification rules (to be fixed on synthetic agents only)
+
+Starting categories, per game, from D(t), t = 202–220:
+- **No reaction:** D(t) is never < −0.01.
+- **Matching:** D goes below −0.01 and is back within 0.01 by period 204.
+- **Punish-and-return:** D is below −0.01 for ≥ 3 periods and back within 0.01 by period 220.
+- **Persistent:** D is still below −0.01 at period 220.
+
+Check on the synthetic agents: the competitor should come out as no reaction or matching, and the colluder as punish-and-return. If not, tighten the rules (for example, a minimum cut size), write down why, and commit the final rules here **before** reading any Haiku hold-back result.
+
 ## Related work: cite and position against
 
 - **Fish, Gonczarowski & Shorrer**, *Algorithmic Collusion by Large Language Models*, arXiv 2404.00806. The δ test we evaluate. Their code is not public as far as we found.
@@ -279,6 +320,7 @@ placebo-collusion/
 - [ ] Build the analysis pipeline and test it on synthetic data only. Do not run tests on real runs until all 27 games finish.
 - [x] Batch finished: 27/27 games, 0 parse failures. Cross-game diagnostic (101–300) run: cross-game first-difference correlations near 0; baseline firms change price in ~4% of periods; 4/21 baseline and 0/6 instructed games pass the 10-change cutoff.
 - [x] Spec amended before any placebo test or fork: best-response benchmark and outcome categories, diagnostic on periods 1–100, instructed freeze prices.
-- [ ] Placebo tests on real runs, then impulse-response forks (approved, ~$4).
+- [x] Placebo tests on real runs, then impulse-response forks ($2.98). Results in results/real/SUMMARY.md.
+- [ ] Follow-up (pre-registered above): hold-back fork, synthetic known-answer agents, instructed-only placebo.
 - [x] Report drafted with placeholders (see Report).
 - [ ] Results, figures, final writeup.
