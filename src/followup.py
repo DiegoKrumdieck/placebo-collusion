@@ -52,11 +52,29 @@ def run_synthetic() -> None:
          "n_unidentified_real", "n_unidentified_placebo"]].round(3).to_string(index=False))
 
 
+def run_instructed() -> None:
+    """Instructed-only placebo: re-pair firms across the 6 instructed games (30 placebo pairs)."""
+    from analyze import load_all
+    OUT.mkdir(parents=True, exist_ok=True)
+    _, instr, nash, mono = load_all()
+    res = evaluate(instr, [], nash, mono, B=B, B_boot=B_BOOT, seed=SEED)
+    s = res["summary"]
+    s.insert(0, "row", "Haiku instructed (instructed-only placebo)")
+    s.to_csv(OUT / "instructed_placebo_tests.csv", index=False)
+    res["pairs"].to_csv(OUT / "instructed_placebo_pairs.csv", index=False)
+    print(s[s.version == "all"][["test", "real_pooled", "placebo_null_mean", "placebo_null_p95", "p_value_real",
+                                 "auroc_real_vs_placebo", "auroc_real_ci_low", "auroc_real_ci_high",
+                                 "n_real", "n_placebo", "n_unidentified_real", "n_unidentified_placebo"]]
+          .round(3).to_string(index=False))
+    p = res["pairs"]
+    print(p[["kind", "run_a", "run_b", "collusion_index"]].groupby("kind").collusion_index.describe().round(3).to_string())
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "summary"])
     args = ap.parse_args()
-    {"synthetic": run_synthetic}[args.cmd]()
+    {"synthetic": run_synthetic, "instructed": run_instructed}[args.cmd]()
 
 
 if __name__ == "__main__":
