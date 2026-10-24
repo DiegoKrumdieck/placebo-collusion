@@ -1,0 +1,3 @@
+condition,n_games,responded,punishment_like,deeper_than_myopic,stays_cut_after_firm0_back,returned,firm0_back,firm0_back_at_220,returned_among_responded,mean_dBR
+baseline,21,12,12,11,5,7,15,8,0,-0.0913263820936651
+instructed,6,3,1,1,1,3,4,3,0,-0.2603275376843079

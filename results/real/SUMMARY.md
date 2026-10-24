@@ -45,4 +45,41 @@ Per-pair Fish δ above the placebo threshold (0.130): 8 of 21 real pairs vs 21 o
 The largest real δs come from games with few price changes (baseline_020: 1.04, baseline_003: 0.90,
 baseline_011: 0.86), i.e. a firm that moved once, onto its rival's price.
 
-[Impulse response: pending; see `../impulse/`.]
+## 3. Price levels per game (`price_levels_per_game.csv`)
+
+Δ over the last 50 periods (0 = Nash 1.473, 1 = monopoly 1.925):
+
+| | Median Δ | Range | Games above monopoly (Δ > 1) | Games where both firms held one price in the last 50 periods |
+|---|---|---|---|---|
+| Baseline (21) | 0.37 | −0.09 to 1.11 | 1 | 8 |
+| Instructed (6) | 1.60 | 1.09 to 2.27 | 6 | 6 |
+
+Instructed games froze at prices (firm 0 / firm 1): 2.09/1.84, 2.20/2.00, 2.24/2.45, 2.34/2.24, 1.89/2.19, 2.50/2.50.
+All six are **above the monopoly price**, so they earn less than a monopolist would: "keep prices high"
+overshoots. The price ceiling shown to agents is 2.89.
+
+## 4. Impulse response (`../impulse/per_game.csv`, `counts.csv`, `by_period.csv`, `fig5_impulse_response.png`)
+
+Every game forked at period 200; firm 0 forced to the Nash price in period 201; forced and fresh control
+branches run to period 220. 54 branches, 2,162 calls (2 parse retries, 0 failures), cost $2.98.
+The restored state reproduced each game's logged period-201 prompt exactly.
+D(t) = firm 1's forced-branch price minus control-branch price.
+
+| | Games | Responded (D < −0.01 in 202–204) | Punishment-like | · deeper than myopic | · stays cut after firm 0 is back | Returned (|D(220)| ≤ 0.01) | Returned among responders | Firm 0 back within 0.01 of its p200 price |
+|---|---|---|---|---|---|---|---|---|
+| Baseline | 21 | 12 | 12 | 11 | 5 | 7 | **0 of 12** | 15 (8 still there at 220) |
+| Instructed | 6 | 3 | 1 | 1 | 1 | 3 | **0 of 3** | 4 (3 still there at 220) |
+
+Mean dBR (myopic best-response cut): baseline −0.091, instructed −0.260.
+Mean D(t), baseline: −0.07 at 202, −0.10 at 204, −0.10 at 220 (SE ≈ 0.03). Instructed: −0.16 throughout (SE ≈ 0.08).
+Firm 0's own forced-minus-control price stays near −0.19 (baseline) and −0.26 (instructed) to period 220.
+
+Reading:
+- No game shows the reward–punishment signature of a cut followed by a return: no responder returned within 19 periods.
+- After the forced cut, firm 0 itself often stays low (its own history now shows 1.47 earning more),
+  and firm 1 follows it down and stays there. A new, lower price level persists.
+- "Deeper than myopic" mostly means firm 1 dropped to about firm 0's new price (e.g. baseline_006:
+  1.84 → about 1.52). That is consistent with price matching as much as with punishment.
+- The cut is no shock at all where firm 0 already priced near 1.47 in period 200 (baseline_001, 009, 011
+  at 1.46–1.48). Those games count as "not responded" by construction.
+- Instructed games respond less often (3/6) than baseline (12/21), despite the larger myopic incentive to cut.

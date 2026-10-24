@@ -16,6 +16,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import matplotlib.ticker  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
@@ -149,17 +150,17 @@ def impulse_response(by_period: pd.DataFrame, path: Path) -> None:
         t = d.period.to_numpy()
         ax.axhline(0, color=INK2, linewidth=1)
         dbr = float(d.dBR_mean.iloc[0])
-        ax.axhline(dbr, color=INK, linewidth=1.2, linestyle=(0, (4, 3)))
-        ax.text(t[-1], dbr, f"myopic cut (mean dBR = {dbr:.3f}) ", color=INK, fontsize=8, ha="right", va="bottom",
-                bbox=LABEL_BOX, zorder=5)
+        ax.axhline(dbr, color=INK, linewidth=1.2, linestyle=(0, (4, 3)), label="Myopic best-response cut (mean dBR)")
         ax.plot(t, d.D_firm0_mean, color=COLORS["placebo"], linewidth=1.6, marker="o", markersize=4, label="Firm 0 (forced)")
         ax.errorbar(t, d.D_firm1_mean, yerr=d.D_firm1_se, color=COLORS["real"], linewidth=2, marker="o", markersize=5,
-                    capsize=0, elinewidth=1.2, label="Firm 1 (responder)")
-        ax.set_title(f"{cond.capitalize()} games (n={int(d.n_games.iloc[0])})", color=INK, fontsize=10, loc="left")
+                    capsize=0, elinewidth=1.2, label="Firm 1 (responder), ±1 SE across games")
+        ax.set_title(f"{cond.capitalize()} games (n={int(d.n_games.iloc[0])}), mean dBR = {dbr:.3f}",
+                     color=INK, fontsize=10, loc="left")
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         ax.set_xlabel("Period (firm 0 forced to 1.47 in period 201)", color=INK2, fontsize=9)
     axes.flat[0].set_ylabel("Price, forced minus control branch", color=INK2, fontsize=9)
     handles, labels = axes.flat[0].get_legend_handles_labels()
-    fig.legend(handles, labels, frameon=False, fontsize=9, loc="upper center", ncol=2, labelcolor=INK)
+    fig.legend(handles, labels, frameon=False, fontsize=9, loc="upper center", ncol=3, labelcolor=INK)
     fig.tight_layout(rect=(0, 0, 1, 0.92))
     fig.savefig(path, dpi=200, facecolor=SURFACE)
     plt.close(fig)
