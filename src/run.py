@@ -66,7 +66,7 @@ def truncate_periods_csv(path: Path, last_period: int) -> None:
 
 def parse_args(argv=None) -> argparse.Namespace:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--condition", required=True, choices=["baseline", "instructed", "p2"])
+    ap.add_argument("--condition", required=True, choices=["baseline", "instructed", "strategy_instructed", "p2"])
     ap.add_argument("--model", required=True)
     ap.add_argument("--periods", type=int, default=300)
     ap.add_argument("--run-id", required=True)

@@ -47,11 +47,41 @@ def last_period(condition: str, run_id: str) -> int:
     return json.loads(state.read_text(encoding="utf-8"))["last_period"] if state.exists() else 0
 
 
+PRICES_PER_MTOK = {"claude-haiku-5-5": (0.10, 0.50)}  # input, output USD per million tokens
+
+
+class SpendTracker:
+    """Running API spend of the games in this launch, read incrementally from their llm.jsonl files."""
+
+    def __init__(self, games, model: str):
+        self.files = [RUNS / c / r / "llm.jsonl" for c, r in games]
+        self.offsets = {f: 0 for f in self.files}
+        self.p_in, self.p_out = PRICES_PER_MTOK[model]
+        self.total = 0.0
+
+    def update(self) -> float:
+        for f in self.files:
+            if not f.exists():
+                continue
+            with f.open("rb") as fh:
+                fh.seek(self.offsets[f])
+                data = fh.read()
+            end = data.rfind(b"\n") + 1  # only complete lines
+            for line in data[:end].splitlines():
+                for a in json.loads(line)["attempts"]:
+                    self.total += a["input_tokens"] / 1e6 * self.p_in + a["output_tokens"] / 1e6 * self.p_out
+            self.offsets[f] += end
+        return self.total
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
     ap.add_argument("--baseline", type=int, default=21)
     ap.add_argument("--instructed", type=int, default=6)
+    ap.add_argument("--strategy-instructed", type=int, default=0)
+    ap.add_argument("--cost-cap", type=float, default=None,
+                    help="stop every game in this launch once their logged spend reaches this many USD")
     ap.add_argument("--periods", type=int, default=300)
     ap.add_argument("--concurrency", type=int, default=9)
     ap.add_argument("--max-restarts", type=int, default=3)
@@ -59,14 +89,24 @@ def main() -> None:
     args = ap.parse_args()
 
     RUNS.mkdir(parents=True, exist_ok=True)
-    queue = [g for g in interleave(args.baseline, args.instructed) if last_period(*g) < args.periods]
+    games = interleave(args.baseline, args.instructed) + [
+        ("strategy_instructed", f"strategy_instructed_{i:03d}") for i in range(1, args.strategy_instructed + 1)]
+    queue = [g for g in games if last_period(*g) < args.periods]
+    tracker = SpendTracker(games, args.model) if args.cost_cap is not None else None
     log(f"batch start: {len(queue)} games to run, concurrency {args.concurrency}, order "
-        + " ".join("I" if c == "instructed" else "B" for c, _ in queue))
+        + " ".join({"instructed": "I", "baseline": "B"}.get(c, "S") for c, _ in queue)
+        + (f", cost cap ${args.cost_cap:.2f}" if tracker else ""))
     running: dict[tuple[str, str], subprocess.Popen] = {}
     restarts: dict[tuple[str, str], int] = {}
     failed: list[tuple[str, str]] = []
 
     while queue or running:
+        if tracker and tracker.update() >= args.cost_cap:
+            for proc in running.values():
+                proc.terminate()
+            log(f"COST CAP reached (${tracker.total:.2f}); stopped {len(running)} running games, "
+                f"{len(queue)} not started. Games are resumable.")
+            return
         for game, proc in list(running.items()):
             code = proc.poll()
             if code is None:
@@ -101,7 +141,8 @@ def main() -> None:
             break
         time.sleep(15)
 
-    log(f"batch end: {len(failed)} failed" + (f" ({', '.join(r for _, r in failed)})" if failed else ""))
+    log(f"batch end: {len(failed)} failed" + (f" ({', '.join(r for _, r in failed)})" if failed else "")
+        + (f"; spent ${tracker.update():.2f}" if tracker else ""))
 
 
 if __name__ == "__main__":

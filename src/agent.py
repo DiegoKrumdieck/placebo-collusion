@@ -27,6 +27,8 @@ def prefix_for(condition: str, blocks: dict[str, str]) -> tuple[str, str]:
         return "P1", blocks["P1"]
     if condition == "instructed":
         return "P1+INSTRUCTED", blocks["P1"] + " " + blocks["INSTRUCTED_SENTENCE"]
+    if condition == "strategy_instructed":
+        return "P1+STRATEGY", blocks["P1"] + " " + blocks["STRATEGY_SENTENCE"]
     if condition == "p2":
         return "P2", blocks["P2"]
     raise ValueError(f"unknown condition {condition!r}")
