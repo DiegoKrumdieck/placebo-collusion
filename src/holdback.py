@@ -27,7 +27,7 @@ from market import Market  # noqa: E402
 from run import PERIOD_COLUMNS, ROOT, write_json_atomic  # noqa: E402
 
 FORCED_PRICE = 1.47
-BRANCHES = ("forced", "control")
+BRANCHES = ("forced", "control", "control2")  # control2: a second, identical control (CLAUDE.md, Follow-up (e))
 COLUMNS = PERIOD_COLUMNS + ["branch", "exogenous"]
 PRICES_PER_MTOK = {"claude-haiku-5-5": (0.10, 0.50)}  # input, output USD per million tokens
 COST_CAP, COST_STOP_STARTING = 5.00, 4.50
@@ -123,7 +123,8 @@ def spent_usd(root: Path = HOLDBACK_ROOT) -> float:
     return total
 
 
-def launch(concurrency: int, runs_root: Path, expected: int) -> None:
+def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced", "control"), cap: float = COST_CAP) -> None:
+    """Run the given branches for every game. `cap` limits spend by this launch (USD), on top of earlier spend."""
     games = finished_games(runs_root)
     if len(games) != expected:
         raise SystemExit(f"Expected {expected} finished games, found {len(games)}")
@@ -131,9 +132,11 @@ def launch(concurrency: int, runs_root: Path, expected: int) -> None:
         model = json.loads((runs_root / c / r / "config.json").read_text(encoding="utf-8"))["model"]
         if model not in PRICES_PER_MTOK:
             raise SystemExit(f"no price for model {model}; refusing to launch without a cost cap")
-    queue = [(c, r, b) for c, r in games for b in BRANCHES
+    queue = [(c, r, b) for c, r in games for b in branches
              if not _done(HOLDBACK_ROOT / c / r / b)]
     HOLDBACK_ROOT.mkdir(parents=True, exist_ok=True)
+    spent_before = spent_usd()
+    stop_starting = cap - (COST_CAP - COST_STOP_STARTING)  # same $0.50 headroom as the original cap
     log_path = HOLDBACK_ROOT / "launcher.log"
 
     def log(msg):
@@ -142,11 +145,12 @@ def launch(concurrency: int, runs_root: Path, expected: int) -> None:
         with log_path.open("a", encoding="utf-8") as fh:
             fh.write(line + "\n")
 
-    log(f"hold-back launch: {len(queue)} branches, concurrency {concurrency}, cap ${COST_CAP:.2f}")
+    log(f"hold-back launch: {len(queue)} branches {list(branches)}, concurrency {concurrency}, "
+        f"cap ${cap:.2f} of new spend (already spent ${spent_before:.2f})")
     running, restarts = {}, {}
     while queue or running:
-        spent = spent_usd()
-        if spent >= COST_CAP:
+        spent = spent_usd() - spent_before
+        if spent >= cap:
             for proc in running.values():
                 proc.terminate()
             log(f"COST CAP reached (${spent:.2f}); stopped {len(running)} running branches, {len(queue)} not started")
@@ -164,7 +168,7 @@ def launch(concurrency: int, runs_root: Path, expected: int) -> None:
                 queue.insert(0, job)
             else:
                 log(f"GAVE UP on {job[1]} {job[2]}")
-        while queue and len(running) < concurrency and spent < COST_STOP_STARTING:
+        while queue and len(running) < concurrency and spent < stop_starting:
             c, r, b = job = queue.pop(0)
             out = HOLDBACK_ROOT / c / r / b
             out.mkdir(parents=True, exist_ok=True)
@@ -173,11 +177,11 @@ def launch(concurrency: int, runs_root: Path, expected: int) -> None:
                                              "--run-id", r, "--branch", b], cwd=ROOT, stdout=fh, stderr=subprocess.STDOUT)
             log(f"started {r} {b}")
             time.sleep(3)
-        if queue and spent >= COST_STOP_STARTING and not running:
+        if queue and spent >= stop_starting and not running:
             log(f"spend ${spent:.2f} reached the stop-starting level; {len(queue)} branches not started")
             return
         time.sleep(10)
-    log(f"hold-back launch done; spent ${spent_usd():.2f}")
+    log(f"hold-back launch done; this launch spent ${spent_usd() - spent_before:.2f} (total ${spent_usd():.2f})")
 
 
 def _done(branch_dir: Path) -> bool:
@@ -195,6 +199,8 @@ def main() -> None:
     lp = sub.add_parser("launch")
     lp.add_argument("--concurrency", type=int, default=9)
     lp.add_argument("--expected", type=int, default=27)
+    lp.add_argument("--branches", nargs="+", default=["forced", "control"], choices=BRANCHES)
+    lp.add_argument("--cap", type=float, default=COST_CAP, help="USD cap on spend by this launch")
     args = ap.parse_args()
     runs_root = ROOT / "data" / "runs"
     if args.cmd == "fork":
@@ -204,7 +210,7 @@ def main() -> None:
         load_dotenv(ROOT / ".env")
         run_holdback(args.condition, args.run_id, args.branch, anthropic.Anthropic(max_retries=2), runs_root, HOLDBACK_ROOT)
     else:
-        launch(args.concurrency, runs_root, args.expected)
+        launch(args.concurrency, runs_root, args.expected, branches=args.branches, cap=args.cap)
 
 
 if __name__ == "__main__":

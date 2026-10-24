@@ -86,5 +86,10 @@ def test_spend_counter(held, monkeypatch):
     for branch in holdback.BRANCHES:
         cfg = out / "baseline" / "g1" / branch / "config.json"
         cfg.write_text(json.dumps(dict(json.loads(cfg.read_text()), model="claude-haiku-5-5")))
-    # FollowerClient reports 1 input + 1 output token per call: 40 calls.
-    assert holdback.spent_usd(out) == pytest.approx(40 * (0.10 + 0.50) / 1e6)
+    # FollowerClient reports 1 input + 1 output token per call: 20 calls per branch.
+    assert holdback.spent_usd(out) == pytest.approx(20 * len(holdback.BRANCHES) * (0.10 + 0.50) / 1e6)
+
+
+def test_control2_matches_control_for_a_deterministic_agent(held):
+    _, out, _ = held
+    assert prices(out, "control2") == prices(out, "control")
