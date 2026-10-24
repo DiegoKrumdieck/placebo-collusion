@@ -23,6 +23,7 @@ SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
 COLORS = {"placebo": "#2a78d6", "real": "#eb6834", "instructed": "#1baf7a"}
 LABELS = {"placebo": "Placebo pairs", "real": "Real pairs", "instructed": "Instructed pairs"}
 FISH_P1_DELTA = 0.103  # Fish et al. Table 1, P1
+LABEL_BOX = dict(facecolor=SURFACE, edgecolor="none", pad=1.5)  # keeps reference lines from crossing label text
 
 
 def _style(ax):
@@ -62,10 +63,12 @@ def coefficient_strips(pairs: pd.DataFrame, test: str, title: str, path: Path, r
     ax.axvline(0, color=INK2, linewidth=1, zorder=2)
     if reference is not None:
         ax.axvline(reference, color=INK, linewidth=1.2, linestyle=(0, (4, 3)), zorder=2)
-        ax.text(reference, top, f" Fish et al. P1 δ = {reference}", color=INK, fontsize=8.5, va="top")
+        ax.text(reference, top, f" Fish et al. P1 δ = {reference}", color=INK, fontsize=8.5, va="top", zorder=5,
+                bbox=LABEL_BOX)
     if threshold is not None and math.isfinite(threshold):
         ax.axvline(threshold, color=COLORS["placebo"], linewidth=1.2, linestyle=(0, (1, 2)), zorder=2)
-        ax.text(threshold, -0.55, f" placebo 95th pct = {threshold:.3f}", color=INK2, fontsize=8.5, va="bottom")
+        ax.text(threshold, -0.55, f" placebo 95th pct = {threshold:.3f}", color=INK2, fontsize=8.5, va="bottom",
+                zorder=5, bbox=LABEL_BOX)
     ax.set_xlabel(f"{title} per pair  (black bar = median)", color=INK2, fontsize=9)
     fig.tight_layout()
     fig.savefig(path, dpi=200, facecolor=SURFACE)
@@ -90,10 +93,11 @@ def price_paths(games, nash: float, monopoly: float, path: Path, n: int = 6) -> 
         ax.set_title(g.run_id, color=INK, fontsize=9, loc="left")
     for ax in axes.flat[len(games):]:
         ax.set_visible(False)
-    axes.flat[0].legend(frameon=False, fontsize=8, loc="upper right", labelcolor=INK)
+    handles, labels = axes.flat[0].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, fontsize=9, loc="upper center", ncol=2, labelcolor=INK)
     fig.supxlabel("Period", color=INK2, fontsize=9)
     fig.supylabel("Price", color=INK2, fontsize=9)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0, 1, 0.95))
     fig.savefig(path, dpi=200, facecolor=SURFACE)
     plt.close(fig)
 
@@ -110,7 +114,8 @@ def cross_game(diag: dict, path: Path) -> None:
     _style(ax)
     band = diag["independence_band"]
     ax.axvspan(-band, band, color=GRID, alpha=0.6, zorder=1)
-    ax.text(band, 2.45, f" ±{band:.2f}: range for independent noise", color=INK2, fontsize=8, va="top")
+    ax.text(band, 2.45, f" ±{band:.2f}: range for independent noise", color=INK2, fontsize=8, va="top", zorder=5,
+            bbox=LABEL_BOX)
     ax.axvline(0, color=INK2, linewidth=1)
     labels = []
     for row, (name, s, color) in enumerate(reversed(groups)):
@@ -125,7 +130,7 @@ def cross_game(diag: dict, path: Path) -> None:
         labels.append(f"{name}\n(n={len(v)}" + (f", {n_nan} undefined)" if n_nan else ")"))
     ax.set_yticks(range(len(groups)), labels, color=INK, fontsize=9)
     ax.tick_params(axis="y", length=0)
-    ax.set_xlim(-1, 1)
+    ax.set_xlim(-1.06, 1.06)
     ax.set_xlabel("Correlation of first differences, periods 101–300  (black bar = median; undefined = a frozen seller)",
                   color=INK2, fontsize=9)
     fig.tight_layout()
