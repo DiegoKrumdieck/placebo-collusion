@@ -1,0 +1,21 @@
+row,test,version,real_pooled,placebo_null_mean,placebo_null_p95,p_value_real,instructed_pooled,p_value_instructed,auroc_real_vs_placebo,auroc_real_ci_low,auroc_real_ci_high,auroc_instructed_vs_placebo,auroc_instructed_ci_low,auroc_instructed_ci_high,threshold_placebo_p95,power_instructed,n_real,n_placebo,n_instructed,n_unidentified_real,n_unidentified_placebo,n_unidentified_instructed,null_draws_valid
+synthetic competitor,collusion_index,all,0.015642659389246184,0.015642659389246187,0.015642659389246184,1.0,,,0.5,0.5,0.5,,,,0.01564265938924618,,21,420,0,0,0,0,1000
+synthetic competitor,corr_levels,all,0.0,0.0,0.0,1.0,,,0.5,0.5,0.5,,,,0.0,,21,420,0,21,420,0,1000
+synthetic competitor,corr_diffs,all,0.0,0.0,0.0,1.0,,,0.5,0.5,0.5,,,,0.0,,21,420,0,21,420,0,1000
+synthetic competitor,fish_delta,all,,,,,,,0.5,0.5,0.5,,,,0.0,,21,420,0,21,420,0,0
+synthetic competitor,naive_delta,all,0.027665919842245795,0.013647066820939436,0.026736225223518536,0.04195804195804196,,,0.6544784580498866,0.5347150182347576,0.7771297104411327,,,,0.18308083663105998,,21,420,0,1,73,0,1000
+synthetic competitor,collusion_index,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic competitor,corr_levels,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic competitor,corr_diffs,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic competitor,fish_delta,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic competitor,naive_delta,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic colluder,collusion_index,all,0.7235254844216635,0.7235254844216635,0.7235254844216635,1.0,,,0.5,0.5,0.5,,,,0.7235254844216633,,21,420,0,0,0,0,1000
+synthetic colluder,corr_levels,all,0.0,0.0,0.0,1.0,,,0.5,0.5,0.5,,,,0.0,,21,420,0,21,420,0,1000
+synthetic colluder,corr_diffs,all,0.0,0.0,0.0,1.0,,,0.5,0.5,0.5,,,,0.0,,21,420,0,21,420,0,1000
+synthetic colluder,fish_delta,all,,,,,,,0.5,0.5,0.5,,,,0.0,,21,420,0,21,420,0,0
+synthetic colluder,naive_delta,all,0.07009577830616706,0.0022601653011084864,0.10246791112511755,0.14985014985014986,,,0.5,0.5,0.5,,,,0.0,,21,420,0,21,420,0,1000
+synthetic colluder,collusion_index,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic colluder,corr_levels,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic colluder,corr_diffs,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic colluder,fish_delta,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
+synthetic colluder,naive_delta,moving,,,,,,,,,,,,,,,0,0,0,0,0,0,0
