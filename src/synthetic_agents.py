@@ -87,6 +87,115 @@ def games(agent_type: str, n: int = 21, seed: int = 20261024) -> list[Game]:
     return out
 
 
+# ---------- noisy agents (CLAUDE.md, Second follow-up (g)) ----------
+
+TREMBLE = 0.15
+COOLDOWN = 20
+
+
+class CoolingColluder(Colluder):
+    """Colluder with punishment length L and a cooldown: no new punishment in the 20 periods after any
+    period in which its own price was below 1.78 (its tremble, punishment or recovery)."""
+
+    def __init__(self, punish_periods: int = PUNISH_PERIODS):
+        super().__init__()
+        self.L, self.cool = punish_periods, 0
+
+    def act(self, own_prev: float, rival_prev: float) -> float:
+        if own_prev < TRIGGER - 1e-9:
+            self.cool = COOLDOWN
+        if self.punish_left == 0 and self.cool == 0 and rival_prev < TRIGGER - 1e-9:
+            self.punish_left = self.L
+        if self.cool > 0:
+            self.cool -= 1
+        if self.punish_left > 0:
+            self.punish_left -= 1
+            target = br(round(rival_prev, 2))
+        else:
+            target = COLLUDE_TARGET
+        return sticky_step(own_prev, target)
+
+
+def make_agent(agent_type: str, L: int = PUNISH_PERIODS):
+    return Competitor() if agent_type == "competitor" else CoolingColluder(L)
+
+
+def tremble(rule_price: float, flag: float, amount: float, q: float) -> float:
+    if flag >= q:
+        return rule_price
+    return float(min(max(round(rule_price + amount, 2), _MARKET.marginal_cost), round(_MARKET.ceiling, 2)))
+
+
+def simulate_noisy(agent_type: str, q: float, seed: int, L: int = PUNISH_PERIODS, periods: int = T):
+    """One noisy game. Draws are taken every period for both firms whatever q is, so a game's first
+    200 periods are identical however long it is simulated. Returns (prices, agents)."""
+    rng = np.random.default_rng(seed)
+    agents = [make_agent(agent_type, L), make_agent(agent_type, L)]
+    p = np.empty((periods, 2))
+    p[0] = np.round(START + rng.uniform(-START_NOISE, START_NOISE, 2), 2)
+    for t in range(1, periods):
+        flags, amounts = rng.random(2), rng.uniform(-TREMBLE, TREMBLE, 2)
+        p[t] = [tremble(agents[i].act(p[t - 1, i], p[t - 1, 1 - i]), flags[i], amounts[i], q) for i in (0, 1)]
+    return p, agents
+
+
+def noisy_games(agent_type: str, q: float, n: int = 21, seed: int = 20261025, L: int = PUNISH_PERIODS) -> list[Game]:
+    label = agent_type if agent_type == "competitor" else f"colluder_L{L}"
+    out = []
+    for k in range(n):
+        p, _ = simulate_noisy(agent_type, q, seed * 1000 + k, L)
+        run_id = f"noisy_{label}_{k + 1:03d}"
+        cfg = {"run_id": run_id, "condition": f"noisy_{label}", "model": f"synthetic-noisy-{label}",
+               "temperature": 0.0, "alpha": 1.0, "ceiling_multiplier": 1.5, "prompt_prefix": "none",
+               "prompt_version": "none", "thinking": "n/a", "tremble_q": q,
+               "nash_price": _MARKET.nash_price, "monopoly_price": _MARKET.monopoly_price}
+        out.append(Game(run_id, cfg["condition"], p, cfg))
+    return out
+
+
+def change_share(games_: list[Game], window=(101, 300)) -> float:
+    from detectors import n_changes
+    s, e = window
+    return float(np.mean([n_changes(g.prices[:, f], window) / (e - s + 1) for g in games_ for f in (0, 1)]))
+
+
+def calibrate_q(agent_type: str, target: float, seed: int = 777, n: int = 21, tol: float = 0.003,
+                L: int = PUNISH_PERIODS) -> tuple[float, float]:
+    """Bisection on q so the pooled change share over periods 101-300 is within tol of target."""
+    lo, hi = 0.0, 0.2
+    for _ in range(30):
+        q = (lo + hi) / 2
+        share = change_share(noisy_games(agent_type, q, n, seed, L))
+        if abs(share - target) <= tol:
+            return q, share
+        lo, hi = (q, hi) if share < target else (lo, q)
+    return q, share
+
+
+def noisy_holdback(agent_type: str, q: float, n: int = 21, seed: int = 20261025, L: int = PUNISH_PERIODS,
+                   forced_price: float = 1.47) -> list[dict]:
+    """Hold-back fork on each noisy game: same game as noisy_games up to period 200; firm 0 exogenous;
+    firm 1's tremble draws for 201-220 are drawn once and replayed in both branches."""
+    label = agent_type if agent_type == "competitor" else f"colluder_L{L}"
+    out = []
+    for k in range(n):
+        p, agents = simulate_noisy(agent_type, q, seed * 1000 + k, L, periods=FORK_AFTER)
+        p0_200, p1_200 = p[-1, 0], p[-1, 1]
+        frng = np.random.default_rng([seed, k, 201])
+        draws = [(frng.random(), frng.uniform(-TREMBLE, TREMBLE)) for _ in range(LAST_PERIOD - FORK_AFTER)]
+        branches = {}
+        for branch in ("forced", "control"):
+            agent = copy.deepcopy(agents[1])
+            own, rival_prev, path = p1_200, p0_200, {}
+            for i, t in enumerate(range(FORK_AFTER + 1, LAST_PERIOD + 1)):
+                own = tremble(agent.act(own, rival_prev), draws[i][0], draws[i][1], q)
+                path[t] = own
+                rival_prev = forced_price if branch == "forced" and t == FORK_AFTER + 1 else p0_200
+            branches[branch] = path
+        out.append({"run_id": f"noisy_{label}_{k + 1:03d}", "p0_200": float(p0_200), "p1_200": float(p1_200), **branches})
+    return out
+
+
 def holdback_shocked_competitor(n: int = 21, seed: int = 20261024, forced_price: float = 1.47) -> list[dict]:
     """Stress check for the rules: a competitor that actually faces a cut.
 

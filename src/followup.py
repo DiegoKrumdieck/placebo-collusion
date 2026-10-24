@@ -96,6 +96,51 @@ def run_haiku_holdback() -> None:
     print(per_game.round(3).to_string(index=False))
 
 
+CHANGE_SHARE_TARGET = 0.0482  # pooled Haiku baseline share of periods 101-300 with a price change (CLAUDE.md (g))
+SWEEP_L = (1, 3, 5, 10)
+CALIBRATION_GAMES = 210
+
+
+def run_noisy() -> None:
+    """Noisy synthetic agents (CLAUDE.md, Second follow-up (g))."""
+    OUT.mkdir(parents=True, exist_ok=True)
+    # 210 calibration games: with 21, q (a ~0.3% event) missed the target badly on the final seed
+    # (0.071 / 0.026 vs 0.048); see results/followup/SUMMARY.md.
+    q_comp, share_cal_comp = sa.calibrate_q("competitor", CHANGE_SHARE_TARGET, n=CALIBRATION_GAMES)
+    q_coll, share_cal_coll = sa.calibrate_q("colluder", CHANGE_SHARE_TARGET, n=CALIBRATION_GAMES)
+    specs = [("competitor", 5, q_comp)] + [("colluder", L, q_coll) for L in SWEEP_L]
+    cal = {"target": CHANGE_SHARE_TARGET, "calibration_seed": 777, "calibration_games": CALIBRATION_GAMES,
+           "final_seed": 20261025,
+           "first_attempt_21_calibration_games": {"q_competitor": 0.003515625, "q_colluder": 0.002734375,
+                                                  "final_share_competitor": 0.0708, "final_share_colluder_L5": 0.0257},
+           "q_competitor": q_comp, "calibration_share_competitor": share_cal_comp,
+           "q_colluder": q_coll, "calibration_share_colluder_L5": share_cal_coll, "final_shares": {}}
+    tests, cats, paths = [], [], []
+    for agent, L, q in specs:
+        label = "noisy competitor" if agent == "competitor" else f"noisy colluder L={L}"
+        games = sa.noisy_games(agent, q, L=L)
+        cal["final_shares"][label] = sa.change_share(games)
+        res = evaluate(games, [], NASH, MONO, B=B, B_boot=B_BOOT, seed=SEED)
+        s = res["summary"]
+        s.insert(0, "row", label)
+        tests.append(s)
+        for g in sa.noisy_holdback(agent, q, L=L):
+            D = {t: g["forced"][t] - g["control"][t] for t in range(202, 221)}
+            cats.append({"row": label, "run_id": g["run_id"], "p0_200": g["p0_200"], "p1_200": g["p1_200"], **classify(D)})
+            paths += [{"row": label, "run_id": g["run_id"], "period": t, "D": d} for t, d in D.items()]
+    (OUT / "noisy_calibration.json").write_text(json.dumps(cal, indent=2), encoding="utf-8")
+    pd.concat(tests).to_csv(OUT / "noisy_tests.csv", index=False)
+    cats = pd.DataFrame(cats)
+    cats.to_csv(OUT / "noisy_holdback_per_game.csv", index=False)
+    pd.DataFrame(paths).to_csv(OUT / "noisy_holdback_D.csv", index=False)
+    print(json.dumps(cal, indent=2))
+    print(summarize_categories(cats).to_string(index=False))
+    show = pd.concat(tests)
+    print(show[show.test.isin(["fish_delta", "naive_delta"])][
+        ["row", "test", "version", "real_pooled", "placebo_null_mean", "placebo_null_p95", "p_value_real",
+         "auroc_real_vs_placebo", "n_real", "n_unidentified_real"]].round(3).to_string(index=False))
+
+
 def run_noise() -> None:
     """Control-vs-control fork (CLAUDE.md, Follow-up (e)): branch noise and which persistent games survive it."""
     root = ROOT / "data" / "holdback"
@@ -172,10 +217,10 @@ def run_summary() -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "summary"])
+    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "noisy", "summary"])
     args = ap.parse_args()
     {"synthetic": run_synthetic, "instructed": run_instructed, "holdback": run_haiku_holdback,
-     "noise": run_noise, "summary": run_summary}[args.cmd]()
+     "noise": run_noise, "noisy": run_noisy, "summary": run_summary}[args.cmd]()
 
 
 if __name__ == "__main__":

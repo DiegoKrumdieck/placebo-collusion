@@ -306,6 +306,7 @@ Designed after seeing the hold-back and control-vs-control results: Haiku firms 
 - 21 games per agent type, 300 periods. Fish δ and naive δ through the placebo pipeline (re-pairing within agent type), and the hold-back fork with the committed rules.
 - In the hold-back fork, both branches use the **same tremble draws** (one random stream per game, replayed in each branch), so D(t) isolates the response to the cut.
 - **Punishment-length sweep:** colluder punishment length L ∈ {1, 3, 5, 10}, 21 games each, same q. Report δ tests and hold-back categories for each L.
+- **Implementation note (2026-10-24, after a first run):** the calibration sample size was not fixed above. A first run calibrated q on 21 games (q = 0.0035 competitor, 0.0027 colluder). The final 21-game runs then gave change shares of 0.071 and 0.026, far from the 0.048 target, because a ~0.3% event is too noisy to calibrate on 21 games. Calibration now uses **210 games** on the calibration seed. Both runs are reported.
 
 ### (h) Exploratory (labelled as such in all output): where firm 1 ends up
 

@@ -1,0 +1,23 @@
+{
+  "target": 0.0482,
+  "calibration_seed": 777,
+  "calibration_games": 210,
+  "final_seed": 20261025,
+  "first_attempt_21_calibration_games": {
+    "q_competitor": 0.003515625,
+    "q_colluder": 0.002734375,
+    "final_share_competitor": 0.0708,
+    "final_share_colluder_L5": 0.0257
+  },
+  "q_competitor": 0.0027343750000000003,
+  "calibration_share_competitor": 0.04866666666666667,
+  "q_colluder": 0.003125,
+  "calibration_share_colluder_L5": 0.048559523809523816,
+  "final_shares": {
+    "noisy competitor": 0.08416666666666665,
+    "noisy colluder L=1": 0.02285714285714286,
+    "noisy colluder L=3": 0.02976190476190476,
+    "noisy colluder L=5": 0.03357142857142857,
+    "noisy colluder L=10": 0.04083333333333334
+  }
+}
