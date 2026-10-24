@@ -141,6 +141,36 @@ def run_noisy() -> None:
          "auroc_real_vs_placebo", "n_real", "n_unidentified_real"]].round(3).to_string(index=False))
 
 
+def run_br_exploratory() -> None:
+    """EXPLORATORY (CLAUDE.md, Second follow-up (h)): firm 1's period-220 price vs BR(p0_200), per branch."""
+    from impulse import best_response
+    from market import Market
+    root = ROOT / "data" / "holdback"
+    hb = pd.read_csv(OUT / "haiku_holdback_per_game.csv").set_index("run_id")
+    rows = []
+    for cond in ("baseline", "instructed"):
+        for gdir in sorted(d for d in (root / cond).iterdir() if d.is_dir()):
+            cfg = json.loads((gdir / "forced" / "config.json").read_text(encoding="utf-8"))
+            market = Market(alpha=cfg["alpha"], ceiling_multiplier=cfg["ceiling_multiplier"])
+            br = best_response(cfg["firm0_period200_price"], market)
+            row = {"row": f"Haiku {cond}", "run_id": gdir.name, "p0_200": cfg["firm0_period200_price"],
+                   "BR_p0_200": br, "holdback_category": hb.loc[gdir.name, "category"]}
+            for branch in ("forced", "control"):
+                df = pd.read_csv(gdir / branch / "periods.csv")
+                p = float(df[(df.period == 220) & (df.firm == 1)].price.iloc[0])
+                row[f"p1_220_{branch}"] = p
+                row[f"vs_BR_{branch}"] = "above" if p > br + 0.02 else ("below" if p < br - 0.02 else "at")
+            rows.append(row)
+    df = pd.DataFrame(rows)
+    df.to_csv(OUT / "exploratory_br_position.csv", index=False)
+    print("EXPLORATORY")
+    for name, sub in (("all games", df), ("persistent games", df[df.holdback_category == "persistent"])):
+        print(f"--- {name} (n={len(sub)})")
+        print(pd.crosstab(sub.vs_BR_control, sub.vs_BR_forced, rownames=["control"], colnames=["forced"]).to_string())
+    print(df[df.holdback_category == "persistent"][["run_id", "p0_200", "BR_p0_200", "p1_220_control", "vs_BR_control",
+                                                    "p1_220_forced", "vs_BR_forced"]].round(3).to_string(index=False))
+
+
 def run_noise() -> None:
     """Control-vs-control fork (CLAUDE.md, Follow-up (e)): branch noise and which persistent games survive it."""
     root = ROOT / "data" / "holdback"
@@ -217,10 +247,10 @@ def run_summary() -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "noisy", "summary"])
+    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "noisy", "br", "summary"])
     args = ap.parse_args()
     {"synthetic": run_synthetic, "instructed": run_instructed, "holdback": run_haiku_holdback,
-     "noise": run_noise, "noisy": run_noisy, "summary": run_summary}[args.cmd]()
+     "noise": run_noise, "noisy": run_noisy, "br": run_br_exploratory, "summary": run_summary}[args.cmd]()
 
 
 if __name__ == "__main__":

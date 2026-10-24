@@ -1,0 +1,28 @@
+row,run_id,p0_200,BR_p0_200,holdback_category,p1_220_forced,vs_BR_forced,p1_220_control,vs_BR_control
+Haiku baseline,baseline_001,1.46,1.4675134927167508,matching,1.46,at,1.46,at
+Haiku baseline,baseline_002,1.62,1.5364903911373538,persistent,1.52,at,1.62,above
+Haiku baseline,baseline_003,1.64,1.5452510583080266,no reaction,1.63,above,1.62,above
+Haiku baseline,baseline_004,1.92,1.659908502038306,matching,1.66,at,1.66,at
+Haiku baseline,baseline_005,1.55,1.5059122111929235,persistent,1.5,at,1.56,above
+Haiku baseline,baseline_006,1.84,1.6296672793756153,matching,1.84,above,1.84,above
+Haiku baseline,baseline_007,1.64,1.5452510583080266,matching,1.55,at,1.55,at
+Haiku baseline,baseline_008,2.1,1.7160423101397464,persistent,1.7,at,1.85,above
+Haiku baseline,baseline_009,1.47,1.4716975203093219,other,1.46,at,1.46,at
+Haiku baseline,baseline_010,1.43,1.4551201497547221,no reaction,1.41,below,1.42,below
+Haiku baseline,baseline_011,1.48,1.475905637902968,no reaction,1.48,at,1.48,at
+Haiku baseline,baseline_012,1.43,1.4551201497547221,no reaction,1.43,below,1.43,below
+Haiku baseline,baseline_013,1.6,1.5277287837847067,persistent,1.75,above,1.8,above
+Haiku baseline,baseline_014,1.76,1.596993974548266,persistent,1.6,at,1.76,above
+Haiku baseline,baseline_015,1.5,1.484388371191464,other,1.5,at,1.5,at
+Haiku baseline,baseline_016,1.74,1.5885397573702102,punish-and-return,1.73,above,1.74,above
+Haiku baseline,baseline_017,2.06,1.7051344944841318,matching,1.76,above,1.76,above
+Haiku baseline,baseline_018,1.89,1.648899358834049,matching,1.66,at,1.66,at
+Haiku baseline,baseline_019,2.2,1.7393305448660135,matching,1.86,above,1.74,at
+Haiku baseline,baseline_020,1.65,1.5496266139536228,persistent,1.62,above,1.67,above
+Haiku baseline,baseline_021,1.58,1.5189802904917797,no reaction,1.7,above,1.7,above
+Haiku instructed,instructed_001,2.09,1.713401600448459,no reaction,1.84,above,1.84,above
+Haiku instructed,instructed_002,2.2,1.7393305448660135,persistent,1.95,above,2.0,above
+Haiku instructed,instructed_003,2.24,1.7471153212336807,persistent,2.0,above,2.45,above
+Haiku instructed,instructed_004,2.34,1.7631222111713094,no reaction,2.24,above,2.24,above
+Haiku instructed,instructed_005,1.89,1.648899358834049,no reaction,2.19,above,2.19,above
+Haiku instructed,instructed_006,2.5,1.7802813114082672,matching,2.5,above,2.5,above
