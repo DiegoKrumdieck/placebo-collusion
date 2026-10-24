@@ -35,10 +35,32 @@ def load_all():
     return base, instr, cfg["nash_price"], cfg["monopoly_price"]
 
 
+def price_levels(games, nash: float, mono: float, last: int = 50) -> "pd.DataFrame":
+    """Per game: each firm's mean price over the last 50 periods, whether it held one price, and the game's Delta."""
+    import pandas as pd
+    rows = []
+    for g in games:
+        tail = g.prices[-last:]
+        rows.append({"condition": g.condition, "run_id": g.run_id,
+                     "firm0_mean_price": float(tail[:, 0].mean()), "firm1_mean_price": float(tail[:, 1].mean()),
+                     "firm0_distinct_prices": int(len(set(tail[:, 0]))), "firm1_distinct_prices": int(len(set(tail[:, 1]))),
+                     "collusion_index": float((tail.mean() - nash) / (mono - nash))})
+    return pd.DataFrame(rows)
+
+
 def run_diagnostic() -> None:
+    import pandas as pd
     base, instr, nash, mono = load_all()
     OUT.mkdir(parents=True, exist_ok=True)
     d = diagnostics.summarize(base)
+    early = diagnostics.summarize(base, window=(1, 100))
+    both = pd.concat([early["correlations"], d["correlations"]])
+    both.to_csv(OUT / "diagnostic_correlations_both_windows.csv", index=False)
+    early["cross"].to_csv(OUT / "diagnostic_cross_pairs_1_100.csv", index=False)
+    levels = price_levels(base + instr, nash, mono)
+    levels.to_csv(OUT / "price_levels_per_game.csv", index=False)
+    print(both.round(3).to_string(index=False))
+    print(levels.round(3).to_string(index=False))
     d["correlations"].to_csv(OUT / "diagnostic_correlations.csv", index=False)
     d["cross"].to_csv(OUT / "diagnostic_cross_pairs.csv", index=False)
     d["within"].to_csv(OUT / "diagnostic_within.csv", index=False)

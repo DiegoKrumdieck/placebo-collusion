@@ -12,7 +12,7 @@ from itertools import combinations
 import numpy as np
 import pandas as pd
 
-from detectors import CHANGE_TOL, FISH_WINDOW, MOVING_MIN_CHANGES, correlation, n_changes
+from detectors import FISH_WINDOW, MOVING_MIN_CHANGES, correlation, n_changes
 from pairs import Game, Market
 
 
@@ -50,14 +50,14 @@ def within_game_correlations(games: list[Game], window=FISH_WINDOW) -> pd.DataFr
     return pd.DataFrame(rows)
 
 
-def _describe(x: pd.Series) -> dict:
+def _describe(x: pd.Series, band: float) -> dict:
     v = x.dropna().to_numpy()
     return {"n_defined": len(v), "n_undefined": int(x.isna().sum()),
             "mean": float(v.mean()) if len(v) else math.nan,
             "median": float(np.median(v)) if len(v) else math.nan,
             "p05": float(np.quantile(v, 0.05)) if len(v) else math.nan,
             "p95": float(np.quantile(v, 0.95)) if len(v) else math.nan,
-            "share_abs_gt_band": float((np.abs(v) > _band(window_len=200)).mean()) if len(v) else math.nan}
+            "share_abs_gt_band": float((np.abs(v) > band).mean()) if len(v) else math.nan}
 
 
 def _band(window_len: int) -> float:
@@ -69,13 +69,15 @@ def summarize(games: list[Game], window=FISH_WINDOW) -> dict:
     cross = cross_game_correlations(games, window)
     within = within_game_correlations(games, window)
     changes = change_counts(games, window)
+    s, e = window
+    band = _band(e - s + 1)
     rows = []
     for firm in (0, 1):
         for col in ("corr_levels", "corr_diffs"):
-            rows.append({"what": f"cross-game firm {firm}", "measure": col, **_describe(cross.loc[cross.firm == firm, col])})
+            rows.append({"window": f"{s}-{e}", "what": f"cross-game firm {firm}", "measure": col,
+                         **_describe(cross.loc[cross.firm == firm, col], band)})
     for col in ("corr_levels", "corr_diffs"):
-        rows.append({"what": "within-game (reference)", "measure": col, **_describe(within[col])})
-    s, e = window
+        rows.append({"window": f"{s}-{e}", "what": "within-game (reference)", "measure": col, **_describe(within[col], band)})
     return {
         "correlations": pd.DataFrame(rows),
         "cross": cross,

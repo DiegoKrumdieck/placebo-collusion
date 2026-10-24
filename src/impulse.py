@@ -26,6 +26,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from scipy.optimize import minimize_scalar
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from agent import build_prompt, load_prompt_blocks, prefix_for, query_agent  # noqa: E402
@@ -39,7 +40,8 @@ FORCED_FIRM = 0
 RESPONDER = 1
 BRANCHES = ("forced", "control")
 CUT_WINDOW = (202, 204)  # "cut its price within 3 periods of the forced cut"
-CUT_TOL = 0.005  # prices are set in cents; a difference below half a cent is no change
+RESPONSE_TOL = 0.01  # CLAUDE.md: a response is a forced-minus-control gap beyond 0.01; "back" is within 0.01
+BR_CUT_PRICE = 1.47  # best-response benchmark evaluated at 1.47, as specified
 FORK_COLUMNS = PERIOD_COLUMNS + ["branch", "chosen_price", "forced"]
 
 
@@ -237,41 +239,77 @@ def load_branch(forks_root: Path, condition: str, run_id: str, branch: str) -> p
     return df.pivot(index="period", columns="firm", values="price")
 
 
-def summarize(forks_root: Path) -> dict:
-    """Per-game responses (forced minus control) and averages by period and condition."""
+def best_response(p0: float, market: Market) -> float:
+    """Firm 1's price maximizing its one-period profit against firm 0's price p0, over [marginal cost, ceiling]."""
+    res = minimize_scalar(lambda p1: -market.outcome(p0, p1)[1][1],
+                          bounds=(market.marginal_cost, market.ceiling), method="bounded", options={"xatol": 1e-7})
+    return float(res.x)
+
+
+def classify(fo: pd.DataFrame, co: pd.DataFrame, p0_200: float, dbr: float) -> dict:
+    """Outcome categories for one game (CLAUDE.md, Tests 5). fo/co: forced/control prices, index period, columns firm."""
+    D = (fo[RESPONDER] - co[RESPONDER]).loc[FORCED_PERIOD + 1 : LAST_PERIOD]
+    w0, w1 = CUT_WINDOW
+    early_min = float(D.loc[w0:w1].min())
+    responded = early_min < -RESPONSE_TOL
+    back = fo[FORCED_FIRM].loc[FORCED_PERIOD + 1 : LAST_PERIOD].sub(p0_200).abs() <= RESPONSE_TOL
+    t0 = int(back.idxmax()) if back.any() else None
+    deeper = early_min < -abs(dbr)
+    stays_cut = (t0 is not None and t0 + 3 <= LAST_PERIOD
+                 and bool((D.loc[t0 + 1 : t0 + 3] < -RESPONSE_TOL).all()))
+    return {
+        "responded": responded,
+        "punishment_like": bool(deeper or stays_cut),
+        "deeper_than_myopic": bool(deeper),
+        "stays_cut_after_firm0_back": bool(stays_cut),
+        "returned": bool(abs(D.loc[LAST_PERIOD]) <= RESPONSE_TOL),
+        "firm0_back": t0 is not None,
+        "firm0_back_period": t0,
+        "firm0_back_at_220": bool(abs(fo.loc[LAST_PERIOD, FORCED_FIRM] - p0_200) <= RESPONSE_TOL),
+        "min_D_202_204": early_min,
+        "D_220": float(D.loc[LAST_PERIOD]),
+    }
+
+
+def summarize(forks_root: Path, runs_root: Path) -> dict:
+    """Per-game outcome categories, counts by condition, and mean responses by period."""
     per_game, by_period = [], []
     for condition in ("baseline", "instructed"):
         cdir = forks_root / condition
         if not cdir.exists():
             continue
-        for gdir in sorted(cdir.iterdir()):
+        for gdir in sorted(d for d in cdir.iterdir() if d.is_dir()):
             fo, co = (load_branch(forks_root, condition, gdir.name, b) for b in BRANCHES)
             if fo is None or co is None or fo.index.max() < LAST_PERIOD or co.index.max() < LAST_PERIOD:
                 continue
-            diff = fo - co  # columns: firm 0, firm 1
-            resp = diff.loc[FORCED_PERIOD + 1 : LAST_PERIOD]
-            w0, w1 = CUT_WINDOW
-            cut_vs_control = bool((resp.loc[w0:w1, RESPONDER] < -CUT_TOL).any())
-            cut_vs_own = bool((fo.loc[w0:w1, RESPONDER] < fo.loc[FORCED_PERIOD, RESPONDER] - CUT_TOL).any())
-            late = resp.loc[LAST_PERIOD - 5 : LAST_PERIOD, RESPONDER].abs().mean()
-            per_game.append({"condition": condition, "run_id": gdir.name,
-                             "firm1_cut_vs_control_202_204": cut_vs_control,
-                             "firm1_cut_vs_own_201_202_204": cut_vs_own,
-                             "firm1_min_response": float(resp[RESPONDER].min()),
-                             "firm1_mean_abs_response_215_220": float(late),
-                             "firm1_returned": bool(cut_vs_control and late < 0.02),
-                             "firm0_mean_response_202_220": float(resp[FORCED_FIRM].mean())})
-            for t, row in resp.iterrows():
-                by_period.append({"condition": condition, "run_id": gdir.name, "period": t,
-                                  "firm1_response": row[RESPONDER], "firm0_response": row[FORCED_FIRM]})
-    per_game = pd.DataFrame(per_game)
-    by_period = pd.DataFrame(by_period)
+            cfg = json.loads((runs_root / condition / gdir.name / "config.json").read_text(encoding="utf-8"))
+            market = Market(alpha=cfg["alpha"], ceiling_multiplier=cfg["ceiling_multiplier"])
+            orig = pd.read_csv(runs_root / condition / gdir.name / "periods.csv")
+            p0_200 = float(orig[(orig.period == FORK_AFTER) & (orig.firm == FORCED_FIRM)].price.iloc[0])
+            br_actual, br_cut = best_response(p0_200, market), best_response(BR_CUT_PRICE, market)
+            dbr = br_cut - br_actual
+            per_game.append({"condition": condition, "run_id": gdir.name, "p0_period200": p0_200,
+                             "BR_p0_200": br_actual, "BR_147": br_cut, "dBR": dbr,
+                             **classify(fo, co, p0_200, dbr)})
+            for t in range(FORCED_PERIOD + 1, LAST_PERIOD + 1):
+                by_period.append({"condition": condition, "run_id": gdir.name, "period": t, "dBR": dbr,
+                                  "D_firm1": fo.loc[t, RESPONDER] - co.loc[t, RESPONDER],
+                                  "D_firm0": fo.loc[t, FORCED_FIRM] - co.loc[t, FORCED_FIRM],
+                                  "firm0_forced_minus_p200": fo.loc[t, FORCED_FIRM] - p0_200})
+    per_game, by_period = pd.DataFrame(per_game), pd.DataFrame(by_period)
+    if per_game.empty:
+        return {"per_game": per_game, "by_period": by_period, "counts": per_game}
+    se = lambda x: x.std(ddof=1) / np.sqrt(len(x)) if len(x) > 1 else np.nan  # noqa: E731
     avg = (by_period.groupby(["condition", "period"])
-           .agg(firm1_mean=("firm1_response", "mean"), firm1_se=("firm1_response", lambda x: x.std(ddof=1) / np.sqrt(len(x))),
-                firm0_mean=("firm0_response", "mean"), n_games=("run_id", "nunique")).reset_index()) if len(by_period) else by_period
-    shares = (per_game.groupby("condition")[["firm1_cut_vs_control_202_204", "firm1_cut_vs_own_201_202_204", "firm1_returned"]]
-              .mean().reset_index()) if len(per_game) else per_game
-    return {"per_game": per_game, "by_period": avg, "shares": shares}
+           .agg(D_firm1_mean=("D_firm1", "mean"), D_firm1_se=("D_firm1", se), D_firm0_mean=("D_firm0", "mean"),
+                firm0_forced_minus_p200_mean=("firm0_forced_minus_p200", "mean"), dBR_mean=("dBR", "mean"),
+                n_games=("run_id", "nunique")).reset_index())
+    cats = ["responded", "punishment_like", "deeper_than_myopic", "stays_cut_after_firm0_back", "returned", "firm0_back", "firm0_back_at_220"]
+    counts = per_game.groupby("condition").agg(n_games=("run_id", "size"), **{c: (c, "sum") for c in cats}).reset_index()
+    counts["returned_among_responded"] = [
+        int(per_game[(per_game.condition == c) & per_game.responded].returned.sum()) for c in counts.condition]
+    counts["mean_dBR"] = [float(per_game[per_game.condition == c].dBR.mean()) for c in counts.condition]
+    return {"per_game": per_game, "by_period": avg, "counts": counts}
 
 
 def main() -> None:
@@ -297,12 +335,14 @@ def main() -> None:
     elif args.cmd == "launch":
         launch(args.concurrency, runs_root, args.expected)
     else:
-        res = summarize(forks_root)
+        import figures
+        res = summarize(forks_root, runs_root)
         out = ROOT / "results" / "impulse"
         out.mkdir(parents=True, exist_ok=True)
         for name, df in res.items():
             df.to_csv(out / f"{name}.csv", index=False)
-        print(res["shares"].to_string(index=False))
+        figures.impulse_response(res["by_period"], out / "fig5_impulse_response.png")
+        print(res["counts"].to_string(index=False))
 
 
 if __name__ == "__main__":

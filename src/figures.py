@@ -138,6 +138,33 @@ def cross_game(diag: dict, path: Path) -> None:
     plt.close(fig)
 
 
+def impulse_response(by_period: pd.DataFrame, path: Path) -> None:
+    """Mean forced-minus-control price by period, per condition, with the mean myopic best-response cut as reference."""
+    conds = [c for c in ("baseline", "instructed") if (by_period.condition == c).any()]
+    fig, axes = plt.subplots(1, len(conds), figsize=(5 * len(conds), 3.6), sharey=True, facecolor=SURFACE, squeeze=False)
+    for ax, cond in zip(axes.flat, conds):
+        _style(ax)
+        ax.grid(axis="y", color=GRID, linewidth=0.8)
+        d = by_period[by_period.condition == cond].sort_values("period")
+        t = d.period.to_numpy()
+        ax.axhline(0, color=INK2, linewidth=1)
+        dbr = float(d.dBR_mean.iloc[0])
+        ax.axhline(dbr, color=INK, linewidth=1.2, linestyle=(0, (4, 3)))
+        ax.text(t[-1], dbr, f"myopic cut (mean dBR = {dbr:.3f}) ", color=INK, fontsize=8, ha="right", va="bottom",
+                bbox=LABEL_BOX, zorder=5)
+        ax.plot(t, d.D_firm0_mean, color=COLORS["placebo"], linewidth=1.6, marker="o", markersize=4, label="Firm 0 (forced)")
+        ax.errorbar(t, d.D_firm1_mean, yerr=d.D_firm1_se, color=COLORS["real"], linewidth=2, marker="o", markersize=5,
+                    capsize=0, elinewidth=1.2, label="Firm 1 (responder)")
+        ax.set_title(f"{cond.capitalize()} games (n={int(d.n_games.iloc[0])})", color=INK, fontsize=10, loc="left")
+        ax.set_xlabel("Period (firm 0 forced to 1.47 in period 201)", color=INK2, fontsize=9)
+    axes.flat[0].set_ylabel("Price, forced minus control branch", color=INK2, fontsize=9)
+    handles, labels = axes.flat[0].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, fontsize=9, loc="upper center", ncol=2, labelcolor=INK)
+    fig.tight_layout(rect=(0, 0, 1, 0.92))
+    fig.savefig(path, dpi=200, facecolor=SURFACE)
+    plt.close(fig)
+
+
 def all_figures(evaluation: dict, games, diag: dict, nash: float, monopoly: float, out_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     s = evaluation["summary"].set_index(["test", "version"])
