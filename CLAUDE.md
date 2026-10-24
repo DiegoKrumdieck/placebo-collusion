@@ -313,6 +313,17 @@ Designed after seeing the hold-back and control-vs-control results: Haiku firms 
 - Existing Haiku hold-back data. For each game, compare firm 1's period-220 price in the forced and control branches with BR(p0_200), its static best response to firm 0's period-200 price (`get_profits`, α = 1, over [1, ceiling]).
 - Classify each branch as above (> BR + 0.02), at (within ±0.02) or below (< BR − 0.02). Summarize for all games and for the 8 persistent games.
 
+### (i) Extended hold-back for persistent games (pre-registered 2026-10-24, designed after the second follow-up)
+
+Designed after the second follow-up showed that a known colluder with a 10-period punishment comes out "persistent" in the 202–220 window. This tests whether the persistent games return later. Fixed before it runs:
+- **Games:** the 12 games classified persistent: 8 Haiku (baseline_002, 005, 008, 013, 014, 020; instructed_002, 003) and 4 strategy-instructed (001, 002, 009, 010). No other game is extended.
+- Continue **both** the forced and control branches from their saved period-220 state to **period 260**, same rules: firm 0 held at its period-200 price, firm 1 the only LLM call, same model and settings. 12 games × 2 branches × 40 calls = 960 calls, about $1.30; **hard cap $3** of new spend.
+- **Check:** extend the noisy synthetic colluder with L = 10 (21 games, same q and seeds) to period 260. Firm 1's tremble draws for 201–220 are the same as before, and new draws continue the same stream. Expected: the colluder returns, i.e. it is punish-and-return on 202–260.
+- **Report per game:**
+  - the first period t > 220 with |D(t)| ≤ 0.01, or "never by 260";
+  - D(240) and D(260);
+  - the category under the committed rules (d), applied unchanged to the window 202–260 (persistent = D(260) below; punish-and-return = back by 260 after ≥ 3 periods below; matching still means back by 204).
+
 ### Main table for the writeup (after (f)–(h))
 
 - Rows: synthetic competitor (noisy), synthetic colluder (noisy, L = 5), Haiku baseline, Haiku instructed, Haiku strategy-instructed.
