@@ -70,11 +70,75 @@ def run_instructed() -> None:
     print(p[["kind", "run_a", "run_b", "collusion_index"]].groupby("kind").collusion_index.describe().round(3).to_string())
 
 
+def run_haiku_holdback() -> None:
+    """Apply the committed rules (holdback_rules.py) to the Haiku hold-back fork."""
+    root = ROOT / "data" / "holdback"
+    rows, paths = [], []
+    for cond in ("baseline", "instructed"):
+        for gdir in sorted(d for d in (root / cond).iterdir() if d.is_dir()):
+            br = {}
+            for branch in ("forced", "control"):
+                df = pd.read_csv(gdir / branch / "periods.csv")
+                if df.period.max() < 220:
+                    raise SystemExit(f"{gdir.name} {branch} unfinished")
+                br[branch] = df.pivot(index="period", columns="firm", values="price")
+            D = {t: br["forced"].loc[t, 1] - br["control"].loc[t, 1] for t in range(202, 221)}
+            cfg = json.loads((gdir / "forced" / "config.json").read_text(encoding="utf-8"))
+            row = {"row": f"Haiku {cond}", "run_id": gdir.name, "p0_200": cfg["firm0_period200_price"], **classify(D)}
+            for branch in ("forced", "control"):
+                row[f"share_firm1_below_147_{branch}"] = float((br[branch].loc[202:220, 1] < 1.47 - 1e-9).mean())
+            rows.append(row)
+            paths += [{"row": f"Haiku {cond}", "run_id": gdir.name, "period": t, "D": d} for t, d in D.items()]
+    per_game = pd.DataFrame(rows)
+    per_game.to_csv(OUT / "haiku_holdback_per_game.csv", index=False)
+    pd.DataFrame(paths).to_csv(OUT / "haiku_holdback_D.csv", index=False)
+    print(summarize_categories(per_game).to_string(index=False))
+    print(per_game.round(3).to_string(index=False))
+
+
+def main_table() -> pd.DataFrame:
+    syn = pd.read_csv(OUT / "synthetic_tests.csv")
+    base = pd.read_csv(ROOT / "results" / "real" / "tests_summary.csv")
+    base.insert(0, "row", "Haiku baseline")
+    ins = pd.read_csv(OUT / "instructed_placebo_tests.csv")
+    ins["row"] = "Haiku instructed"
+    tests = pd.concat([syn, base, ins])
+    tests = tests[tests.version == "all"]
+    cats = pd.concat([pd.read_csv(OUT / "synthetic_holdback_per_game.csv"), pd.read_csv(OUT / "haiku_holdback_per_game.csv")])
+    counts = summarize_categories(cats).set_index("row")
+    order = ["synthetic competitor", "synthetic colluder", "synthetic shocked competitor", "Haiku baseline", "Haiku instructed"]
+    out = []
+    for r in order:
+        row = {"row": r}
+        for test, name in (("fish_delta", "fish"), ("naive_delta", "naive")):
+            t = tests[(tests.row == r) & (tests.test == test)]
+            if len(t):
+                t = t.iloc[0]
+                row.update({f"{name}_real": t.real_pooled, f"{name}_placebo_mean": t.placebo_null_mean,
+                            f"{name}_p": t.p_value_real, f"{name}_auroc": t.auroc_real_vs_placebo,
+                            f"{name}_unidentified_real": f"{int(t.n_unidentified_real)}/{int(t.n_real)}"})
+        if r in counts.index:
+            row.update(counts.loc[r].to_dict())
+        out.append(row)
+    return pd.DataFrame(out)
+
+
+def run_summary() -> None:
+    import figures
+    table = main_table()
+    table.to_csv(OUT / "main_table.csv", index=False)
+    D = pd.concat([pd.read_csv(OUT / "synthetic_holdback_D.csv"), pd.read_csv(OUT / "haiku_holdback_D.csv")])
+    figures.holdback_mean_D(D, ["synthetic competitor", "synthetic colluder", "Haiku baseline", "Haiku instructed"],
+                            OUT / "fig6_holdback_mean_D.png")
+    print(table.round(3).to_string(index=False))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "summary"])
     args = ap.parse_args()
-    {"synthetic": run_synthetic, "instructed": run_instructed}[args.cmd]()
+    {"synthetic": run_synthetic, "instructed": run_instructed, "holdback": run_haiku_holdback,
+     "summary": run_summary}[args.cmd]()
 
 
 if __name__ == "__main__":

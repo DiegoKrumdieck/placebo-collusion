@@ -23,12 +23,14 @@ Spec: CLAUDE.md as of commit `7fe4213` (amended before any placebo test or fork)
 Pooled statistic on the 21 real baseline markets vs 1,000 random re-pairings (derangements).
 Per-pair: 21 real, 420 placebo, 6 instructed pairs; threshold = 95th percentile of placebo pairs.
 p-values are one-sided; 0.001 is the smallest possible (1/1001).
+The pooled price level is the same for real pairs and every re-pairing (re-pairing reuses the same price
+paths), so it has no placebo p-value; only its per-pair AUROC is informative.
 
 All games:
 
 | Test | Real (pooled) | Placebo mean / 95th pct | p | AUROC real vs placebo [95% CI] | Instructed (pooled) | Power on instructed at threshold |
 |---|---|---|---|---|---|---|
-| Price level Δ | 0.398 | 0.398 / 0.398 | 0.71 | 0.49 [0.45, 0.53] | 1.623 | **6/6** |
+| Price level Δ | 0.398 | — (identical by construction) | — | 0.49 [0.45, 0.53] | 1.623 | **6/6** |
 | Correlation, levels | 0.365 | 0.050 / 0.123 | 0.001 | 0.71 [0.61, 0.81] | −0.001 | 0/6 |
 | Correlation, differences | −0.052 | −0.005 / 0.016 | 0.99 | 0.45 [0.28, 0.62] | −0.083 | 0/6 |
 | **Fish δ** | **0.086** | 0.005 / 0.030 | **0.001** | 0.71 [0.58, 0.83] | not identified (6/6 frozen) | **0/6** |
@@ -78,8 +80,11 @@ Reading:
 - No game shows the reward–punishment signature of a cut followed by a return: no responder returned within 19 periods.
 - After the forced cut, firm 0 itself often stays low (its own history now shows 1.47 earning more),
   and firm 1 follows it down and stays there. A new, lower price level persists.
-- "Deeper than myopic" mostly means firm 1 dropped to about firm 0's new price (e.g. baseline_006:
-  1.84 → about 1.52). That is consistent with price matching as much as with punishment.
+- "Deeper than myopic" mostly reflects firm 1 starting above its best response. dBR measures the change
+  in the best response, but in 10 of the 12 "deeper" games firm 1 priced above BR(p0) in period 200
+  (19 of 27 games overall), and its cut was no deeper than one jump straight to BR(1.47). Only
+  baseline_004 (−0.26 vs a full myopic jump of −0.19) and baseline_007 (−0.14 vs −0.08) cut deeper than that.
+  (Check: `../impulse/per_game.csv` plus each game's period-200 prices.)
 - The cut is no shock at all where firm 0 already priced near 1.47 in period 200 (baseline_001, 009, 011
   at 1.46–1.48). Those games count as "not responded" by construction.
 - Instructed games respond less often (3/6) than baseline (12/21), despite the larger myopic incentive to cut.

@@ -166,6 +166,29 @@ def impulse_response(by_period: pd.DataFrame, path: Path) -> None:
     plt.close(fig)
 
 
+def holdback_mean_D(D: pd.DataFrame, rows: list[str], path: Path) -> None:
+    """Hold-back fork: mean firm-1 forced-minus-control price by period, one line per row (±1 SE across games)."""
+    colors = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100"]  # validated categorical slots 1-4, fixed order
+    fig, ax = plt.subplots(figsize=(8.5, 4), facecolor=SURFACE)
+    _style(ax)
+    ax.grid(axis="y", color=GRID, linewidth=0.8)
+    ax.axhline(0, color=INK2, linewidth=1)
+    for row, color in zip(rows, colors):
+        d = D[D.row == row].groupby("period").D
+        mean, n = d.mean(), d.count()
+        se = d.std(ddof=1) / np.sqrt(n)
+        t = mean.index.to_numpy()
+        ax.errorbar(t, mean.values, yerr=se.fillna(0).values, color=color, linewidth=2, marker="o", markersize=4,
+                    capsize=0, elinewidth=1, label=f"{row} (n={int(n.iloc[0])})")
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.set_xlabel("Period (firm 0 at 1.47 in period 201, back at its period-200 price from 202)", color=INK2, fontsize=9)
+    ax.set_ylabel("Firm 1 price, forced minus control", color=INK2, fontsize=9)
+    ax.legend(frameon=False, fontsize=8.5, loc="lower right", labelcolor=INK)
+    fig.tight_layout()
+    fig.savefig(path, dpi=200, facecolor=SURFACE)
+    plt.close(fig)
+
+
 def all_figures(evaluation: dict, games, diag: dict, nash: float, monopoly: float, out_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     s = evaluation["summary"].set_index(["test", "version"])
