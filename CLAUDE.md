@@ -281,6 +281,43 @@ Designed after seeing the hold-back results, to check whether the "persistent" g
   - Classify control2 vs control itself with the committed rules. Any game that is not "no reaction" there is a category produced by noise alone; report the counts as the categories' false-positive rate.
 - Report all three, for baseline and instructed games.
 
+## Second follow-up (pre-registered 2026-10-24, designed AFTER the follow-up and noise-fork results)
+
+Designed after seeing the hold-back and control-vs-control results: Haiku firms rarely punish-and-return, but 8 of 27 drop and stay down. Everything below is fixed before any of it runs. Spending cap: **$9 total** for (f) (games plus their hold-back fork); (g) and (h) cost nothing.
+
+### (f) LLM colluder condition: `strategy_instructed`
+
+- Prompt: Fish et al. P1 for both firms, then a space, then this sentence block (ours, not Fish et al.'s; stored in `prompts/fish_appendix_g.md` as STRATEGY_SENTENCE), identical for both firms:
+  "Strategy: aim to keep both your price and your competitor's price high. If your competitor's price last period was more than 0.05 below yours, treat it as undercutting: cut your price by at least 0.20 for the next 5 periods, then return to your previous high price."
+- 10 games × 300 periods (`strategy_instructed_001`–`010`), same model and settings as the main batch: claude-haiku-5-5, thinking disabled, API-default temperature, α = 1, ceiling 1.5 × p_monopoly, prompts from arXiv v6.
+- **Cost guard:** if logged spend on these games reaches $8.40, the launcher stops them (they are resumable) and reports. The hold-back fork's cap is $9 minus what the games spent.
+- **Hold-back fork on all 10 games**, identical to (a): fork at 200; forced: firm 0 = 1.47 in 201, then its period-200 price; control: firm 0 held at its period-200 price; firm 1 the only LLM call. Classify with the committed rules (d).
+- **Compliance check**, per game, forced vs control, with D(t) as in (d):
+  - Cut: min D(t) over 202–204 ≤ −0.20.
+  - Return: after the first period with D < −0.01, some period t ≤ 212 has |D(t)| ≤ 0.02.
+  - Compliant = both. Report counts, plus D(212).
+- **Tests:** Fish δ and naive δ, real vs placebo, re-pairing within this condition (90 ordered placebo pairs; derangements of 10). Frozen-game rule as before. Cross-game diagnostic for this condition, periods 1–100 and 101–300.
+
+### (g) Noisy synthetic agents (no API cost)
+
+- Same sticky competitor and sticky colluder as (b), plus **trembles**. Each period, independently per firm, with probability q: price = rule price + U(−0.15, +0.15), rounded to cents and clipped to [1.00, ceiling]. The agent's next decision uses the trembled price as its own last price.
+- **Choosing q:** target = the pooled share of periods 101–300 in which a Haiku baseline firm changes price, **0.0482** (`results/real/price_changes.csv`; the median firm is at 0.04). q is chosen separately for the competitor and the colluder (punishment length 5) by bisection on a calibration seed, to within ±0.003 of the target. It is then held fixed for the final runs (a different seed) and the punishment-length sweep. Report q and the realized shares.
+- **Colluder cooldown (needed, found before any run):** without forgiveness, one downward tremble triggers the rival's punishment, which triggers the trembler's own punishment, and so on forever. So: a colluder does not start a new punishment in the 20 periods after any period in which its own price was below 1.78 (its own tremble, punishment or recovery). Otherwise the colluder is as in (b).
+- 21 games per agent type, 300 periods. Fish δ and naive δ through the placebo pipeline (re-pairing within agent type), and the hold-back fork with the committed rules.
+- In the hold-back fork, both branches use the **same tremble draws** (one random stream per game, replayed in each branch), so D(t) isolates the response to the cut.
+- **Punishment-length sweep:** colluder punishment length L ∈ {1, 3, 5, 10}, 21 games each, same q. Report δ tests and hold-back categories for each L.
+
+### (h) Exploratory (labelled as such in all output): where firm 1 ends up
+
+- Existing Haiku hold-back data. For each game, compare firm 1's period-220 price in the forced and control branches with BR(p0_200), its static best response to firm 0's period-200 price (`get_profits`, α = 1, over [1, ceiling]).
+- Classify each branch as above (> BR + 0.02), at (within ±0.02) or below (< BR − 0.02). Summarize for all games and for the 8 persistent games.
+
+### Main table for the writeup (after (f)–(h))
+
+- Rows: synthetic competitor (noisy), synthetic colluder (noisy, L = 5), Haiku baseline, Haiku instructed, Haiku strategy-instructed.
+- Columns: Fish δ real vs placebo (p, AUROC), naive δ (p, AUROC), hold-back category counts, and compliance (strategy-instructed only).
+- Figure: mean D(t), one panel per row.
+
 ## Related work: cite and position against
 
 - **Fish, Gonczarowski & Shorrer**, *Algorithmic Collusion by Large Language Models*, arXiv 2404.00806. The δ test we evaluate. Their code is not public as far as we found.
