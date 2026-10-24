@@ -144,6 +144,14 @@ def test_cross_game_diagnostic():
     dsh = diagnostics.summarize(sh, window=(1, 300))["correlations"].set_index(["what", "measure"])
     assert dsh.loc[("cross-game firm 0", "corr_levels"), "mean"] > 0.5
     assert abs(dsh.loc[("cross-game firm 0", "corr_diffs"), "mean"]) < 0.05
+    # Near-copies: real reaction, but every game makes nearly the same moves. The diagnostic flags it,
+    # and placebo pairs inherit the reaction (CLAUDE.md outcome 2: not evidence of no reaction).
+    nc, _ = scenario("near_copies")
+    dnc = diagnostics.summarize(nc)["correlations"].set_index(["what", "measure"])
+    assert dnc.loc[("cross-game firm 0", "corr_diffs"), "mean"] > 0.7
+    s = evaluate(nc, [], NASH, MONOPOLY, B=100, B_boot=20, seed=1)["summary"].set_index(["test", "version"])
+    r = s.loc[("fish_delta", "all")]
+    assert r.real_pooled > 0.6 and r.placebo_null_mean > 0.5
     frozen, _ = scenario("all_frozen")
     df = diagnostics.summarize(frozen)
     assert df["share_firms_moving"] == 0 and df["correlations"].n_defined.sum() == 0

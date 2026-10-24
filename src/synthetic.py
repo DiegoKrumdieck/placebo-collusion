@@ -81,6 +81,25 @@ def shared_trajectory(n: int, rng, phi: float = 0.6, sigma: float = 0.03) -> lis
     return out
 
 
+def near_copies(n: int, rng, rho: float = 0.8, sigma: float = 0.03, own_share: float = 0.15) -> list[np.ndarray]:
+    """Followers (true delta = rho) whose shocks are almost the same in every game.
+
+    Real reaction is present, but each game makes nearly the same moves at the same times, so placebo
+    pairs inherit the reaction: the case the cross-game diagnostic must flag.
+    """
+    mu = 1.70
+    common = rng.normal(0, sigma, (T, 2))
+    out = []
+    for _ in range(n):
+        p = np.empty((T, 2))
+        p[0] = mu + common[0]
+        for t in range(1, T):
+            shock = (1 - own_share) * common[t] + own_share * rng.normal(0, sigma, 2)
+            p[t] = mu + rho * (p[t - 1, ::-1] - mu) + shock
+        out.append(p)
+    return out
+
+
 def freeze(paths: list[np.ndarray], rng, share: float, start=(100, 150)) -> list[np.ndarray]:
     """Freeze a share of games: from a random period in `start` on, both firms repeat their last price."""
     out = []
@@ -104,6 +123,8 @@ def scenario(name: str, seed: int = 0, n_base: int = 21, n_instr: int = 6) -> tu
         base, instr = shared_trajectory(n_base, rng), follower(n_instr, rng)
     elif name == "leader_follower":
         base, instr = independent(n_base, rng), leader_follower(n_instr, rng)
+    elif name == "near_copies":
+        base, instr = near_copies(n_base, rng), follower(n_instr, rng)
     elif name == "mostly_frozen":
         # As in wave 1: 70% of baseline games lock in after period 100-150; every instructed game does.
         base, instr = freeze(follower(n_base, rng), rng, 0.7), freeze(follower(n_instr, rng), rng, 1.0)
@@ -116,4 +137,4 @@ def scenario(name: str, seed: int = 0, n_base: int = 21, n_instr: int = 6) -> tu
     return _games(base, "baseline"), _games(instr, "instructed")
 
 
-SCENARIOS = ["independent", "follower", "leader_follower", "shared_trajectory", "mostly_frozen", "all_frozen"]
+SCENARIOS = ["independent", "follower", "leader_follower", "shared_trajectory", "near_copies", "mostly_frozen", "all_frozen"]

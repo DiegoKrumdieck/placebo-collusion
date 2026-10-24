@@ -13,10 +13,12 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import diagnostics  # noqa: E402
+import figures  # noqa: E402
 from stats import evaluate  # noqa: E402
 from synthetic import MONOPOLY, NASH, SCENARIOS, scenario  # noqa: E402
 
 OUT = Path(__file__).resolve().parent.parent / "results" / "synthetic"
+FIGURE_SCENARIOS = ["follower", "shared_trajectory", "mostly_frozen"]
 
 
 def main() -> None:
@@ -30,6 +32,8 @@ def main() -> None:
         t0 = time.time()
         base, instr = scenario(name, seed=0)
         res = evaluate(base, instr, NASH, MONOPOLY, B=args.B, B_boot=args.B_boot, seed=1)
+        if name in FIGURE_SCENARIOS:
+            figures.all_figures(res, base, diagnostics.summarize(base), NASH, MONOPOLY, OUT / "figures" / name)
         s = res["summary"]
         s.insert(0, "scenario", name)
         summaries.append(s)
