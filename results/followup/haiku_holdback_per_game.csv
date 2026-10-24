@@ -1,0 +1,28 @@
+row,run_id,p0_200,category,first_cut,back_period,periods_below,min_D,D_220,share_firm1_below_147_forced,share_firm1_below_147_control
+Haiku baseline,baseline_001,1.46,matching,203.0,204.0,1,-0.04,0.0,0.9473684210526315,0.9473684210526315
+Haiku baseline,baseline_002,1.62,persistent,202.0,,19,-0.1,-0.1,0.0,0.0
+Haiku baseline,baseline_003,1.64,no reaction,,,0,0.0,0.01,0.0,0.0
+Haiku baseline,baseline_004,1.92,matching,202.0,203.0,1,-0.21,0.0,0.05263157894736842,0.0
+Haiku baseline,baseline_005,1.55,persistent,202.0,214.0,12,-0.08,-0.06,0.0,0.0
+Haiku baseline,baseline_006,1.84,matching,202.0,203.0,1,-0.27,0.0,0.0,0.0
+Haiku baseline,baseline_007,1.64,matching,202.0,203.0,1,-0.18,0.0,0.05263157894736842,0.0
+Haiku baseline,baseline_008,2.1,persistent,202.0,,19,-0.55,-0.15,0.15789473684210525,0.0
+Haiku baseline,baseline_009,1.47,other,213.0,215.0,2,-0.24,0.0,1.0,0.8947368421052632
+Haiku baseline,baseline_010,1.43,no reaction,,,0,-0.01,-0.01,1.0,1.0
+Haiku baseline,baseline_011,1.48,no reaction,,,0,0.0,0.0,0.0,0.0
+Haiku baseline,baseline_012,1.43,no reaction,,,0,0.0,0.0,1.0,1.0
+Haiku baseline,baseline_013,1.6,persistent,202.0,,19,-0.05,-0.05,0.0,0.0
+Haiku baseline,baseline_014,1.76,persistent,202.0,,19,-0.26,-0.16,0.0,0.0
+Haiku baseline,baseline_015,1.5,other,216.0,217.0,1,-0.05,0.0,0.0,0.0
+Haiku baseline,baseline_016,1.74,punish-and-return,202.0,206.0,4,-0.24,-0.01,0.0,0.0
+Haiku baseline,baseline_017,2.06,matching,202.0,203.0,1,-0.26,0.0,0.0,0.0
+Haiku baseline,baseline_018,1.89,matching,202.0,203.0,1,-0.1,0.0,0.0,0.0
+Haiku baseline,baseline_019,2.2,matching,202.0,204.0,2,-0.12,0.12,0.0,0.0
+Haiku baseline,baseline_020,1.65,persistent,202.0,,19,-0.05,-0.05,0.0,0.0
+Haiku baseline,baseline_021,1.58,no reaction,,,0,0.0,0.0,0.0,0.0
+Haiku instructed,instructed_001,2.09,no reaction,,,0,0.0,0.0,0.0,0.0
+Haiku instructed,instructed_002,2.2,persistent,202.0,,19,-0.05,-0.05,0.0,0.0
+Haiku instructed,instructed_003,2.24,persistent,202.0,212.0,10,-0.45,-0.45,0.0,0.0
+Haiku instructed,instructed_004,2.34,no reaction,,,0,0.0,0.0,0.0,0.0
+Haiku instructed,instructed_005,1.89,no reaction,,,0,0.0,0.0,0.0,0.0
+Haiku instructed,instructed_006,2.5,matching,202.0,203.0,1,-1.0,0.0,0.0,0.0
