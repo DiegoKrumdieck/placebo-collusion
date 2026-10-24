@@ -123,9 +123,25 @@ def spent_usd(root: Path = HOLDBACK_ROOT) -> float:
     return total
 
 
-def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced", "control"), cap: float = COST_CAP) -> None:
+def finished_in(runs_root: Path, conditions, periods: int = 300) -> list[tuple[str, str]]:
+    """Every game of the given conditions; raises if any is unfinished."""
+    if tuple(conditions) == ("baseline", "instructed"):
+        return finished_games(runs_root)
+    games, unfinished = [], []
+    for condition in conditions:
+        for d in sorted((runs_root / condition).iterdir()):
+            if (d / "state.json").exists():
+                last = json.loads((d / "state.json").read_text(encoding="utf-8"))["last_period"]
+                (games if last >= periods else unfinished).append((condition, d.name))
+    if unfinished:
+        raise SystemExit(f"Games not finished; refusing to run. Unfinished: {[r for _, r in unfinished]}")
+    return games
+
+
+def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced", "control"), cap: float = COST_CAP,
+           conditions=("baseline", "instructed")) -> None:
     """Run the given branches for every game. `cap` limits spend by this launch (USD), on top of earlier spend."""
-    games = finished_games(runs_root)
+    games = finished_in(runs_root, conditions)
     if len(games) != expected:
         raise SystemExit(f"Expected {expected} finished games, found {len(games)}")
     for c, r in games:
@@ -174,7 +190,8 @@ def launch(concurrency: int, runs_root: Path, expected: int, branches=("forced",
             out.mkdir(parents=True, exist_ok=True)
             fh = (out / "stdout.log").open("a", encoding="utf-8")
             running[job] = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "fork", "--condition", c,
-                                             "--run-id", r, "--branch", b], cwd=ROOT, stdout=fh, stderr=subprocess.STDOUT)
+                                             "--run-id", r, "--branch", b, "--conditions", *conditions],
+                                            cwd=ROOT, stdout=fh, stderr=subprocess.STDOUT)
             log(f"started {r} {b}")
             time.sleep(3)
         if queue and spent >= stop_starting and not running:
@@ -192,25 +209,29 @@ def _done(branch_dir: Path) -> bool:
 def main() -> None:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
+    conds = ["baseline", "instructed", "strategy_instructed"]
     f = sub.add_parser("fork")
-    f.add_argument("--condition", required=True, choices=["baseline", "instructed"])
+    f.add_argument("--condition", required=True, choices=conds)
     f.add_argument("--run-id", required=True)
     f.add_argument("--branch", required=True, choices=BRANCHES)
+    f.add_argument("--conditions", nargs="+", default=["baseline", "instructed"], choices=conds)
     lp = sub.add_parser("launch")
     lp.add_argument("--concurrency", type=int, default=9)
     lp.add_argument("--expected", type=int, default=27)
     lp.add_argument("--branches", nargs="+", default=["forced", "control"], choices=BRANCHES)
     lp.add_argument("--cap", type=float, default=COST_CAP, help="USD cap on spend by this launch")
+    lp.add_argument("--conditions", nargs="+", default=["baseline", "instructed"], choices=conds)
     args = ap.parse_args()
     runs_root = ROOT / "data" / "runs"
     if args.cmd == "fork":
         import anthropic
         from dotenv import load_dotenv
-        finished_games(runs_root)
+        finished_in(runs_root, args.conditions)  # never fork while games of these conditions still run
         load_dotenv(ROOT / ".env")
         run_holdback(args.condition, args.run_id, args.branch, anthropic.Anthropic(max_retries=2), runs_root, HOLDBACK_ROOT)
     else:
-        launch(args.concurrency, runs_root, args.expected, branches=args.branches, cap=args.cap)
+        launch(args.concurrency, runs_root, args.expected, branches=args.branches, cap=args.cap,
+               conditions=tuple(args.conditions))
 
 
 if __name__ == "__main__":

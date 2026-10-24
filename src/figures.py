@@ -189,6 +189,28 @@ def holdback_mean_D(D: pd.DataFrame, rows: list[str], path: Path) -> None:
     plt.close(fig)
 
 
+def holdback_panels(D: pd.DataFrame, rows: list[str], path: Path) -> None:
+    """Hold-back fork: one panel per row, mean firm-1 forced-minus-control price by period (±1 SE), shared y-axis."""
+    fig, axes = plt.subplots(1, len(rows), figsize=(3.3 * len(rows), 3.4), sharey=True, facecolor=SURFACE, squeeze=False)
+    for ax, row in zip(axes.flat, rows):
+        _style(ax)
+        ax.grid(axis="y", color=GRID, linewidth=0.8)
+        ax.axhline(0, color=INK2, linewidth=1)
+        d = D[D.row == row].groupby("period").D
+        mean, n = d.mean(), d.count()
+        se = (d.std(ddof=1) / np.sqrt(n)).fillna(0)
+        t = mean.index.to_numpy()
+        ax.fill_between(t, mean - se, mean + se, color=COLORS["real"], alpha=0.18, linewidth=0)
+        ax.plot(t, mean.values, color=COLORS["real"], linewidth=2, marker="o", markersize=3)
+        ax.set_title(f"{row}\n(n={int(n.iloc[0])})", color=INK, fontsize=9, loc="left")
+        ax.xaxis.set_major_locator(matplotlib.ticker.FixedLocator([202, 207, 212, 217]))
+    axes.flat[0].set_ylabel("Firm 1 price, forced minus control\n(mean, band = ±1 SE across games)", color=INK2, fontsize=9)
+    fig.supxlabel("Period (firm 0 at 1.47 in period 201, back at its period-200 price from 202)", color=INK2, fontsize=9)
+    fig.tight_layout()
+    fig.savefig(path, dpi=200, facecolor=SURFACE)
+    plt.close(fig)
+
+
 def all_figures(evaluation: dict, games, diag: dict, nash: float, monopoly: float, out_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     s = evaluation["summary"].set_index(["test", "version"])

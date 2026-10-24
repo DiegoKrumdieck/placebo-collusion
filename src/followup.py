@@ -141,6 +141,57 @@ def run_noisy() -> None:
          "auroc_real_vs_placebo", "n_real", "n_unidentified_real"]].round(3).to_string(index=False))
 
 
+def run_strategy() -> None:
+    """LLM colluder condition `strategy_instructed` (CLAUDE.md, Second follow-up (f))."""
+    import diagnostics
+    from analyze import price_levels
+    from pairs import load_games
+    games = load_games(ROOT / "data" / "runs", "strategy_instructed")
+    if len(games) != 10:
+        raise SystemExit(f"expected 10 strategy_instructed games, found {len(games)}")
+    nash, mono = games[0].config["nash_price"], games[0].config["monopoly_price"]
+    res = evaluate(games, [], nash, mono, B=B, B_boot=B_BOOT, seed=SEED)
+    s = res["summary"]
+    s.insert(0, "row", "Haiku strategy-instructed")
+    s.to_csv(OUT / "strategy_tests.csv", index=False)
+    res["pairs"].to_csv(OUT / "strategy_pairs.csv", index=False)
+    diag = pd.concat([diagnostics.summarize(games, window=w)["correlations"] for w in ((1, 100), (101, 300))])
+    diag.to_csv(OUT / "strategy_diagnostic.csv", index=False)
+    diagnostics.change_counts(games).to_csv(OUT / "strategy_price_changes.csv", index=False)
+    price_levels(games, nash, mono).to_csv(OUT / "strategy_price_levels.csv", index=False)
+
+    root = ROOT / "data" / "holdback" / "strategy_instructed"
+    rows, paths = [], []
+    for gdir in sorted(d for d in root.iterdir() if d.is_dir()):
+        br = {}
+        for branch in ("forced", "control"):
+            df = pd.read_csv(gdir / branch / "periods.csv")
+            if df.period.max() < 220:
+                raise SystemExit(f"{gdir.name} {branch} unfinished")
+            br[branch] = df.pivot(index="period", columns="firm", values="price")
+        D = {t: round(br["forced"].loc[t, 1] - br["control"].loc[t, 1], 2) for t in range(202, 221)}
+        cut = min(D[t] for t in (202, 203, 204)) <= -0.20 + 1e-9
+        first_below = next((t for t in D if D[t] < -0.01), None)
+        returned = first_below is not None and any(abs(D[t]) <= 0.02 + 1e-9 for t in range(first_below + 1, 213))
+        cfg = json.loads((gdir / "forced" / "config.json").read_text(encoding="utf-8"))
+        row = {"row": "Haiku strategy-instructed", "run_id": gdir.name, "p0_200": cfg["firm0_period200_price"],
+               **classify(D), "compliance_cut": cut, "compliance_return": returned, "compliant": cut and returned,
+               "D_212": D[212]}
+        for branch in ("forced", "control"):
+            row[f"share_firm1_below_147_{branch}"] = float((br[branch].loc[202:220, 1] < 1.47 - 1e-9).mean())
+        rows.append(row)
+        paths += [{"row": "Haiku strategy-instructed", "run_id": gdir.name, "period": t, "D": d} for t, d in D.items()]
+    per_game = pd.DataFrame(rows)
+    per_game.to_csv(OUT / "strategy_holdback_per_game.csv", index=False)
+    pd.DataFrame(paths).to_csv(OUT / "strategy_holdback_D.csv", index=False)
+    print(s[s.test.isin(["fish_delta", "naive_delta", "collusion_index"])][
+        ["test", "version", "real_pooled", "placebo_null_mean", "placebo_null_p95", "p_value_real",
+         "auroc_real_vs_placebo", "n_real", "n_unidentified_real"]].round(3).to_string(index=False))
+    print(diag[diag.measure == "corr_diffs"].round(3).to_string(index=False))
+    print(summarize_categories(per_game).to_string(index=False))
+    print(per_game.round(3).to_string(index=False))
+
+
 def run_br_exploratory() -> None:
     """EXPLORATORY (CLAUDE.md, Second follow-up (h)): firm 1's period-220 price vs BR(p0_200), per branch."""
     from impulse import best_response
@@ -208,17 +259,22 @@ def run_noise() -> None:
           .to_string(index=False))
 
 
+MAIN_ROWS = ["noisy competitor", "noisy colluder L=5", "Haiku baseline", "Haiku instructed", "Haiku strategy-instructed"]
+
+
 def main_table() -> pd.DataFrame:
-    syn = pd.read_csv(OUT / "synthetic_tests.csv")
+    noisy = pd.read_csv(OUT / "noisy_tests.csv")
     base = pd.read_csv(ROOT / "results" / "real" / "tests_summary.csv")
     base.insert(0, "row", "Haiku baseline")
     ins = pd.read_csv(OUT / "instructed_placebo_tests.csv")
     ins["row"] = "Haiku instructed"
-    tests = pd.concat([syn, base, ins])
+    strat = pd.read_csv(OUT / "strategy_tests.csv")
+    tests = pd.concat([noisy, base, ins, strat])
     tests = tests[tests.version == "all"]
-    cats = pd.concat([pd.read_csv(OUT / "synthetic_holdback_per_game.csv"), pd.read_csv(OUT / "haiku_holdback_per_game.csv")])
+    strat_hb = pd.read_csv(OUT / "strategy_holdback_per_game.csv")
+    cats = pd.concat([pd.read_csv(OUT / "noisy_holdback_per_game.csv"), pd.read_csv(OUT / "haiku_holdback_per_game.csv"), strat_hb])
     counts = summarize_categories(cats).set_index("row")
-    order = ["synthetic competitor", "synthetic colluder", "synthetic shocked competitor", "Haiku baseline", "Haiku instructed"]
+    order = MAIN_ROWS + ["noisy colluder L=1", "noisy colluder L=3", "noisy colluder L=10"]
     out = []
     for r in order:
         row = {"row": r}
@@ -231,6 +287,10 @@ def main_table() -> pd.DataFrame:
                             f"{name}_unidentified_real": f"{int(t.n_unidentified_real)}/{int(t.n_real)}"})
         if r in counts.index:
             row.update(counts.loc[r].to_dict())
+        if r == "Haiku strategy-instructed":
+            row.update({"compliance_cut": int(strat_hb.compliance_cut.sum()),
+                        "compliance_return": int(strat_hb.compliance_return.sum()),
+                        "compliant": f"{int(strat_hb.compliant.sum())}/{len(strat_hb)}"})
         out.append(row)
     return pd.DataFrame(out)
 
@@ -239,18 +299,18 @@ def run_summary() -> None:
     import figures
     table = main_table()
     table.to_csv(OUT / "main_table.csv", index=False)
-    D = pd.concat([pd.read_csv(OUT / "synthetic_holdback_D.csv"), pd.read_csv(OUT / "haiku_holdback_D.csv")])
-    figures.holdback_mean_D(D, ["synthetic competitor", "synthetic colluder", "Haiku baseline", "Haiku instructed"],
-                            OUT / "fig6_holdback_mean_D.png")
+    D = pd.concat([pd.read_csv(OUT / f) for f in ("noisy_holdback_D.csv", "haiku_holdback_D.csv", "strategy_holdback_D.csv")])
+    figures.holdback_panels(D, MAIN_ROWS, OUT / "fig7_holdback_mean_D_panels.png")
     print(table.round(3).to_string(index=False))
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "noisy", "br", "summary"])
+    ap.add_argument("cmd", choices=["synthetic", "instructed", "holdback", "noise", "noisy", "br", "strategy", "summary"])
     args = ap.parse_args()
     {"synthetic": run_synthetic, "instructed": run_instructed, "holdback": run_haiku_holdback,
-     "noise": run_noise, "noisy": run_noisy, "br": run_br_exploratory, "summary": run_summary}[args.cmd]()
+     "noise": run_noise, "noisy": run_noisy, "br": run_br_exploratory, "strategy": run_strategy,
+     "summary": run_summary}[args.cmd]()
 
 
 if __name__ == "__main__":
