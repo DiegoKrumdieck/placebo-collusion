@@ -4,3 +4,4 @@ __pycache__/
 .venv/
 vendor/
 .pytest_cache/
+placebo-collusion-data-*.tar.gz
