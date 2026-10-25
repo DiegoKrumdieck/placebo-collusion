@@ -56,7 +56,7 @@ The submitted report is [`report/placebo-collusion-report.pdf`](report/placebo-c
 ## Layout
 
 ```
-CLAUDE.md                  pre-registered design and analysis plan (with amendments, dated)
+CLAUDE.md                  analysis plan: committed before the first run, amended before any test, with each follow-up added before it ran (dated)
 prompts/fish_appendix_g.md Fish et al. prompts, transcribed from arXiv 2404.00806v6 Appendix G
 src/
   market.py                thin wrapper over the EconEvals logit duopoly
