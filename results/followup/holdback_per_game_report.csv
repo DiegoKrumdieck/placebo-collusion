@@ -1,0 +1,38 @@
+row,run_id,p0_200,category_202_220,min_D_202_220,D_220,category_202_260,first_back_after_220,D_260,min_D_202_260,report_category
+Haiku baseline,baseline_001,1.46,matching,-0.04,0.0,,,,,matching
+Haiku baseline,baseline_002,1.62,persistent,-0.1,-0.1,persistent,never by 260,-0.1,-0.1,persistent
+Haiku baseline,baseline_003,1.64,no reaction,0.0,0.01,,,,,no reaction
+Haiku baseline,baseline_004,1.92,matching,-0.21,0.0,,,,,matching
+Haiku baseline,baseline_005,1.55,persistent,-0.08,-0.06,persistent,never by 260,-0.06,-0.08,persistent
+Haiku baseline,baseline_006,1.84,matching,-0.27,0.0,,,,,matching
+Haiku baseline,baseline_007,1.64,matching,-0.18,0.0,,,,,matching
+Haiku baseline,baseline_008,2.1,persistent,-0.55,-0.15,punish-and-return,235,-0.01,-0.55,punish-and-return
+Haiku baseline,baseline_009,1.47,other,-0.24,0.0,,,,,other
+Haiku baseline,baseline_010,1.43,no reaction,-0.01,-0.01,,,,,no reaction
+Haiku baseline,baseline_011,1.48,no reaction,0.0,0.0,,,,,no reaction
+Haiku baseline,baseline_012,1.43,no reaction,0.0,0.0,,,,,no reaction
+Haiku baseline,baseline_013,1.6,persistent,-0.05,-0.05,persistent,never by 260,-0.06,-0.08,persistent
+Haiku baseline,baseline_014,1.76,persistent,-0.26,-0.16,persistent,never by 260,-0.16,-0.26,persistent
+Haiku baseline,baseline_015,1.5,other,-0.05,0.0,,,,,other
+Haiku baseline,baseline_016,1.74,punish-and-return,-0.24,-0.01,,,,,punish-and-return
+Haiku baseline,baseline_017,2.06,matching,-0.26,0.0,,,,,matching
+Haiku baseline,baseline_018,1.89,matching,-0.1,0.0,,,,,matching
+Haiku baseline,baseline_019,2.2,matching,-0.12,0.12,,,,,matching
+Haiku baseline,baseline_020,1.65,persistent,-0.05,-0.05,persistent,never by 260,-0.04,-0.05,persistent
+Haiku baseline,baseline_021,1.58,no reaction,0.0,0.0,,,,,no reaction
+Haiku instructed,instructed_001,2.09,no reaction,0.0,0.0,,,,,no reaction
+Haiku instructed,instructed_002,2.2,persistent,-0.05,-0.05,persistent,never by 260,-0.05,-0.15,persistent
+Haiku instructed,instructed_003,2.24,persistent,-0.45,-0.45,persistent,never by 260,-0.45,-0.45,persistent
+Haiku instructed,instructed_004,2.34,no reaction,0.0,0.0,,,,,no reaction
+Haiku instructed,instructed_005,1.89,no reaction,0.0,0.0,,,,,no reaction
+Haiku instructed,instructed_006,2.5,matching,-1.0,0.0,,,,,matching
+Haiku strategy-instructed,strategy_instructed_001,1.95,persistent,-0.2,-0.2,persistent,never by 260,-0.2,-0.2,persistent
+Haiku strategy-instructed,strategy_instructed_002,2.5,persistent,-0.2,-0.2,punish-and-return,247,0.0,-0.2,punish-and-return
+Haiku strategy-instructed,strategy_instructed_003,1.75,matching,-0.2,0.0,,,,,matching
+Haiku strategy-instructed,strategy_instructed_004,1.91,punish-and-return,-0.2,0.0,,,,,punish-and-return
+Haiku strategy-instructed,strategy_instructed_005,1.6,punish-and-return,-0.2,0.0,,,,,punish-and-return
+Haiku strategy-instructed,strategy_instructed_006,2.0,punish-and-return,-0.2,0.0,,,,,punish-and-return
+Haiku strategy-instructed,strategy_instructed_007,1.65,matching,-0.2,0.0,,,,,matching
+Haiku strategy-instructed,strategy_instructed_008,1.5,no reaction,0.0,0.0,,,,,no reaction
+Haiku strategy-instructed,strategy_instructed_009,2.39,persistent,-0.2,-0.2,persistent,never by 260,-0.2,-0.2,persistent
+Haiku strategy-instructed,strategy_instructed_010,2.5,persistent,-0.2,-0.2,persistent,never by 260,-0.2,-0.2,persistent

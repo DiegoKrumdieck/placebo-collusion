@@ -1,0 +1,18 @@
+row,window,n_games,no reaction,matching,punish-and-return,persistent,other
+Haiku baseline,202-220,21,5,7,1,6,2
+Haiku baseline,202-260 where extended,21,5,7,2,5,2
+Haiku instructed,202-220,6,3,1,0,2,0
+Haiku instructed,202-260 where extended,6,3,1,0,2,0
+Haiku strategy-instructed,202-220,10,1,2,3,4,0
+Haiku strategy-instructed,202-260 where extended,10,1,2,4,3,0
+noisy colluder L=1,202-220,21,1,0,20,0,0
+noisy colluder L=10,202-220,21,1,0,0,20,0
+noisy colluder L=3,202-220,21,1,0,20,0,0
+noisy colluder L=5,202-220,21,1,0,20,0,0
+noisy competitor,202-220,21,21,0,0,0,0
+synthetic colluder,202-220,21,0,0,21,0,0
+synthetic competitor,202-220,21,21,0,0,0,0
+synthetic shocked competitor,202-220,21,0,21,0,0,0
+noisy colluder L=10,202-260 where extended,21,1,0,20,0,0
+"Fisher exact p, punish-and-return: baseline vs strategy-instructed",202-220,31,,,0.0868,,
+"Fisher exact p, punish-and-return: baseline vs strategy-instructed",202-260 where extended,31,,,0.0674,,
