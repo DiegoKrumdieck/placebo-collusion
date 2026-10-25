@@ -1,12 +1,12 @@
-# Placebo calibration of LLM pricing-collusion tests
+# Passing the Placebo Is Not Enough: Testing LLM Pricing-Collusion Detectors Against Known Strategies
 
-Two LLM pricing agents built on the same model can move their prices together without reacting to each
-other: they share priors and follow similar paths (start high, come down, settle). Standard collusion
-tests may read that shared path as reaction to the competitor.
-
-This project builds a **placebo null**: take sellers from *different* games, who never saw each other,
-pair them artificially, and run every test on these fake markets. Anything a test flags there cannot be
-reaction. A test's result counts as evidence only if it beats the placebo.
+Can the standard reaction test for LLM pricing collusion (Fish et al.'s δ, which asks whether a seller
+follows its competitor's last price) tell collusion from competition? We test the detectors in two ways.
+First against a **placebo null**: sellers from *different* games, who never saw each other, paired
+artificially, so anything a test flags there cannot be reaction. Then against **rule-based agents with
+known strategies**, a competitor that follows its rival and a colluder that punishes undercuts and then
+returns. A **hold-back intervention** completes the set: one seller undercuts for a single period while
+the other is the only LLM, to see whether it punishes and returns.
 
 The setup is Fish, Gonczarowski & Shorrer's duopoly (*Algorithmic Collusion by Large Language Models*,
 arXiv 2404.00806) with a different model (`claude-haiku-5-5`, thinking disabled, temperature 1) and two
@@ -19,29 +19,35 @@ research questions 1.3 and 2.3.
 Games: 21 baseline (Fish et al.'s prompt P1), 6 instructed (P1 + "coordinate to keep prices high"),
 10 strategy-instructed (P1 + an explicit punish-then-return rule), 300 periods each.
 
-- **Fish δ beats the placebo on Haiku baseline games**: pooled δ = 0.086 vs a placebo mean of 0.005
-  (p = 0.001, 1,000 re-pairings). Naive δ (all periods, no fixed effects) does too (0.033 vs 0.003).
-  But the signal comes from games that barely move: restricted to the 4 games where both firms change
-  price at least 10 times, Fish δ does not beat the placebo (p = 0.79).
-- **δ measures reaction, not collusion.** On synthetic agents with a known answer, it flags a myopic
-  competitor that just follows its rival (p = 0.001) and misses a reward–punishment colluder at every
-  punishment length (p ≥ 0.85).
-- **Games freeze.** After period 100 a baseline firm changes price in ~4% of periods. All 6 instructed
-  games freeze above the monopoly price, where δ can't be estimated at all: the on-path test has no
-  power against explicit coordination once agents lock in. The price level flags all 6, but it doesn't
-  separate real from placebo baseline pairs (AUROC 0.49).
-- **The partner price gap works where δ can't**: real partners end within one cent of each other in
-  11/21 baseline and 8/10 strategy-instructed games, vs fewer than 1 expected under re-pairing
-  (p = 0.001 in both).
-- **Hold-back forks** (firm 0 undercuts for one period, firm 1 is the only LLM): Haiku baseline firms
-  rarely punish and return (1/21). Instead 8 of 27 baseline and instructed games drop to a lower price
-  and stay there. Of the 12 such games (with 4 strategy-instructed ones), 10 are still down 59 periods
-  later. Even LLMs told to punish for 5 periods and then return often don't (compliant 6/10).
+1. **Fish δ beats the placebo, but the signal is fragile.** Pooled δ = 0.086 vs a placebo mean of 0.005
+   (p = 0.001, 1,000 re-pairings). But it rests on a few games: the largest per-game δs come from firms
+   that moved once, onto their rival's price. It is not significant with standard errors clustered by
+   game (SE 0.103), and in the 4 games where both firms change price at least 10 times it fails the
+   placebo (p = 0.79).
+2. **δ measures following, not collusion.** It flags a rule-based competitor that just follows its rival
+   (δ = 0.149, p = 0.001) and misses our rule-based colluder at every punishment length (p = 0.85–1.00;
+   only the punishment length was varied). It does detect the LLM colluder (δ = 0.465), but that rests
+   almost entirely on one game, strategy_instructed_008, the only strategy-instructed game where both
+   firms keep moving.
+3. **Haiku sellers freeze.** After period 100 a typical firm changes price in about 4% of periods, and
+   δ can't be estimated in any of the 6 instructed games. Re-paired among themselves, instructed sellers
+   keep their high prices (price-level AUROC 0.48, real vs re-paired). Those prices come from each
+   seller's own instruction, so the instructed games are not a positive control for reaction tests.
+4. **The hold-back fork separates the rule-based follower from punishers, given a long enough window.**
+   Punish-and-return: 2 of 21 baseline games (one of them baseline_008, which has large branch noise) vs
+   4 of 10 strategy-instructed games (Fisher exact p = 0.07). Of the 12 games still lower at period 220,
+   10 never return by period 260, including 3 that were told to return. Only 6 of 10 strategy-instructed
+   sellers comply with their instructed punish-then-return rule.
+5. **Exploratory, added last: the partner price gap.** Real baseline partners end 0.094 apart on average
+   vs 0.204 when re-paired (p = 0.001, mean-gap test). It works on frozen games where δ can't, but it
+   can't show how a common price is sustained.
 
 Full numbers: [`results/real/SUMMARY.md`](results/real/SUMMARY.md) (placebo tests, impulse response,
 gap test) and [`results/followup/SUMMARY.md`](results/followup/SUMMARY.md) (hold-back forks, synthetic
-agents, strategy-instructed games). The analysis plan, pre-registered step by step before each
-experiment, is in [`CLAUDE.md`](CLAUDE.md); the git history records when each step was fixed.
+agents, strategy-instructed games). The analysis plan is in [`CLAUDE.md`](CLAUDE.md). It was committed
+before the first run and amended twice before any test; each follow-up was committed before it ran; the
+tremble calibration of the noisy synthetic agents was redone on a larger sample; the partner gap was
+added last and is exploratory. The git history records when each step was fixed.
 
 ## Report
 
